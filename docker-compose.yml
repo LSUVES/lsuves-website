@@ -1,0 +1,68 @@
+# Add image: mirekle/<appname> to each app? (pushes them to default registry or summat)
+
+version: "3.8"
+
+services:
+    db:
+        build: db
+        restart: always
+        secrets:
+            - db-password
+        volumes: 
+            - db-data:/var/lib/postgresql/data
+        networks:
+            - backend-network
+        healthcheck:
+            # For details see https://github.com/compose-spec/compose-spec/blob/master/spec.md#healthcheck
+            # Taken from https://github.com/peter-evans/docker-compose-healthcheck
+            # compare with: https://github.com/docker/awesome-compose/blob/master/react-java-mysql/docker-compose.yaml
+            # Consider adding a start-period and reducing interval as above
+
+            # Note that this must be run as the database owner: 
+            # https://github.com/peter-evans/docker-compose-healthcheck/issues/4#issuecomment-497930240
+            # Moving this to the Dockerfile after declaring the user might avoid that
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    
+    backend:
+        build:
+            context: backend
+            target: production
+        restart: always
+        ports:
+            - "8000:8000"
+        secrets:
+            - db-password
+        networks:
+            - backend-network
+            - frontend-network
+        depends_on:
+            # For details see https://github.com/compose-spec/compose-spec/blob/master/spec.md#long-syntax-1
+            db:
+                condition: service_healthy
+
+    frontend:
+        # Might need to specify production image
+        build: frontend
+        restart: always
+        ports:
+            - "80:80"
+            # Port 3000 is only used for development
+            - "3000:3000"
+        networks:
+            - frontend-network
+        depends_on:
+            - backend
+
+volumes:
+    db-data:
+
+secrets:
+    db-password:
+        file: db/password.txt
+
+networks:
+    backend-network:
+    frontend-network:
