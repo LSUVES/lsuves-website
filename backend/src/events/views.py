@@ -8,4 +8,4 @@ from .serializers import EventSerializer
 
 class EventView(viewsets.ModelViewSet):
     serializer_class = EventSerializer
-    queryset = Event.objects.all()
+    queryset = Event.objects.order_by("start_time")

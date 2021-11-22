@@ -11,8 +11,7 @@ WORKDIR /src
 ENV PATH /src/node_modules/.bin:$PATH
 
 # By default root takes ownership of copied files, the chown argument avoids this
-COPY --chown=node:node package.json ./
-#package-lock.json ./
+COPY --chown=node:node package*.json ./
 
 # RUN npm ci
 RUN npm install

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +26,8 @@ SECRET_KEY = "django-insecure-mc%&hcwqbvf)n9345*x(@fod$2wh$(bf-bnw6&=&=0$_z-p*9l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# What is this?
 ALLOWED_HOSTS = ["localhost", "host.docker.internal", "backend", "131.231.35.46"]
-
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -52,7 +53,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "avgs_website.urls"
@@ -89,7 +89,6 @@ def get_db_password():
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        #        'NAME': BASE_DIR / 'db.sqlite3',
         "NAME": "avgs_website",
         "USER": "postgres",
         "PASSWORD": get_db_password(),  # can I just use POSTGRES_PASSWORD_FILE?
@@ -137,10 +136,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# MEDIA_URL = ""
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# difference between this, ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS?
-CORS_ORIGIN_WHITELIST = ["http://131.231.35.46:3000"]

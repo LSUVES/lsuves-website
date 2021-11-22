@@ -1,52 +1,46 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import "./App.css";
+import Calendar from "./calendar/Calendar";
+import Blog from "./blog/Blog";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postList: [],
-    };
-  }
-
-  componentDidMount() {
-    this.refreshList();
-  }
-
-  refreshList = () => {
-    axios
-      .get("/api/blog/")
-      .then((res) => this.setState({ postList: res.data }))
-      .catch((err) => console.log(err));
-  };
-
-  renderItems = () => {
-    const { postList } = this.state;
-    return postList.map((item) => (
-      <li className="list-group-item" key={item.id}>
-        <div className="h1" title={item.title}>
-          {item.title}
+export default function App() {
+  return (
+    <main className="d-flex flex-column vh-100">
+      <h1 className="display-1 text-center">
+        A<span className="text-primary">VGS</span>
+      </h1>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <div className="navbar-nav">
+            <a className="nav-item nav-link active" href="/">
+              Blog <span className="sr-only">(current)</span>
+            </a>
+            <a className="nav-item nav-link" href="/calendar">
+              Calendar
+            </a>
+          </div>
         </div>
-        <div>{item.body}</div>
-        <div>
-          <img src={item.image} alt="tempalt" />
-        </div>
-      </li>
-    ));
-  };
-
-  render() {
-    return (
-      <main className="container">
-        <h1 className="display-1 text-center text-primary">AVGS homepage</h1>
-        <div>
-          <ul className="list-group">{this.renderItems()}</ul>
-        </div>
-      </main>
-    );
-  }
+      </nav>
+      <div className="flex-container flex-fill h-100">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Blog />} />
+            <Route path="calendar" element={<Calendar />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </main>
+  );
 }
-
-export default App;
-// wut

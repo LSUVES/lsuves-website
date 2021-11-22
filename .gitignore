@@ -30,3 +30,4 @@ frontend/README.md
 backend/src/*/migrations/*
 !backend/src/*/migrations/__init__.py
 backend/src/*.png
+backend/src/media/*

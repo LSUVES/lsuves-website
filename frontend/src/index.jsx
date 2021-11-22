@@ -7,7 +7,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-axios.defaults.baseURL = "http://131.231.35.46:8000";
+// Set this to the hostname/address of the API
+axios.defaults.baseURL = `http://localhost:8000`;
 
 ReactDOM.render(
   <React.StrictMode>
