@@ -1,0 +1,8 @@
+.BlogPost {
+    top: 10px;
+}
+
+.BlogPostImage {
+    height: 15vw;
+    object-fit: contain;
+}
