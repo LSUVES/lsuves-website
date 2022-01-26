@@ -23,8 +23,8 @@ from blog import views as blog_views
 from events import views as event_views
 
 router = routers.DefaultRouter()
-router.register(r"blog", blog_views.PostView, "blog")
-router.register(r"events", event_views.EventView, "event")
+router.register(r"blog", blog_views.PostView)
+router.register(r"events", event_views.EventsView, "event")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

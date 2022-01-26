@@ -1,51 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { NavLink as RRNavLink, Outlet } from "react-router-dom";
+import {
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+} from "reactstrap";
 
 import "./App.css";
-import Blog from "./blog/Blog";
-import Calendar from "./calendar/Calendar";
 // https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
 // Fix padding:
 // https://stackoverflow.com/a/20080963
 export default function App() {
+  const [navIsOpen, setNavIsOpen] = useState(false);
   return (
-    <main className="d-flex flex-column vh-100">
-      <h1 className="display-1 text-center">
-        A<span className="text-primary">VGS</span>
-      </h1>
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <div className="navbar-nav">
-              <a className="nav-item nav-link active" href="/">
-                Blog <span className="sr-only">(current)</span>
-              </a>
-              <a className="nav-item nav-link" href="/calendar">
-                Calendar
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div className="flex-container flex-fill h-100">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Blog />} />
-            <Route path="calendar" element={<Calendar />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </main>
+    <>
+      <Navbar expand="md" color="light" light>
+        <NavbarBrand href="/">
+          A<span className="text-primary">VGS</span>
+        </NavbarBrand>
+        <NavbarToggler
+          onClick={() => {
+            setNavIsOpen(!navIsOpen);
+          }}
+        />
+        <Collapse isOpen={navIsOpen} navbar>
+          <Nav navbar>
+            {/* className="m-auto"> */}
+            <NavItem>
+              <NavLink tag={RRNavLink} to="/blog">
+                Blog
+              </NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Events
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem tag={RRNavLink} to="/events">
+                  List
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} to="/calendar">
+                  Calendar
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+      <Outlet />
+    </>
   );
 }

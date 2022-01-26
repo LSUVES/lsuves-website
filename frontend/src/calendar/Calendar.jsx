@@ -142,6 +142,8 @@ export default function Calendar() {
 
             // Loop until every day of the event has been accounted for or the
             // end of the month is reached.
+            // TODO: Add tabindex="-1" to additional identical labels to prevent excess tabbing
+            //       Add code to add focus outline to all identical labels when the first one is tabbed to
             while (remainingEventDays !== 0) {
               if (remainingEventDays > remainingWeekDays) {
                 lengthThisWeek = remainingWeekDays;
@@ -154,12 +156,11 @@ export default function Calendar() {
               console.log(
                 `${events[yearMonth][i].id},${events[yearMonth][i].name}: row: ${j}; startDay: ${startDay}; lengthThisWeek: ${lengthThisWeek}`
               );
-              // TODO: don't actually use buttons for this
               newEventLabels[week].push(
-                <button
+                <a
                   id={`Event${events[yearMonth][i].id}`}
                   key={`Event${events[yearMonth][i].id}`}
-                  type="button"
+                  href={`/events/${events[yearMonth][i].id}`}
                   className={`Event${j + 1}`}
                   style={{
                     left: 10 + calendarColWidth * startDay,
@@ -167,7 +168,7 @@ export default function Calendar() {
                   }}
                 >
                   {events[yearMonth][i].name}
-                </button>
+                </a>
               );
               startDay = 0;
               week += 1;
@@ -233,11 +234,10 @@ export default function Calendar() {
       </Row>
     );
   }
-
+  // TODO: button text is not aligned with date text
   return (
-    <Container className="d-flex flex-column flex-fill h-100">
-      {/* TODO: button text is not aligned with date text */}
-      <Container className="d-flex flex-row flex-fill align-items-center justify-content-center">
+    <main className="d-flex flex-column vh-100">
+      <Container className="d-flex flex-row flex-fill align-items-center justify-content-between">
         <Button
           type="button"
           onClick={() => {
@@ -245,7 +245,7 @@ export default function Calendar() {
           }}
           color="primary"
         >
-          Previous
+          Previous month
         </Button>
         <h4>
           {date.toLocaleString("default", { month: "long", year: "numeric" })}
@@ -257,12 +257,14 @@ export default function Calendar() {
           }}
           color="primary"
         >
-          Next
+          Next month
         </Button>
       </Container>
-      <Container className="d-flex flex-column flex-fill h-100">
+      {/* mx options might not be necessary if issue with displaying day labels
+      at smaller widths is fixed (e.g., by shortening them) */}
+      <Container className="d-flex flex-column flex-fill h-100 mx-sm-0 mx-md-auto">
         {rows}
       </Container>
-    </Container>
+    </main>
   );
 }

@@ -23,9 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Custom rules
-.devcontainer*
-.vscode/
-frontend/.eslintrc.json
 frontend/README.md
 backend/src/*/migrations/*
 !backend/src/*/migrations/__init__.py

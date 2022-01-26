@@ -15,3 +15,9 @@
 .Event3 {
     top: 97px;
 }
+
+a {
+    overflow: hidden;
+    text-decoration: none;
+    color: darkblue;
+}
