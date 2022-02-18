@@ -21,7 +21,8 @@
 	"extensions": [
 		"christian-kohler.path-intellisense",
 		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode"
+		"esbenp.prettier-vscode",
+		"gruntfuggly.todo-tree"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [

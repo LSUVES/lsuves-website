@@ -28,20 +28,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "host.docker.internal", "backend", "131.231.35.46"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
 INSTALLED_APPS = [
-    "blog.apps.BlogConfig",
-    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "events.apps.EventsConfig",
+    "corsheaders",
     "rest_framework",
+    "accounts",
+    "blog",
+    "events",
 ]
 
 MIDDLEWARE = [
@@ -98,6 +100,9 @@ DATABASES = {
 }
 
 
+# Specifying the custom User model
+AUTH_USER_MODEL = "accounts.User"
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -137,9 +142,21 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # MEDIA_URL = ""
+# TODO: Use BASE_DIR.joinpath() instead of importing os
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Django REST framework
+REST_FRAMEWORK = {
+    # Replaces API interface with plain JSON output
+    # "DEFAULT_RENDERER_CLASSES": [
+    #     "rest_framework.renderers.JSONRenderer",
+    # ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}

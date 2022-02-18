@@ -4,6 +4,9 @@ import axios from "axios";
 import { Button, Col, Container, Row } from "reactstrap";
 import "./Calendar.css";
 
+// TODO: check compliance with the statement: if something can be derived from
+//       either props or state, it probably shouldn't be in the state.
+
 // An implementation of modulo that handles negatives properly.
 function mod(n, m) {
   return ((n % m) + m) % m;
@@ -142,6 +145,8 @@ export default function Calendar() {
 
             // Loop until every day of the event has been accounted for or the
             // end of the month is reached.
+            // FIXME: Fix display issues with event labels when a user zooms in, i.e., reduce the number of
+            //        rows of labels to display from 3 to 0 as the height of each day shrinks
             // TODO: Add tabindex="-1" to additional identical labels to prevent excess tabbing
             //       Add code to add focus outline to all identical labels when the first one is tabbed to
             while (remainingEventDays !== 0) {
@@ -161,13 +166,14 @@ export default function Calendar() {
                   id={`Event${events[yearMonth][i].id}`}
                   key={`Event${events[yearMonth][i].id}`}
                   href={`/events/${events[yearMonth][i].id}`}
+                  title={events[yearMonth][i].name}
                   className={`Event${j + 1}`}
                   style={{
                     left: 10 + calendarColWidth * startDay,
                     width: calendarColWidth * lengthThisWeek - 20,
                   }}
                 >
-                  {events[yearMonth][i].name}
+                  <span className="EventText">{events[yearMonth][i].name}</span>
                 </a>
               );
               startDay = 0;
@@ -212,6 +218,7 @@ export default function Calendar() {
       {labels}
     </Row>,
   ];
+  // TODO: Allow users to click a day to see a list of all events
   for (let i = 0; i < 6; i += 1) {
     const row = [];
     for (let j = 0; j < 7; j += 1) {
@@ -235,6 +242,7 @@ export default function Calendar() {
     );
   }
   // TODO: button text is not aligned with date text
+  //       find a way to preserve formatting without vh-100
   return (
     <main className="d-flex flex-column vh-100">
       <Container className="d-flex flex-row flex-fill align-items-center justify-content-between">

@@ -26,16 +26,22 @@ export default function Event() {
       setDisplay(
         <>
           <h2>{event.name}</h2>
-          <p>{event.location}</p>
-          <p>{event.start_time}</p>
-          <p>{event.end_time}</p>
+          <p>
+            <b>Location:</b> {event.location}
+          </p>
+          <p>
+            <b>Begins:</b> {new Date(event.start_time).toString()}
+          </p>
+          <p>
+            <b>Ends:</b> {new Date(event.end_time).toString()}
+          </p>
         </>
       );
     }
   }, [event]);
 
   return (
-    <main className="d-flex flex-column vh-100">
+    <main className="d-flex flex-column">
       <Container>{display}</Container>
     </main>
   );

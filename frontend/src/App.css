@@ -1,3 +1,6 @@
+.profile-toggler>.navbar-toggler-icon {
+  background-image: url("logo.svg");
+}
 /* .App {
   text-align: center;
 }

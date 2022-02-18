@@ -23,7 +23,7 @@ export default function Blog() {
   }, [postList.length]);
 
   return (
-    <main className="d-flex flex-column vh-100">
+    <main className="d-flex flex-column">
       <Row className="justify-content-center">
         <Col xs="12" sm="6">
           <ul>

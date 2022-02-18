@@ -1,11 +1,17 @@
 .Event1, .Event2, .Event3 {
     background-color: cyan;
-    border: 2px solid darkblue;
+    border: 1px solid darkblue;
     height: 29px;
     position: absolute;
     width: 100px;
     left: 10px;
     top: 29px;
+    text-decoration: none;
+    color: darkblue;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    z-index: 1;
 }
 
 .Event2 {
@@ -16,8 +22,8 @@
     top: 97px;
 }
 
-a {
+.EventText {
+    text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
-    text-decoration: none;
-    color: darkblue;
 }
