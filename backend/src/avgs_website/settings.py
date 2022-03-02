@@ -23,10 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-mc%&hcwqbvf)n9345*x(@fod$2wh$(bf-bnw6&=&=0$_z-p*9l"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# FIXME: SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Restricts sending session cookies to HTTPS connections
+# SESSION_COOKIE_SECURE = True
+
+# FIXME: Replace allowed hosts with address of frontend server
 ALLOWED_HOSTS = ["localhost", "host.docker.internal", "backend", "131.231.35.46"]
+# CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"] # Might only be necessary for HTTPS
+
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -41,9 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
-    "accounts",
     "blog",
     "events",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -101,7 +107,7 @@ DATABASES = {
 
 
 # Specifying the custom User model
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "users.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -129,7 +135,8 @@ LANGUAGE_CODE = "en-GB"
 
 TIME_ZONE = "GB"
 
-USE_I18N = True
+# Remove this to use the default value and enable translating to other languages
+USE_I18N = False
 
 USE_L10N = True
 
@@ -159,4 +166,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
     ],
+    # FIXME: Provide this in production
+    # https://www.django-rest-framework.org/api-guide/permissions/
+    # "DEFAULT_PERMISSION_CLASSES": [],
 }

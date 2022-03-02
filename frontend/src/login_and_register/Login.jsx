@@ -43,10 +43,16 @@ export default function Login({ setIsAuthenticated }) {
         // setPassword("");
       })
       .catch((err) => {
+        // TODO: DRY this out with AxiosError.jsx
         console.log(err);
-        if (err.response.status === 400) {
-          setLoginError("Invalid username and/or password.");
-          console.log("aa", loginError);
+        if (err.response) {
+          if (err.response.status === 400) {
+            setLoginError("Invalid username and/or password.");
+          }
+        } else if (err.request) {
+          console.log(err.request);
+        } else {
+          console.log(err.message);
         }
       });
   }

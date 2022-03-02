@@ -10,6 +10,7 @@ from .serializers import EventSerializer
 class EventsView(viewsets.ModelViewSet):
     serializer_class = EventSerializer
 
+    # TODO: Move this to a Manager method on the Events model?
     def get_queryset(self):
         year = self.request.query_params.get("year")
         month = self.request.query_params.get("month")

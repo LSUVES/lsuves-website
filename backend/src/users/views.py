@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view
@@ -10,8 +11,10 @@ from rest_framework.views import APIView
 from .models import User
 from .serializers import UserSerializer
 
+
 # FIXME: Use DRF's built-in exceptions instead of writing them as JSON responses
 @api_view(["POST"])
+@csrf_protect
 def login_view(request, format=None):
     try:
         user = authenticate(
@@ -22,7 +25,7 @@ def login_view(request, format=None):
             {"detail": "Please provide username and password."}, status=400
         )
 
-    if user == None:
+    if user is None:
         return JsonResponse({"detail": "Invalid credentials."}, status=400)
 
     login(request, user)

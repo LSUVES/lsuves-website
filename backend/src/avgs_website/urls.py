@@ -19,12 +19,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers, urls as api_auth_urls
 
-from accounts import views as account_views
+from users import views as user_views
 from blog import views as blog_views
 from events import views as event_views
 
 router = routers.DefaultRouter()
-router.register(r"accounts", account_views.UserView)
+router.register(r"users", user_views.UserView)
 router.register(r"blog", blog_views.PostView)
 router.register(r"events", event_views.EventsView, "event")
 
@@ -32,9 +32,9 @@ router.register(r"events", event_views.EventsView, "event")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("api/login/", account_views.login_view),
-    path("api/logout/", account_views.logout_view),
-    path("api/profile/", account_views.ProfileView.as_view()),
-    path("api/session/", account_views.SessionView.as_view()),
+    path("api/login/", user_views.login_view),
+    path("api/logout/", user_views.logout_view),
+    path("api/profile/", user_views.ProfileView.as_view()),
+    path("api/session/", user_views.SessionView.as_view()),
     path("api/api-auth/", include(api_auth_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

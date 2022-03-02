@@ -12,7 +12,7 @@ USER avgs
 
 WORKDIR /src
 
-COPY requirements.txt .
+COPY requirements* .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -20,7 +20,7 @@ COPY src/ .
 
 FROM builder AS development
 
-RUN pip install --no-cache-dir black==21.7b0
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # I think create-home is only needed coz of VSCode but I should test this
 # RUN groupadd --gid 1000 avgs && \
