@@ -28,6 +28,14 @@ export default function App({ isAuthenticated, updateIsAuthenticated }) {
 
   function getSession() {
     axios
+      .get("/api/csrf/", { withCredentials: true })
+      .then(() => {
+        console.log(document.cookie);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
       .get("/api/session/", { withCredentials: true })
       .then((res) => {
         console.log(res.data);

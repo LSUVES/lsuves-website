@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
@@ -22,33 +22,23 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, username, email, deletion_date, password):
-        current_date = timezone.now()
+        current_date = timezone.now().date()
         if (
-            not isinstance(deletion_date, datetime)
+            not isinstance(deletion_date, date)
             or deletion_date
             < current_date.replace(
                 year=current_date.year + int(current_date.month / 12),
                 month=((current_date.month % 12) + 1),
                 day=1,
-                hour=0,
-                minute=0,
-                second=0,
-                microsecond=0,
             )
             or deletion_date
             > current_date.replace(
                 year=current_date.year + 5,
                 month=8,
                 day=1,
-                hour=0,
-                minute=0,
-                second=0,
-                microsecond=0,
             )
         ):
             raise ValueError("A valid deletion date must be provided.")
-        # Set time to exactly midnight
-        deletion_date.replace(hour=0, minute=0, second=0, microsecond=0)
         return self._create_user(username, email, deletion_date, password)
 
     def create_superuser(self, username, email, password):

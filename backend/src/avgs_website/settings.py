@@ -26,15 +26,14 @@ SECRET_KEY = "django-insecure-mc%&hcwqbvf)n9345*x(@fod$2wh$(bf-bnw6&=&=0$_z-p*9l
 # FIXME: SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Restricts sending session cookies to HTTPS connections
-# SESSION_COOKIE_SECURE = True
-
-# FIXME: Replace allowed hosts with address of frontend server
+# FIXME: In production, replace allowed hosts with HTTPS address of frontend server
+#        and uncomment session and csrf cookie secure settings
 ALLOWED_HOSTS = ["localhost", "host.docker.internal", "backend", "131.231.35.46"]
-# CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"] # Might only be necessary for HTTPS
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SCURE = True
 
 # Application definition
 

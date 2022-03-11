@@ -6,6 +6,7 @@ from django.http.cookie import SimpleCookie
 from django.middleware.csrf import get_token
 from django.test import TestCase
 from django.utils import timezone
+from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory
 
 
@@ -25,7 +26,7 @@ class UserModelTests(LongDocMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.User = get_user_model()
-        cls.valid_deletion_date = timezone.now() + timedelta(days=31)
+        cls.valid_deletion_date = (timezone.now() + timedelta(days=31)).date()
 
     def test_create_user_with_valid_params(self):
         """
@@ -145,7 +146,7 @@ class UserModelTests(LongDocMixin, TestCase):
                 password="testpass",
                 deletion_date=None,
             )
-        current_date = timezone.now()
+        current_date = timezone.now().date()
         with self.assertRaises(ValueError):
             self.User.objects.create_user(
                 username="test",
@@ -184,13 +185,14 @@ class LoginViewTests(LongDocMixin, TestCase):
         posting valid login credentials to /api/login/ with CSRF token and cookie not set
         returns a HTTP 403 Forbidden response
         """
-        # FIXME: replace HTTP_HOST with address of frontend server for production testing
+        # FIXME: replace HTTP_HOST with address of frontend server for production testing,
+        #        ! Pull this from settings !
         response = self.client.post(
             "/api/login/",
             {"username": self.username, "password": self.password},
             HTTP_HOST="host.docker.internal",
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_csrf_set(self):
         """
@@ -202,16 +204,21 @@ class LoginViewTests(LongDocMixin, TestCase):
         # private functions as in: csrf_token = _mask_cipher_secret(_get_new_csrf_string())
         # also works, but seeing how they're used in the other functions suggests using them directly
         # might be a bad ieea.
+        # TODO: Add a view, e.g. getcsrf, that sets the csrftoken cookie and then just use
+        #       self.client.get("/api/getcsrf/", HTTP_HOST="host.docker.internal") to set the csrf
+        #       cookie and then grab it from response.cookies["csrftoken"]
         csrf_token = get_token(APIRequestFactory().get(""))
-        # Note that a matching CSRF token must be provided in both cookies and credentials
+        # Note that a matching CSRF token must be provided in both cookies and credentials as per the
+        # double submit cookie technique.
         self.client.credentials(HTTP_X_CSRFTOKEN=csrf_token)
         self.client.cookies = SimpleCookie({"csrftoken": csrf_token})
         self.assertFalse("sessionid" in self.client.cookies.keys())
         # FIXME: replace HTTP_HOST with address of frontend server for production testing
+        # TODO: add format="json"?
         response = self.client.post(
             "/api/login/",
             {"username": "test", "password": "testpass"},
             HTTP_HOST="host.docker.internal",
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("sessionid" in self.client.cookies.keys())

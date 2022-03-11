@@ -4,8 +4,10 @@ import axios from "axios";
 import propTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
+
 // import { Redirect } from "react-router-dom";
 import "./LoginAndRegister.css";
+import getCookie from "../utils/getCookie";
 
 export default function Login({ setIsAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -15,12 +17,17 @@ export default function Login({ setIsAuthenticated }) {
   const navigate = useNavigate();
 
   function login() {
-    // FIXME: Throws an error if cookie doesn't exist, e.g., in incognito mode
-    const csrfTokenCookie = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("csrftoken="))
-      .split("=")[1];
-    console.log(`woah ${csrfTokenCookie}`);
+    let csrfTokenCookie = getCookie("csrftoken");
+    if (!csrfTokenCookie) {
+      axios
+        .get("/api/csrf/")
+        .then(() => {
+          csrfTokenCookie = getCookie("csrftoken");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     axios
       .post(
         "/api/login/",
