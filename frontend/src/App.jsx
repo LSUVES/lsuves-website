@@ -1,30 +1,108 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import PropTypes from "prop-types";
-import { NavLink as RRNavLink, Outlet } from "react-router-dom";
+import propTypes from "prop-types";
 import {
-  Button,
-  Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-} from "reactstrap";
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { Container } from "reactstrap";
+
+import BaseLayout from "./baseLayout/BaseLayout";
+import Blog from "./blog/Blog";
+import Calendar from "./calendar/Calendar";
+import Event from "./event/Event";
+import Events from "./event/Events";
+import Home from "./home/Home";
+import Lan from "./lan/Lan";
+import LanRules from "./lan/LanRules";
+import Login from "./login_and_register/Login";
+import Register from "./login_and_register/Register";
+import Profile from "./profile/Profile";
 
 import "./App.css";
-// https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
-// Fix padding:
-// https://stackoverflow.com/a/20080963
-export default function App({ isAuthenticated, updateIsAuthenticated }) {
-  const [navIsOpen, setNavIsOpen] = useState(false);
-  const [profileIsOpen, setProfileIsOpen] = useState(false);
+
+/** Wrapper for pages that require user authentication
+ * @param {bool} isLoadingAuth - Whether the backend server has replied with the
+ *                               user's auth status.
+ * @param {bool} isAuthenticated - Whether the user is authenticated or not.
+ * @param {ReactNode} AuthFailure - What to return on authentication failure.
+ */
+function RequireAuth({
+  isLoadingAuth,
+  isAuthenticated,
+  AuthFailure,
+  children,
+}) {
+  // Show a loading display while waiting for a response from the backend
+  // TODO: Swap the text for a spinny
+  const [loadingDisplay, setLoadingDisplay] = useState();
+  if (isLoadingAuth) {
+    // If loading display hasn't been set yet (to prevent infinite updates),
+    // schedule it to be set after a second to allow for standard latency
+    // FIXME: use useEffect cleanup function to ensure this subscription
+    //        (and the one in RequireUnAuth) is cancelled
+    if (!loadingDisplay) {
+      setTimeout(() => {
+        setLoadingDisplay(<Container>Loading...</Container>);
+      }, 1000);
+    }
+    return <main className="d-flex flex-column">{loadingDisplay}</main>;
+  }
+  // If user isn't authenticated, return AuthFailure
+  if (!isAuthenticated) {
+    return AuthFailure;
+  }
+
+  // If the user's authenticated, return the children
+  return children;
+}
+RequireAuth.propTypes = {
+  isLoadingAuth: propTypes.bool.isRequired,
+  isAuthenticated: propTypes.bool.isRequired,
+  AuthFailure: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
+};
+
+// The opposite of RequireAuth, for the register and login page
+function RequireUnauth({ isLoadingAuth, isAuthenticated, children }) {
+  const [loadingDisplay, setLoadingDisplay] = useState();
+  if (isLoadingAuth) {
+    if (!loadingDisplay) {
+      setTimeout(() => {
+        setLoadingDisplay(<Container>Loading...</Container>);
+      }, 1000);
+    }
+    return <main className="d-flex flex-column">{loadingDisplay}</main>;
+  }
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+}
+RequireUnauth.propTypes = {
+  isLoadingAuth: propTypes.bool.isRequired,
+  isAuthenticated: propTypes.bool.isRequired,
+  children: propTypes.node.isRequired,
+};
+
+// TODO: Add more comments
+//       Fix eslint exhaustive deps warnings:
+//       https://typeofnan.dev/you-probably-shouldnt-ignore-react-hooks-exhaustive-deps-warnings/
+//       Fix padding:
+//       https://stackoverflow.com/a/20080963
+export default function App() {
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // TODO: Check you can't just pass setState
+  const handleIsAuthenticatedChange = (newIsAuthenticated) => {
+    setIsAuthenticated(newIsAuthenticated);
+  };
 
   function getSession() {
     axios
@@ -35,140 +113,117 @@ export default function App({ isAuthenticated, updateIsAuthenticated }) {
       .catch((err) => {
         console.log(err);
       });
+    // TODO: display an alert if user times out (instead of redirecting them?)
     axios
-      .get("/api/session/", { withCredentials: true })
+      .get("/api/session/", { withCredentials: true }) // , timeout: 10000 })
       .then((res) => {
         console.log(res.data);
         if (res.data.isAuthenticated) {
-          updateIsAuthenticated(true);
+          handleIsAuthenticatedChange(true);
         } else {
-          updateIsAuthenticated(false);
+          handleIsAuthenticatedChange(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .then(() => {
+        setIsLoadingAuth(false);
+      });
   }
 
   useEffect(() => {
     getSession();
   }, []);
 
-  // FIXME: redirect if on a page which requires authentication, e.g., profile
-  function logOut() {
+  const handleLogOut = () => {
     axios
       .get("/api/logout/", { withCredentials: true })
       .then((res) => {
         console.log(res.data);
         if (res.status >= 200 && res.status <= 299) {
-          updateIsAuthenticated(false);
+          handleIsAuthenticatedChange(false);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // A simple react element to be used on pages that require authentication that
+  // redirects unauthenticated users to the login page, taking note of the page
+  // they were trying to access so they can be redirected afterwards.
+  function AuthFailureRedirect() {
+    const location = useLocation();
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return (
-    <>
-      <Navbar expand="md" color="light" light sticky="top">
-        <NavbarBrand href="/">
-          A<span className="text-primary">VGS</span>
-        </NavbarBrand>
-        <NavbarToggler
-          onClick={() => {
-            setNavIsOpen(!navIsOpen);
-          }}
-          className="me-auto"
-        />
-        <NavbarToggler
-          onClick={() => {
-            setProfileIsOpen(!profileIsOpen);
-          }}
-          className="profile-toggler"
-        />
-        <Collapse isOpen={navIsOpen} navbar>
-          <Nav navbar className="me-auto">
-            <NavItem>
-              <NavLink tag={RRNavLink} to="/blog">
-                Blog
-              </NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Events
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem tag={RRNavLink} to="/events">
-                  List
-                </DropdownItem>
-                <DropdownItem tag={RRNavLink} to="/calendar">
-                  Calendar
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                LAN
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem tag={RRNavLink} to="/lan">
-                  LAN
-                </DropdownItem>
-                <DropdownItem tag={RRNavLink} to="/lan/rules">
-                  Rules
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <NavItem>
-              <NavLink tag={RRNavLink} to="/aaa">
-                AAA
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-        <Collapse isOpen={profileIsOpen} navbar>
-          <Nav navbar className="ms-auto">
-            {!isAuthenticated && (
-              <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/register">
-                    Register
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    tag={RRNavLink}
-                    to="/login"
-                    className="border border-primary rounded"
-                  >
-                    Log in
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
-            {isAuthenticated && (
-              <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/profile">
-                    Profile
-                  </NavLink>
-                </NavItem>
-                <Button
-                  onClick={() => {
-                    logOut();
-                  }}
-                >
-                  Log out
-                </Button>
-              </>
-            )}
-          </Nav>
-        </Collapse>
-      </Navbar>
-      <Outlet />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <BaseLayout
+              isAuthenticated={isAuthenticated}
+              onLogOut={handleLogOut}
+            />
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="events">
+            <Route index element={<Events />} />
+            <Route path=":eventId" element={<Event />} />
+          </Route>
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="lan" element={<Lan />} />
+          <Route path="lan/rules" element={<LanRules />} />
+          <Route
+            path="login"
+            element={
+              <RequireUnauth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+              >
+                <Login
+                  isAuthenticated={isAuthenticated}
+                  onIsAuthenticatedChange={handleIsAuthenticatedChange}
+                />
+              </RequireUnauth>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <RequireAuth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+                AuthFailure={<AuthFailureRedirect />}
+              >
+                <Profile isAuthenticated={isAuthenticated} />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RequireUnauth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+              >
+                <Register isAuthenticated={isAuthenticated} />
+              </RequireUnauth>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>Page not found</p>
+              </main>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  updateIsAuthenticated: PropTypes.func.isRequired,
-};

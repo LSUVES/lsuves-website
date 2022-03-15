@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
+// import propTypes from "prop-types";
+// import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
 
 import AxiosError from "../axiosError/AxiosError";
 
+// export default function Profile({ isAuthenticated }) {
 export default function Profile() {
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/");
+  //   }
+  // }, [isAuthenticated]);
+
   const [profile, setProfile] = useState();
   //   const { profileId } = useParams();
   const [display, setDisplay] = useState();
@@ -51,3 +61,7 @@ export default function Profile() {
     </main>
   );
 }
+
+// Profile.propTypes = {
+//   isAuthenticated: propTypes.bool.isRequired,
+// };

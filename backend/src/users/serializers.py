@@ -11,10 +11,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ("username", "email", "deletion_date", "password")
 
     def create(self, validated_data):
-        print(
-            type(validated_data["deletion_date"]),
-            isinstance(validated_data["deletion_date"], datetime),
-        )
         user = User.objects.create_user(**validated_data)
         return user
 
