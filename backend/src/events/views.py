@@ -7,7 +7,9 @@ from .models import Event
 from .serializers import EventSerializer
 
 
-class EventsView(viewsets.ModelViewSet):
+# FIXME: Enforce permissions so only staff can edit and consider whether all
+#        the viewset methods are necessary
+class EventsViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
 
     # TODO: Move this to a Manager method on the Events model?

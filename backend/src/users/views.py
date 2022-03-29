@@ -66,8 +66,10 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# FIXME: Enforce permissions so only staff/same users can edit and consider
+#        whether all the viewset methods are necessary
 # TODO: Merge above into this class
-class UserView(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 

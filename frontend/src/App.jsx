@@ -95,6 +95,9 @@ RequireUnauth.propTypes = {
 //       https://typeofnan.dev/you-probably-shouldnt-ignore-react-hooks-exhaustive-deps-warnings/
 //       Fix padding:
 //       https://stackoverflow.com/a/20080963
+//       Consider using context for auth
+//       https://ui.dev/react-router-protected-routes-authentication
+//       https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src/App.tsx
 export default function App() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -115,7 +118,7 @@ export default function App() {
       });
     // TODO: display an alert if user times out (instead of redirecting them?)
     axios
-      .get("/api/session/", { withCredentials: true }) // , timeout: 10000 })
+      .get("/api/session/", { withCredentials: true, timeout: 10000 })
       .then((res) => {
         console.log(res.data);
         if (res.data.isAuthenticated) {
@@ -214,11 +217,14 @@ export default function App() {
               </RequireUnauth>
             }
           />
+          {/* TODO: Create a component for rendering error messages */}
           <Route
             path="*"
             element={
               <main>
-                <p>Page not found</p>
+                <Container>
+                  <p>Page not found</p>
+                </Container>
               </main>
             }
           />

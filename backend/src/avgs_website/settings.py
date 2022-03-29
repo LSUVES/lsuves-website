@@ -35,6 +35,9 @@ CORS_ALLOW_CREDENTIALS = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SCURE = True
 
+# Host to use for tests, should be the same as the frontend server.
+TEST_HOST = "host.docker.internal"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
     "blog",
     "events",
     "users",
+    "lans",
 ]
 
 MIDDLEWARE = [
@@ -158,13 +162,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django REST framework
 REST_FRAMEWORK = {
-    # Replaces API interface with plain JSON output
+    # Probably don't want this: replaces API interface with plain JSON output
     # "DEFAULT_RENDERER_CLASSES": [
     #     "rest_framework.renderers.JSONRenderer",
     # ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
     ],
+    # TODO: Add pagination
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10
     # FIXME: Provide this in production
     # https://www.django-rest-framework.org/api-guide/permissions/
     # "DEFAULT_PERMISSION_CLASSES": [],

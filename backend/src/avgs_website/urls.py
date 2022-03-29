@@ -19,17 +19,22 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from events import views as event_views
+from lans import views as lan_views
 from rest_framework import routers
 from rest_framework import urls as api_auth_urls
 from users import views as user_views
 
+# Add routes for viewsets. Note that the prefixes are suffixed with "/<pk>/" for
+# detail views, e.g., "lans/2/"", so nesting routes like "lans/ticket-requests",
+# isn't a good idea unless you also do "lans/lans", which defeats the point.
 router = routers.DefaultRouter()
-router.register(r"users", user_views.UserView)
-router.register(r"blog", blog_views.PostView)
-router.register(r"events", event_views.EventsView, "event")
+router.register(r"users", user_views.UserViewSet)
+router.register(r"lan-ticket-requests", lan_views.TicketRequestViewSet)
+router.register(r"lans", lan_views.LanViewSet)
+router.register(r"blog", blog_views.PostViewSet)
+router.register(r"events", event_views.EventsViewSet, "event")
 
-# TODO: Should viewsets end in ViewSet instead of View?
-#       Clean this up by importing from app's urls.py
+# TODO: Clean this up by importing from app's urls.py
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),

@@ -1,6 +1,7 @@
 from calendar import monthrange
 from datetime import datetime, timedelta
 
+from avgs_website.utils import LongDocMixin
 from django.contrib.auth import get_user_model
 from django.http.cookie import SimpleCookie
 from django.middleware.csrf import get_token
@@ -10,18 +11,21 @@ from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory
 
 
-class LongDocMixin:
-    def shortDescription(self):
-        try:
-            return "\n".join(
-                [line.strip() for line in self._testMethodDoc.strip().splitlines()]
-            )
-        except AttributeError:
-            return
+# TODO: Incorporate into tests below.
+def create_test_user(username, password):
+    return get_user_model().objects.create_user(
+        username=username,
+        email="test@example.com",
+        deletion_date=(timezone.now() + timedelta(days=31)).date(),
+        password=password,
+    )
 
 
 # TODO: Consider using a faster password hashing algorithm as mentioned in the docs:
 #       https://docs.djangoproject.com/en/4.0/topics/testing/overview/#password-hashing
+#       Store username, email, password values in constants like valid_deletion_date (capitalise name)
+
+
 class UserModelTests(LongDocMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
