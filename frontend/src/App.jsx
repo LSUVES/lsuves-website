@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { Container } from "reactstrap";
 
+import AdminTicketRequests from "./admin/AdminTicketRequests";
 import BaseLayout from "./baseLayout/BaseLayout";
 import Blog from "./blog/Blog";
 import Calendar from "./calendar/Calendar";
@@ -18,7 +19,11 @@ import Event from "./event/Event";
 import Events from "./event/Events";
 import Home from "./home/Home";
 import Lan from "./lan/Lan";
+import LanFoodOrderForm from "./lan/LanFoodOrderForm";
 import LanRules from "./lan/LanRules";
+import LanSeatBookingForm from "./lan/LanSeatBookingForm";
+import LanTimetable from "./lan/LanTimetable";
+import LanVanBookingForm from "./lan/LanVanBookingForm";
 import Login from "./login_and_register/Login";
 import Register from "./login_and_register/Register";
 import Profile from "./profile/Profile";
@@ -90,6 +95,29 @@ RequireUnauth.propTypes = {
   children: propTypes.node.isRequired,
 };
 
+function RequireAdmin({ isAdmin, isLoadingAdmin, children }) {
+  const [loadingDisplay, setLoadingDisplay] = useState();
+
+  if (isLoadingAdmin) {
+    if (!loadingDisplay) {
+      setTimeout(() => {
+        setLoadingDisplay(<Container>Loading...</Container>);
+      }, 1000);
+    }
+    return <main className="d-flex flex-column">{loadingDisplay}</main>;
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+}
+RequireAdmin.propTypes = {
+  isLoadingAdmin: propTypes.bool.isRequired,
+  isAdmin: propTypes.bool.isRequired,
+  children: propTypes.node.isRequired,
+};
 // TODO: Add more comments
 //       Fix eslint exhaustive deps warnings:
 //       https://typeofnan.dev/you-probably-shouldnt-ignore-react-hooks-exhaustive-deps-warnings/
@@ -101,6 +129,8 @@ RequireUnauth.propTypes = {
 export default function App() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoadingAdmin, setIsLoadingAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // TODO: Check you can't just pass setState
   const handleIsAuthenticatedChange = (newIsAuthenticated) => {
@@ -117,6 +147,7 @@ export default function App() {
         console.log(err);
       });
     // TODO: display an alert if user times out (instead of redirecting them?)
+    //       compress the isAdmin lookup into the session lookup
     axios
       .get("/api/session/", { withCredentials: true, timeout: 10000 })
       .then((res) => {
@@ -130,6 +161,15 @@ export default function App() {
       .catch((err) => console.log(err))
       .then(() => {
         setIsLoadingAuth(false);
+      });
+    axios
+      .get(`/api/profile/`, { withCredentials: true })
+      .then((res) => {
+        setIsAdmin(res.data.isAdmin);
+        setIsLoadingAdmin(false);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -167,19 +207,74 @@ export default function App() {
           element={
             <BaseLayout
               isAuthenticated={isAuthenticated}
+              isAdmin={isAdmin}
               onLogOut={handleLogOut}
             />
           }
         >
           <Route index element={<Home />} />
+          <Route
+            path="admin/ticket-requests"
+            element={
+              <RequireAuth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+                AuthFailure={<AuthFailureRedirect />}
+              >
+                <RequireAdmin isLoadingAdmin={isLoadingAdmin} isAdmin={isAdmin}>
+                  <AdminTicketRequests isAuthenticated={isAuthenticated} />
+                </RequireAdmin>
+              </RequireAuth>
+            }
+          />
           <Route path="blog" element={<Blog />} />
           <Route path="events">
             <Route index element={<Events />} />
             <Route path=":eventId" element={<Event />} />
           </Route>
           <Route path="calendar" element={<Calendar />} />
-          <Route path="lan" element={<Lan />} />
+          <Route
+            path="lan"
+            element={<Lan isAuthenticated={isAuthenticated} />}
+          />
           <Route path="lan/rules" element={<LanRules />} />
+          <Route path="lan/timetable" element={<LanTimetable />} />
+          <Route
+            path="lan/van-booking"
+            element={
+              <RequireAuth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+                AuthFailure={<AuthFailureRedirect />}
+              >
+                <LanVanBookingForm />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="lan/seat-booking"
+            element={
+              <RequireAuth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+                AuthFailure={<AuthFailureRedirect />}
+              >
+                <LanSeatBookingForm />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="lan/food-order"
+            element={
+              <RequireAuth
+                isLoadingAuth={isLoadingAuth}
+                isAuthenticated={isAuthenticated}
+                AuthFailure={<AuthFailureRedirect />}
+              >
+                <LanFoodOrderForm />
+              </RequireAuth>
+            }
+          />
           <Route
             path="login"
             element={

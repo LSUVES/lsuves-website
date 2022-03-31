@@ -1,8 +1,15 @@
 from django.db import models
-from lans.models import Lan
 
 
 class Event(models.Model):
+    """
+    Event model, provides fields for the name of the event, the type of the event
+    (e.g., games, social, tournament), whether the event is members only, where the
+    event will be located (can be a physical address or url), the start and end times
+    of the event, and any parent event that this event is a child to (e.g., a LAN
+    tournament would have the LAN event as its parent).
+    """
+
     GAMES = "games"
     SOCIAL = "social"
     TOURNAMENT = "tournament"
@@ -19,6 +26,7 @@ class Event(models.Model):
     ]
 
     name = models.CharField(max_length=100)
+    # TODO: Add description and image fields
     type = models.CharField(max_length=100, choices=EVENT_TYPES, default=GAMES)
     is_members_only = models.BooleanField(default=False)
     location = models.CharField(max_length=100)
@@ -27,7 +35,6 @@ class Event(models.Model):
     parent = models.ForeignKey(
         "self", related_name="children", on_delete=models.CASCADE, blank=True, null=True
     )
-    lan = models.OneToOneField(Lan, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name

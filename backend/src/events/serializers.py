@@ -16,5 +16,4 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
             "start_time",
             "end_time",
             "parent",
-            "lan",
         )

@@ -29,8 +29,14 @@ from users import views as user_views
 # isn't a good idea unless you also do "lans/lans", which defeats the point.
 router = routers.DefaultRouter()
 router.register(r"users", user_views.UserViewSet)
+router.register(r"lan-committee-shifts", lan_views.CommitteeShiftViewSet)
 router.register(r"lan-ticket-requests", lan_views.TicketRequestViewSet)
-router.register(r"lans", lan_views.LanViewSet)
+router.register(r"lan-tickets", lan_views.TicketViewSet)
+router.register(r"lan-seat-booking", lan_views.SeatBookingViewSet)
+router.register(r"lan-van-booking", lan_views.VanBookingViewSet)
+router.register(r"lan-food-order-shop", lan_views.FoodOrderShopViewSet)
+router.register(r"lan-food-order-menu-item", lan_views.FoodOrderMenuItemViewSet)
+router.register(r"lan-food-order", lan_views.FoodOrderViewSet)
 router.register(r"blog", blog_views.PostViewSet)
 router.register(r"events", event_views.EventsViewSet, "event")
 

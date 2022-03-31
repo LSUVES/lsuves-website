@@ -1,33 +1,6 @@
 from django.db import models
+from events.models import Event
 from users.models import User
-
-
-class Lan(models.Model):
-    """
-    LAN model, provides fields for the LAN number, whether it's a half-LAN,
-    and the LAN theme (e.g., Freshers', Halloween, Charity).
-
-    Time and location should be accessed using the reverse relationship with
-    the associated event, e.g., event__end_time.
-    """
-
-    # TODO: Provide auto-incrementing default value
-    # next_lan_number = Lan.objects.latest("number").number + 1
-    number = models.IntegerField()
-    # If we ever have 3/4 LANs then just replace this with a
-    # DecimalField(max_digits=1, decimal_places=1, default=0)
-    is_half_lan = models.BooleanField(default=False)
-    theme = models.CharField(max_length=50, blank=True)
-    # ticket_price
-
-    class Meta:
-        constraints = [
-            # Ensure every LAN number is unique
-            models.UniqueConstraint(
-                fields=["number", "is_half_lan"],
-                name="%(app_label)s_%(class)s_number_is_unique",
-            )
-        ]
 
 
 class CommitteeShift(models.Model):
@@ -37,7 +10,7 @@ class CommitteeShift(models.Model):
     """
 
     lan = models.ForeignKey(
-        Lan, related_name="committee_shifts", on_delete=models.CASCADE
+        Event, related_name="committee_shifts", on_delete=models.CASCADE
     )
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -53,7 +26,7 @@ class TicketRequest(models.Model):
     """
 
     lan = models.ForeignKey(
-        Lan, related_name="ticket_requests", on_delete=models.CASCADE
+        Event, related_name="ticket_requests", on_delete=models.CASCADE
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -66,7 +39,7 @@ class Ticket(models.Model):
     seat the ticket holder has entered into the LAN Auth website.
     """
 
-    lan = models.ForeignKey(Lan, related_name="tickets", on_delete=models.CASCADE)
+    lan = models.ForeignKey(Event, related_name="tickets", on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # is_member_ticket = models.BooleanField(default=False)
     seat_booking_group = models.ForeignKey(
@@ -83,8 +56,14 @@ class Ticket(models.Model):
 
 
 class SeatBookingGroup(models.Model):
+    """
+    Seat booking model, provides fields to associate seat booking with a LAN and the
+    owner of the group. Also provides fields for a group name and preference (e.g.,
+    in regards to location/number of seats).
+    """
+
     lan = models.ForeignKey(
-        Lan, related_name="seat_booking_groups", on_delete=models.CASCADE
+        Event, related_name="seat_booking_groups", on_delete=models.CASCADE
     )
     owner = models.OneToOneField(Ticket, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -92,6 +71,7 @@ class SeatBookingGroup(models.Model):
 
     class Meta:
         constraints = [
+            # Ensure no two groups have the same name per LAN.
             models.UniqueConstraint(
                 fields=["lan", "name"],
                 name="%(app_label)s_%(class)s_name_is_unique_for_lan",
@@ -100,7 +80,16 @@ class SeatBookingGroup(models.Model):
 
 
 class VanBooking(models.Model):
-    lan = models.ForeignKey(Lan, related_name="van_bookings", on_delete=models.CASCADE)
+    """
+    Van booking model, provides fields to associate van booking with a LAN and the
+    requesting user. Also provides fields to record the user's contact phone number,
+    pick-up address and postcode, whether they require the service for collection
+    and/or drop-off, and what their availability is.
+    """
+
+    lan = models.ForeignKey(
+        Event, related_name="van_bookings", on_delete=models.CASCADE
+    )
     requester = models.OneToOneField(Ticket, on_delete=models.CASCADE)
     # TODO: Consider using a better field for this, see:
     #       https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models
@@ -115,15 +104,28 @@ class VanBooking(models.Model):
 
 
 class FoodOrderShop(models.Model):
+    """
+    Food order shop model, provides fields for the name of the shop, the time by which
+    orders close, the time at which the order is expected to arrive, and whether orders
+    for that shop are open (e.g., at some LANs we order McDonald's on Sunday morning,
+    but not always).
+    """
+
     name = models.CharField(max_length=50)
     # TODO: Consider using TimeFields for this and storing the day separately/using dynamically
     #       created datetime fields
     order_by = models.CharField(max_length=30)
-    arrives = models.CharField(max_length=30)
+    arrives_at = models.CharField(max_length=30)
     is_open = models.BooleanField(default=True)
 
 
 class FoodOrderMenuItem(models.Model):
+    """
+    Food order menu item model, provides fields to associate the menu item with a shop,
+    the name of the menu item, additional information about the menu item (e.g.,
+    description from website, ingredients/allergens), and the price of the menu item.
+    """
+
     shop = models.ForeignKey(
         FoodOrderShop, related_name="items", on_delete=models.CASCADE
     )
@@ -133,7 +135,12 @@ class FoodOrderMenuItem(models.Model):
 
 
 class FoodOrder(models.Model):
-    lan = models.ForeignKey(Lan, related_name="food_orders", on_delete=models.CASCADE)
+    """
+    Food order model, provides fields to associate the food order with a lan event and
+    the user ordering, what menu item they've selected, and whether they've paid for it.
+    """
+
+    lan = models.ForeignKey(Event, related_name="food_orders", on_delete=models.CASCADE)
     orderer = models.ForeignKey(
         Ticket, related_name="food_orders", on_delete=models.CASCADE
     )

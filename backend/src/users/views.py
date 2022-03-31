@@ -56,7 +56,8 @@ def logout_view(request, format=None):
     return JsonResponse({"detail": "Successfully logged out."})
 
 
-# FIXME: Add CSRF protection
+# FIXME: !! Ensure password cannot be the same as username !!
+#        Add CSRF protection
 class RegisterView(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
@@ -76,6 +77,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # TODO: Is this really necessary?
 class SessionView(APIView):
+    # TODO: Pretty sure authentication_classes isn't necessary as it defaults to
+    #       classes in settings.py
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
 

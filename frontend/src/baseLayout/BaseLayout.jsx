@@ -5,15 +5,20 @@ import { Outlet } from "react-router-dom";
 
 import Navbar from "../navbar/Navbar";
 
-export default function BaseLayout({ isAuthenticated, onLogOut }) {
+export default function BaseLayout({ isAuthenticated, isAdmin, onLogOut }) {
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} onLogOut={onLogOut} />
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        isAdmin={isAdmin}
+        onLogOut={onLogOut}
+      />
       <Outlet />
     </>
   );
 }
 BaseLayout.propTypes = {
   isAuthenticated: propTypes.bool.isRequired,
+  isAdmin: propTypes.bool.isRequired,
   onLogOut: propTypes.func.isRequired,
 };

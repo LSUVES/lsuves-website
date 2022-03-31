@@ -19,7 +19,7 @@ import {
 
 //       TODO: Consider centring navbar links
 //       https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
-export default function Navbar({ isAuthenticated, onLogOut }) {
+export default function Navbar({ isAuthenticated, isAdmin, onLogOut }) {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [profileIsOpen, setProfileIsOpen] = useState(false);
 
@@ -65,11 +65,26 @@ export default function Navbar({ isAuthenticated, onLogOut }) {
               LAN
             </DropdownToggle>
             <DropdownMenu end>
+              {/* FIXME: disable highlighting LAN link when in subdirectory of /lan */}
               <DropdownItem tag={RRNavLink} to="/lan">
                 LAN
               </DropdownItem>
               <DropdownItem tag={RRNavLink} to="/lan/rules">
                 Rules
+              </DropdownItem>
+              <DropdownItem tag={RRNavLink} to="/lan/timetable">
+                Timetable
+              </DropdownItem>
+              {/* FIXME: Only show these links if user has a LAN ticket */}
+              <DropdownItem tag={RRNavLink} to="/lan/van-booking">
+                Van booking
+              </DropdownItem>
+              <DropdownItem tag={RRNavLink} to="/lan/seat-booking">
+                Seat booking
+              </DropdownItem>
+              {/* FIXME: Only show this link when LAN has started */}
+              <DropdownItem tag={RRNavLink} to="/lan/food-order">
+                Food order
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
@@ -97,6 +112,13 @@ export default function Navbar({ isAuthenticated, onLogOut }) {
           )}
           {isAuthenticated && (
             <>
+              {isAdmin && (
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/admin/ticket-requests">
+                    Admin
+                  </NavLink>
+                </NavItem>
+              )}
               <NavItem>
                 <NavLink tag={RRNavLink} to="/profile">
                   Profile
@@ -118,5 +140,6 @@ export default function Navbar({ isAuthenticated, onLogOut }) {
 }
 Navbar.propTypes = {
   isAuthenticated: propTypes.bool.isRequired,
+  isAdmin: propTypes.bool.isRequired,
   onLogOut: propTypes.func.isRequired,
 };

@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from users.tests import create_test_user
 
-from ..models import Lan, TicketRequest
+from ..models import TicketRequest
 from ..views import get_current_lan
 
 # TODO: probably a good idea to avoid dependencies by using mock objects for
@@ -22,6 +22,7 @@ from ..views import get_current_lan
 class TicketRequestTests(LongDocMixin, TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.URL_PREFIX = "/api/lan-ticket-requests/"
         cls.USER1_USERNAME = "user1"
         cls.USER1_PASSWORD = "user1pass"
         cls.USER1 = create_test_user(cls.USER1_USERNAME, cls.USER1_PASSWORD)
@@ -48,37 +49,40 @@ class TicketRequestTests(LongDocMixin, TestCase):
         # Login as an authenticated user.
         self.client.login(username=self.USER1_USERNAME, password=self.USER1_PASSWORD)
 
-        # Create LANs without an event and attempt request.
-        lan1 = Lan.objects.create(number=1)
-        lan2 = Lan.objects.create(number=2)
-        with self.assertRaises(Lan.DoesNotExist):
+        # Attempt request with no LAN events.
+        with self.assertRaises(Event.DoesNotExist):
             self.client.post(
-                "/api/lan-ticket-requests/",
+                "{}".format(self.URL_PREFIX),
                 HTTP_HOST=TEST_HOST,
             )
 
         # Create events for LANs.
-        Event.objects.create(
+        lan1 = Event.objects.create(
             name="LAN 1",
             type=Event.LAN,
             location="Lanlanland",
             start_time=(timezone.now() + timedelta(weeks=4)),
             end_time=(timezone.now() + timedelta(weeks=4, days=3)),
-            lan=lan1,
         )
-        Event.objects.create(
+        lan2 = Event.objects.create(
             name="LAN 2",
             type=Event.LAN,
             location="Lanlanland",
             start_time=(timezone.now() + timedelta(weeks=5)),
             end_time=(timezone.now() + timedelta(weeks=5, days=3)),
-            lan=lan2,
         )
         self.assertEqual(lan1, get_current_lan())
 
+        # Attempt to retrieve non-existent ticket request.
+        authed1_get_response = self.client.get(
+            "{}my_lan_ticket_request/".format(self.URL_PREFIX),
+            HTTP_HOST=TEST_HOST,
+        )
+        self.assertEqual(authed1_get_response.status_code, status.HTTP_404_NOT_FOUND)
+
         # Perform a successful request.
         authed1_post_response = self.client.post(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(authed1_post_response.status_code, status.HTTP_201_CREATED)
@@ -91,14 +95,14 @@ class TicketRequestTests(LongDocMixin, TestCase):
         with transaction.atomic():
             with self.assertRaises(IntegrityError):
                 self.client.post(
-                    "/api/lan-ticket-requests/",
+                    "{}".format(self.URL_PREFIX),
                     HTTP_HOST=TEST_HOST,
                 )
 
         # Attempt request as an unauthenticated user.
         self.client.logout()
         unauthed_post_response = self.client.post(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(unauthed_post_response.status_code, status.HTTP_403_FORBIDDEN)
@@ -108,7 +112,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Perform a successful request as this new user.
         authed2_post_response = self.client.post(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(authed2_post_response.status_code, status.HTTP_201_CREATED)
@@ -118,7 +122,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Retrieve this user's ticket request.
         authed2_get_own_response = self.client.get(
-            "/api/lan-ticket-requests/{}/".format(authed2_post_response.data["id"]),
+            "{}my_lan_ticket_request/".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         # Quickly verify that this ticket request's owner's id matches this user's.
@@ -137,7 +141,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Attempt to retrieve all users' ticket requests.
         authed2_get_all_response = self.client.get(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
@@ -146,7 +150,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Attempt to delete this user's ticket request.
         authed2_delete_own_response = self.client.delete(
-            "/api/lan-ticket-requests/{}/".format(authed2_post_response.data["id"]),
+            "{}{}/".format(self.URL_PREFIX, authed2_post_response.data["id"]),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
@@ -161,7 +165,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Retrieve all users' ticket requests.
         admin_get_all_response = self.client.get(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
@@ -171,12 +175,12 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Delete a user's ticket request.
         admin_delete_response = self.client.delete(
-            "/api/lan-ticket-requests/{}/".format(authed2_post_response.data["id"]),
+            "{}{}/".format(self.URL_PREFIX, authed2_post_response.data["id"]),
             HTTP_HOST=TEST_HOST,
         )
         self.assertTrue(status.is_success(admin_delete_response.status_code))
         admin_get_all_again_response = self.client.get(
-            "/api/lan-ticket-requests/",
+            "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
