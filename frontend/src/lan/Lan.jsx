@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
 import { Button, Col, Container, Row } from "reactstrap";
 
-import getCookie from "../utils/getCookie";
+import CsrfTokenContext from "../utils/CsrfTokenContext";
 
 export default function Lan({ isAuthenticated }) {
   const [currentLan, setCurrentLan] = useState();
@@ -76,21 +76,10 @@ export default function Lan({ isAuthenticated }) {
     return `${hours}:${minutes}:${seconds}`;
   }
 
-  function requestTicket() {
-    console.log("hey");
-    let csrfTokenCookie = getCookie("csrftoken");
-    // TODO: DRY this out (see Login and Register) by pulling into getCsrfTokenCookie function
-    if (!csrfTokenCookie) {
-      axios
-        .get("/api/csrf/")
-        .then(() => {
-          csrfTokenCookie = getCookie("csrftoken");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  // Get CSRF token from context.
+  const csrfTokenCookie = useContext(CsrfTokenContext);
 
+  function requestTicket() {
     axios
       .post(
         "/api/lan-ticket-requests/",

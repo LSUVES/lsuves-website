@@ -28,7 +28,18 @@ class TicketRequest(models.Model):
     lan = models.ForeignKey(
         Event, related_name="ticket_requests", on_delete=models.CASCADE
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="ticket_requests", on_delete=models.CASCADE
+    )
+
+    class Meta:
+        constraints = [
+            # Ensure no two ticket requests are for the same user and LAN.
+            models.UniqueConstraint(
+                fields=["lan", "user"],
+                name="%(app_label)s_%(class)s_is_unique_for_user_and_lan",
+            )
+        ]
 
 
 class Ticket(models.Model):
@@ -40,7 +51,7 @@ class Ticket(models.Model):
     """
 
     lan = models.ForeignKey(Event, related_name="tickets", on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="tickets", on_delete=models.CASCADE)
     # is_member_ticket = models.BooleanField(default=False)
     seat_booking_group = models.ForeignKey(
         "SeatbookingGroup",
@@ -53,6 +64,15 @@ class Ticket(models.Model):
     # TODO: Consider enforcing uniqueness. However, note that seat numbers are not
     #       used for small LANs (will likely require editing LAN Auth which is scary).
     seat = models.CharField("seat id", max_length=2, blank=True)
+
+    class Meta:
+        constraints = [
+            # Ensure no two tickets are for the same user and LAN.
+            models.UniqueConstraint(
+                fields=["lan", "user"],
+                name="%(app_label)s_%(class)s_is_unique_for_user_and_lan",
+            )
+        ]
 
 
 class SeatBookingGroup(models.Model):

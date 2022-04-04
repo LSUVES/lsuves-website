@@ -45,11 +45,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path("api/csrf/", user_views.set_csrf_token),
-    path("api/login/", user_views.login_view),
-    path("api/logout/", user_views.logout_view),
-    path("api/profile/", user_views.ProfileView.as_view()),
     path("api/register/", user_views.RegisterView.as_view()),
-    path("api/session/", user_views.SessionView.as_view()),
     path("api/api-auth/", include(api_auth_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

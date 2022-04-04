@@ -172,7 +172,7 @@ REST_FRAMEWORK = {
     # TODO: Add pagination
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 10
-    # FIXME: Provide this in production
-    # https://www.django-rest-framework.org/api-guide/permissions/
-    # "DEFAULT_PERMISSION_CLASSES": [],
+    # Define the default permission class as IsAdminUser as otherwise forgetting to
+    # override a view's permissions would allow anyone to see/change its data.
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser"],
 }

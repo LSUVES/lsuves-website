@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import axios from "axios";
 // import propTypes from "prop-types";
@@ -13,7 +13,7 @@ import {
   Label,
 } from "reactstrap";
 
-import getCookie from "../utils/getCookie";
+import CsrfTokenContext from "../utils/CsrfTokenContext";
 
 function useUpdateEffect(effect, dependencies = []) {
   const isInitialMount = useRef(true);
@@ -145,27 +145,18 @@ export default function Register() {
     return isValid;
   }
 
+  // Get CSRF token from context.
+  const csrfTokenCookie = useContext(CsrfTokenContext);
+
   function register() {
     if (!checkAll()) {
       // TODO: Emphasise errors?
       return;
     }
 
-    let csrfTokenCookie = getCookie("csrftoken");
-    if (!csrfTokenCookie) {
-      axios
-        .get("/api/csrf/")
-        .then(() => {
-          csrfTokenCookie = getCookie("csrftoken");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
     axios
       .post(
-        "/api/register/",
+        "/api/users/register/",
         {
           username,
           email,

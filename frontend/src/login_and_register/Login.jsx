@@ -1,16 +1,19 @@
 // import React, { useEffect, useState } from "react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 
+import CsrfTokenContext from "../utils/CsrfTokenContext";
 import "./LoginAndRegister.css";
-import getCookie from "../utils/getCookie";
 
 // export default function Login({ isAuthenticated, onIsAuthenticatedChange }) {
-export default function Login({ onIsAuthenticatedChange }) {
+export default function Login({
+  onIsAuthenticatedChange,
+  onCsrfTokenCookieChange,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
   // useEffect(() => {
@@ -32,22 +35,13 @@ export default function Login({ onIsAuthenticatedChange }) {
     }
   };
 
+  const csrfTokenCookie = useContext(CsrfTokenContext);
+
   function login() {
-    let csrfTokenCookie = getCookie("csrftoken");
-    if (!csrfTokenCookie) {
-      axios
-        .get("/api/csrf/")
-        .then(() => {
-          csrfTokenCookie = getCookie("csrftoken");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
     // TODO: Perform basic validation before posting
     axios
       .post(
-        "/api/login/",
+        "/api/users/login/",
         {
           username,
           password,
@@ -60,6 +54,10 @@ export default function Login({ onIsAuthenticatedChange }) {
       .then(() => {
         // if (res.status >= 200 && res.status <= 299) {
         onIsAuthenticatedChange(true);
+        // Django changes the value of the CSRF token cookie every time a user
+        // logs in, so it's necessary to call the handler for csrfTokenCookie
+        // state value updates.
+        onCsrfTokenCookieChange();
         // navigate(location.state?.from?.pathname || "/");
         navigate(location.state?.from?.pathname || "/");
       })
@@ -141,4 +139,5 @@ export default function Login({ onIsAuthenticatedChange }) {
 Login.propTypes = {
   // isAuthenticated: propTypes.bool.isRequired,
   onIsAuthenticatedChange: propTypes.func.isRequired,
+  onCsrfTokenCookieChange: propTypes.func.isRequired,
 };

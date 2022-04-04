@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
@@ -12,7 +12,7 @@ import {
   Row,
 } from "reactstrap";
 
-import getCookie from "../utils/getCookie";
+import CsrfTokenContext from "../utils/CsrfTokenContext";
 
 export default function AdminTicketRequests({ isAuthenticated }) {
   const [ticketRequestList, setTicketRequestList] = useState([]);
@@ -23,16 +23,20 @@ export default function AdminTicketRequests({ isAuthenticated }) {
 
   useEffect(() => {
     if (isAuthenticated) {
+      // TODO: Should only get current LAN ticket( request)s
       axios
-        .get("/api/lan-ticket-requests/", { withCredentials: true })
+        .get("/api/lan-ticket-requests/?current", {
+          withCredentials: true,
+        })
         .then((res) => setTicketRequestList(res.data))
         .catch((err) => console.log(err));
     }
   }, [isAuthenticated]);
   useEffect(() => {
+    // FIXME: Check tickets are for current LAN, do not approve for old ones.
     if (isAuthenticated) {
       axios
-        .get("/api/lan-tickets/", { withCredentials: true })
+        .get("/api/lan-tickets/?current", { withCredentials: true })
         .then((res) => {
           const newApprovedTicketRequests = [];
           res.data.forEach((item) => {
@@ -47,20 +51,9 @@ export default function AdminTicketRequests({ isAuthenticated }) {
     }
   }, [isAuthenticated]);
 
-  function approveTicketRequest(userId) {
-    let csrfTokenCookie = getCookie("csrftoken");
-    // TODO: DRY this out (see Login and Register) by pulling into getCsrfTokenCookie function
-    if (!csrfTokenCookie) {
-      axios
-        .get("/api/csrf/")
-        .then(() => {
-          csrfTokenCookie = getCookie("csrftoken");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const csrfTokenCookie = useContext(CsrfTokenContext);
 
+  function approveTicketRequest(userId) {
     axios
       .post(
         "/api/lan-ticket-requests/approve_ticket_request/",

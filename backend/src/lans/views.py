@@ -40,12 +40,18 @@ class TicketRequestViewSet(
 ):
     queryset = TicketRequest.objects.all()
 
+    def get_queryset(self):
+        current = "current" in self.request.query_params
+
+        if current:
+            self.queryset = self.queryset.filter(lan=get_current_lan())
+
+        return super().get_queryset()
+
     def get_serializer_class(self):
         if self.action == "create":
-            print("11111")
             self.serializer_class = TicketRequestSerializer
         else:
-            print("22222")
             self.serializer_class = TicketRequestUserSerializer
         return super().get_serializer_class()
 
@@ -56,7 +62,6 @@ class TicketRequestViewSet(
         if self.action == "retrieve" or self.action == "my_lan_ticket_request":
             self.permission_classes = [IsOwner]  # |IsAdminUser]
         elif self.action == "create":
-            print("aaaaaaaaaaaaaaaaaaaaaa", self.request.user)
             self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsAdminUser]
@@ -81,12 +86,12 @@ class TicketRequestViewSet(
         print(serializer.errors)
 
     # Return the LAN ticket request for the requesting user.
+    # FIXME: Should return negative if get_current_lan() throws Event.DoesNotExist
     @action(detail=False)  # url_path="my-lan-ticket-request"
     def my_lan_ticket_request(self, request):
         # Normally self.kwargs is populated by parameters provided in the url. E.g.,
         # /api/lan-ticket-requests/<pk>/ will give self.kwargs["pk"] = <pk>. Here,
         # they are set manually.
-        print("TICKET REQUEST", request.user)
         self.kwargs["user"] = request.user
         self.kwargs["lan"] = get_current_lan()
         ticket_request = self.get_object()
@@ -96,7 +101,6 @@ class TicketRequestViewSet(
     @action(methods=["POST"], detail=False)
     def approve_ticket_request(self, request):
         user = User.objects.get(id=request.data["userId"])
-        print(user.username)
         # FIXME: Validate the below and include any errors in response.
         Ticket.objects.create(lan=get_current_lan(), user=user)
         if Ticket.objects.get(lan=get_current_lan(), user=user):
@@ -108,12 +112,18 @@ class TicketRequestViewSet(
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
 
+    def get_queryset(self):
+        current = "current" in self.request.query_params
+
+        if current:
+            self.queryset = self.queryset.filter(lan=get_current_lan())
+
+        return super().get_queryset()
+
     def get_serializer_class(self):
         if self.action == "list":
-            print("11111")
             self.serializer_class = TicketRequestUserSerializer
         else:
-            print("22222")
             self.serializer_class = TicketRequestSerializer
         return super().get_serializer_class()
 
@@ -139,9 +149,9 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer.save(lan=get_current_lan())
 
     # Return the LAN ticket for the requesting user.
+    # FIXME: Should return negative if get_current_lan() throws Event.DoesNotExist
     @action(detail=False)
     def my_lan_ticket(self, request):
-        print("TICKET: ", request.user)
         self.kwargs["user"] = request.user
         self.kwargs["lan"] = get_current_lan()
         ticket_request = self.get_object()

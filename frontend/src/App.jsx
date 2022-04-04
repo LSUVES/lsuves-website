@@ -27,6 +27,8 @@ import LanVanBookingForm from "./lan/LanVanBookingForm";
 import Login from "./login_and_register/Login";
 import Register from "./login_and_register/Register";
 import Profile from "./profile/Profile";
+import CsrfTokenContext from "./utils/CsrfTokenContext";
+import getCookie from "./utils/getCookie";
 
 import "./App.css";
 
@@ -127,31 +129,27 @@ RequireAdmin.propTypes = {
 //       https://ui.dev/react-router-protected-routes-authentication
 //       https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src/App.tsx
 export default function App() {
+  const [csrfTokenCookie, setCsrfTokenCookie] = useState("");
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAdmin, setIsLoadingAdmin] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // TODO: Check you can't just pass setState
+  // TODO: Can't you just pass setIsAuthenticatedState to components?
   const handleIsAuthenticatedChange = (newIsAuthenticated) => {
     setIsAuthenticated(newIsAuthenticated);
   };
 
   function getSession() {
-    axios
-      .get("/api/csrf/", { withCredentials: true })
-      .then(() => {
-        console.log(document.cookie);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     // TODO: display an alert if user times out (instead of redirecting them?)
     //       compress the isAdmin lookup into the session lookup
     axios
-      .get("/api/session/", { withCredentials: true, timeout: 10000 })
+      .get("/api/users/is_authenticated/", {
+        withCredentials: true,
+        timeout: 10000,
+      })
       .then((res) => {
-        console.log(res.data);
+        console.log(`is_authenticated:${res.data}`);
         if (res.data.isAuthenticated) {
           handleIsAuthenticatedChange(true);
         } else {
@@ -163,7 +161,7 @@ export default function App() {
         setIsLoadingAuth(false);
       });
     axios
-      .get(`/api/profile/`, { withCredentials: true })
+      .get(`/api/users/profile/`, { withCredentials: true })
       .then((res) => {
         setIsAdmin(res.data.isAdmin);
         setIsLoadingAdmin(false);
@@ -174,16 +172,47 @@ export default function App() {
   }
 
   useEffect(() => {
-    getSession();
+    console.log(`state: ${csrfTokenCookie}`);
+    console.log(`cookie: ${getCookie("csrftoken")}`);
+    if (csrfTokenCookie) {
+      getSession();
+    }
+  }, [csrfTokenCookie]);
+
+  const handleCsrfTokenCookieChange = () => {
+    // Updates the csrfTokenCookie state to the value of the "csrftoken" cookie.
+    setCsrfTokenCookie(getCookie("csrftoken"));
+  };
+
+  function getCsrfTokenCookie() {
+    // Sends a request to the backend that sets the value of the "csrftoken"
+    // cookie and then calls the handler for the csrfTokenCookie state.
+    axios
+      .get("/api/csrf/", { withCredentials: true })
+      .then(() => {
+        handleCsrfTokenCookieChange();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getCsrfTokenCookie();
   }, []);
 
   const handleLogOut = () => {
     axios
-      .get("/api/logout/", { withCredentials: true })
+      .post(
+        "/api/users/logout/",
+        {},
+        { withCredentials: true, headers: { "X-CSRFToken": csrfTokenCookie } }
+      )
       .then((res) => {
         console.log(res.data);
         if (res.status >= 200 && res.status <= 299) {
           handleIsAuthenticatedChange(false);
+          getCsrfTokenCookie();
         }
       })
       .catch((err) => {
@@ -200,131 +229,137 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <BaseLayout
-              isAuthenticated={isAuthenticated}
-              isAdmin={isAdmin}
-              onLogOut={handleLogOut}
-            />
-          }
-        >
-          <Route index element={<Home />} />
+    <CsrfTokenContext.Provider value={csrfTokenCookie}>
+      <BrowserRouter>
+        <Routes>
           <Route
-            path="admin/ticket-requests"
+            path="/"
             element={
-              <RequireAuth
-                isLoadingAuth={isLoadingAuth}
+              <BaseLayout
                 isAuthenticated={isAuthenticated}
-                AuthFailure={<AuthFailureRedirect />}
-              >
-                <RequireAdmin isLoadingAdmin={isLoadingAdmin} isAdmin={isAdmin}>
-                  <AdminTicketRequests isAuthenticated={isAuthenticated} />
-                </RequireAdmin>
-              </RequireAuth>
+                isAdmin={isAdmin}
+                onLogOut={handleLogOut}
+              />
             }
-          />
-          <Route path="blog" element={<Blog />} />
-          <Route path="events">
-            <Route index element={<Events />} />
-            <Route path=":eventId" element={<Event />} />
-          </Route>
-          <Route path="calendar" element={<Calendar />} />
-          <Route
-            path="lan"
-            element={<Lan isAuthenticated={isAuthenticated} />}
-          />
-          <Route path="lan/rules" element={<LanRules />} />
-          <Route path="lan/timetable" element={<LanTimetable />} />
-          <Route
-            path="lan/van-booking"
-            element={
-              <RequireAuth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-                AuthFailure={<AuthFailureRedirect />}
-              >
-                <LanVanBookingForm />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="lan/seat-booking"
-            element={
-              <RequireAuth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-                AuthFailure={<AuthFailureRedirect />}
-              >
-                <LanSeatBookingForm />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="lan/food-order"
-            element={
-              <RequireAuth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-                AuthFailure={<AuthFailureRedirect />}
-              >
-                <LanFoodOrderForm />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <RequireUnauth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-              >
-                <Login
+          >
+            <Route index element={<Home />} />
+            <Route
+              path="admin/ticket-requests"
+              element={
+                <RequireAuth
+                  isLoadingAuth={isLoadingAuth}
                   isAuthenticated={isAuthenticated}
-                  onIsAuthenticatedChange={handleIsAuthenticatedChange}
-                />
-              </RequireUnauth>
-            }
-          />
-          <Route
-            path="profile"
-            element={
-              <RequireAuth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-                AuthFailure={<AuthFailureRedirect />}
-              >
-                <Profile isAuthenticated={isAuthenticated} />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="register"
-            element={
-              <RequireUnauth
-                isLoadingAuth={isLoadingAuth}
-                isAuthenticated={isAuthenticated}
-              >
-                <Register isAuthenticated={isAuthenticated} />
-              </RequireUnauth>
-            }
-          />
-          {/* TODO: Create a component for rendering error messages */}
-          <Route
-            path="*"
-            element={
-              <main>
-                <Container>
-                  <p>Page not found</p>
-                </Container>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+                  AuthFailure={<AuthFailureRedirect />}
+                >
+                  <RequireAdmin
+                    isLoadingAdmin={isLoadingAdmin}
+                    isAdmin={isAdmin}
+                  >
+                    <AdminTicketRequests isAuthenticated={isAuthenticated} />
+                  </RequireAdmin>
+                </RequireAuth>
+              }
+            />
+            <Route path="blog" element={<Blog />} />
+            <Route path="events">
+              <Route index element={<Events />} />
+              <Route path=":eventId" element={<Event />} />
+            </Route>
+            <Route path="calendar" element={<Calendar />} />
+            <Route
+              path="lan"
+              element={<Lan isAuthenticated={isAuthenticated} />}
+            />
+            <Route path="lan/rules" element={<LanRules />} />
+            <Route path="lan/timetable" element={<LanTimetable />} />
+            <Route
+              path="lan/van-booking"
+              element={
+                <RequireAuth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                  AuthFailure={<AuthFailureRedirect />}
+                >
+                  <LanVanBookingForm />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="lan/seat-booking"
+              element={
+                <RequireAuth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                  AuthFailure={<AuthFailureRedirect />}
+                >
+                  <LanSeatBookingForm />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="lan/food-order"
+              element={
+                <RequireAuth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                  AuthFailure={<AuthFailureRedirect />}
+                >
+                  <LanFoodOrderForm />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <RequireUnauth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                >
+                  <Login
+                    isAuthenticated={isAuthenticated}
+                    onIsAuthenticatedChange={handleIsAuthenticatedChange}
+                    onCsrfTokenCookieChange={handleCsrfTokenCookieChange}
+                  />
+                </RequireUnauth>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <RequireAuth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                  AuthFailure={<AuthFailureRedirect />}
+                >
+                  <Profile isAuthenticated={isAuthenticated} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <RequireUnauth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                >
+                  <Register isAuthenticated={isAuthenticated} />
+                </RequireUnauth>
+              }
+            />
+            {/* TODO: Create a component for rendering error messages */}
+            <Route
+              path="*"
+              element={
+                <main>
+                  <Container>
+                    <p>Page not found</p>
+                  </Container>
+                </main>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </CsrfTokenContext.Provider>
   );
 }

@@ -21,3 +21,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 # TODO: Should I have a serializer for the login view?
 # class LoginSerializer()
+
+
+# TODO: Should snake_case fields be declared separately as camelCase?
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    isAdmin = serializers.BooleanField(source="is_staff")
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "deletion_date", "isAdmin")

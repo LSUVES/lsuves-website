@@ -22,7 +22,7 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .get(`/api/profile/`, { withCredentials: true })
+      .get(`/api/users/profile/`, { withCredentials: true })
       .then((res) => setProfile(res.data))
       .catch((err) => {
         setDisplay(AxiosError(err));
