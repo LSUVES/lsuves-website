@@ -11,6 +11,8 @@ import {
 } from "react-router-dom";
 import { Container } from "reactstrap";
 
+import "./App.css";
+
 import AdminTicketRequests from "./admin/AdminTicketRequests";
 import BaseLayout from "./baseLayout/BaseLayout";
 import Blog from "./blog/Blog";
@@ -24,13 +26,13 @@ import LanRules from "./lan/LanRules";
 import LanSeatBookingForm from "./lan/LanSeatBookingForm";
 import LanTimetable from "./lan/LanTimetable";
 import LanVanBookingForm from "./lan/LanVanBookingForm";
+import ForgotPassword from "./login_and_register/ForgotPassword";
 import Login from "./login_and_register/Login";
 import Register from "./login_and_register/Register";
+import ResetPassword from "./login_and_register/ResetPassword";
 import Profile from "./profile/Profile";
 import CsrfTokenContext from "./utils/CsrfTokenContext";
 import getCookie from "./utils/getCookie";
-
-import "./App.css";
 
 /** Wrapper for pages that require user authentication
  * @param {bool} isLoadingAuth - Whether the backend server has replied with the
@@ -320,6 +322,28 @@ export default function App() {
                     onIsAuthenticatedChange={handleIsAuthenticatedChange}
                     onCsrfTokenCookieChange={handleCsrfTokenCookieChange}
                   />
+                </RequireUnauth>
+              }
+            />
+            <Route
+              path="forgot-password"
+              element={
+                <RequireUnauth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                >
+                  <ForgotPassword />
+                </RequireUnauth>
+              }
+            />
+            <Route
+              path="reset-password"
+              element={
+                <RequireUnauth
+                  isLoadingAuth={isLoadingAuth}
+                  isAuthenticated={isAuthenticated}
+                >
+                  <ResetPassword />
                 </RequireUnauth>
               }
             />

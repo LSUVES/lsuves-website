@@ -58,7 +58,6 @@ export default function Login({
         // logs in, so it's necessary to call the handler for csrfTokenCookie
         // state value updates.
         onCsrfTokenCookieChange();
-        // navigate(location.state?.from?.pathname || "/");
         navigate(location.state?.from?.pathname || "/");
       })
       .catch((err) => {
@@ -128,7 +127,10 @@ export default function Login({
             </Button>
           </FormGroup>
         </Form>
-        {/* TODO: Add forgot password button */}
+        <small>
+          Forgot password? <a href="/forgot-password">Reset it here</a>.
+        </small>
+        <br />
         <small>
           Or <a href="/register">create an account</a>.
         </small>

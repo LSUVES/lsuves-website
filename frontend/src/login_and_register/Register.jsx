@@ -15,7 +15,15 @@ import {
 
 import CsrfTokenContext from "../utils/CsrfTokenContext";
 
-function useUpdateEffect(effect, dependencies = []) {
+export const MIN_PASSWORD_LENGTH = 8;
+
+export function useUpdateEffect(effect, dependencies = []) {
+  /**
+   * A custom hook that runs an effect when a component updates (and its dependencies change)
+   * but not on mount.
+   * @param {Function} effect - the effect function to be run
+   * @param {Array} dependencies - the values that when changed should cause the effect to run
+   */
   const isInitialMount = useRef(true);
 
   useEffect(() => {
@@ -65,7 +73,6 @@ export default function Register() {
   MIN_DATE.setUTCHours(0, 0, 0, 0);
   const MAX_DATE = new Date(`${MIN_DATE.getFullYear() + 5}-08-01`);
   MAX_DATE.setUTCHours(0, 0, 0, 0);
-  const MIN_PASSWORD_LENGTH = 8;
 
   function checkUsername() {
     // Checks whether username is a valid string but not whether it's free

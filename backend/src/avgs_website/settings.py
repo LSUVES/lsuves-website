@@ -10,12 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -152,8 +150,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # MEDIA_URL = ""
-# TODO: Use BASE_DIR.joinpath() instead of importing os
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -176,3 +173,15 @@ REST_FRAMEWORK = {
     # override a view's permissions would allow anyone to see/change its data.
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser"],
 }
+
+# Email settings
+# FIXME: In production, delete the following two lines, uncomment the below, and
+#        set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD to match the email account.
+# TODO: For testing, consider using MailHog or something to test rate-limiting.
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR.joinpath(".dev/emails")
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD = ""
