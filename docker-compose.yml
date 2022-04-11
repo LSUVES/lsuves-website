@@ -8,7 +8,7 @@ services:
         restart: always
         secrets:
             - db-password
-        volumes: 
+        volumes:
             - db-data:/var/lib/postgresql/data
         networks:
             - backend-network
@@ -21,16 +21,15 @@ services:
             # Note that this must be run as the database owner: 
             # https://github.com/peter-evans/docker-compose-healthcheck/issues/4#issuecomment-497930240
             # Moving this to the Dockerfile after declaring the user might avoid that
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
             interval: 10s
             timeout: 5s
             retries: 5
-    
+
     backend:
         build:
             context: backend
             target: production
-        restart: always
         ports:
             - "8000:8000"
         secrets:
@@ -43,10 +42,21 @@ services:
             db:
                 condition: service_healthy
 
+    cron:
+        build:
+            context: backend
+            target: cron
+        secrets:
+            - db-password
+        networks:
+            - backend-network
+        depends_on:
+            db:
+                condition: service_healthy
+
     frontend:
         # Might need to specify production image
         build: frontend
-        restart: always
         ports:
             - "80:80"
             # Port 3000 is only used for development

@@ -1,0 +1,6 @@
+# Set the path so we can use Python, default is "/usr/bin:/bin"
+PATH=/usr/local/bin:/usr/bin:/bin
+# Schedules the custom management command destroyexpiredusers, which destroys
+# user accounts with a date of deletion in the past, to run every day at noon 
+# (UTC + 00:00) as the user avgs and with its output redirected to Docker's.
+0 12 * * * su avgs -c '/src/manage.py destroyexpiredusers' > /proc/1/fd/1 2>/proc/1/fd/2

@@ -28,4 +28,4 @@ backend/src/*/migrations/*
 !backend/src/*/migrations/__init__.py
 backend/src/*.png
 backend/src/media/*
-backend/.dev/emails/*
+backend/src/.dev/emails/*

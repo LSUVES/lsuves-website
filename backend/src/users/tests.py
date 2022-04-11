@@ -1,9 +1,11 @@
 from calendar import monthrange
 from datetime import datetime, timedelta
+from io import StringIO
 
 from avgs_website.settings import TEST_HOST
 from avgs_website.utils import LongDocMixin
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.http.cookie import SimpleCookie
 from django.middleware.csrf import get_token
 from django.test import TestCase
@@ -13,11 +15,13 @@ from rest_framework.test import APIClient, APIRequestFactory
 
 
 # TODO: Incorporate into tests below.
-def create_test_user(username, password):
+def create_test_user(username, password, email="test@example.com", deletion_date=(timezone.now() + timedelta(days=31)).date(), superuser=False):
+    if superuser:
+        return get_user_model().objects.create_superuser(username=username, email=email, password=password)
     return get_user_model().objects.create_user(
         username=username,
-        email="test@example.com",
-        deletion_date=(timezone.now() + timedelta(days=31)).date(),
+        email=email,
+        deletion_date=deletion_date,
         password=password,
     )
 
@@ -25,7 +29,7 @@ def create_test_user(username, password):
 # TODO: Consider using a faster password hashing algorithm as mentioned in the docs:
 #       https://docs.djangoproject.com/en/4.0/topics/testing/overview/#password-hashing
 #       Store username, email, password values in constants like valid_deletion_date (capitalise name)
-
+#       Split into separate files.
 
 class UserModelTests(LongDocMixin, TestCase):
     @classmethod
@@ -225,3 +229,62 @@ class LoginViewTests(LongDocMixin, TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("sessionid" in self.client.cookies.keys())
+
+
+class DestroyexpiredusersTests(LongDocMixin, TestCase):
+    """
+    Tests for the destroyexpiredusers custom command under users/management/commands.
+    """
+    @classmethod
+    def setUpTestData(cls):
+        cls.User = get_user_model()
+        cls.username = "test"
+        cls.password = "testpass"
+    
+    def test_ignores_superuser(self):
+        """
+        destroyexpiredusers should ignore superusers.
+        """
+        superuser = create_test_user(self.username, self.password, superuser=True)
+        out = StringIO()
+        call_command("destroyexpiredusers", stdout=out)
+        self.assertIn("Found 0 expired user accounts.\nFinished in", out.getvalue())
+        self.assertIn(superuser, get_user_model().objects.all())
+
+    def test_ignores_unexpired_user(self):
+        """
+        destroyexpiredusers should ignore users with a date of deletion in the future.
+        """
+        unexpired_user = create_test_user(self.username, self.password)
+        out = StringIO()
+        call_command("destroyexpiredusers", stdout=out)
+        self.assertIn("Found 0 expired user accounts.\nFinished in", out.getvalue())
+        self.assertIn(unexpired_user, get_user_model().objects.all())
+
+    def test_delete_expired_user(self):
+        """
+        destroyexpiredusers should delete users with a date of deletion in the past.
+        """
+        expired_user = create_test_user(self.username, self.password)
+        expired_user.deletion_date = (timezone.now() - timedelta(days=1)).date()
+        expired_user.save()
+        out = StringIO()
+        call_command("destroyexpiredusers", stdout=out)
+        self.assertIn("Found 1 expired user accounts.\nDestroying user: {}\nUser destroyed.\nFinished in".format(self.username), out.getvalue())
+        self.assertNotIn(expired_user, get_user_model().objects.all())
+
+    def test_delete_expired_users(self):
+        """
+        destroyexpiredusers should be able to delete multiple users in a single run.
+        """
+        expired_user_1 = create_test_user(self.username, self.password)
+        expired_user_1.deletion_date = (timezone.now() - timedelta(days=1)).date()
+        expired_user_1.save()
+        expired_user_2 = create_test_user("test2", "test2pass")
+        expired_user_2.deletion_date = (timezone.now() - timedelta(days=1)).date()
+        expired_user_2.save()
+        out = StringIO()
+        call_command("destroyexpiredusers", stdout=out)
+        self.assertIn("Found 2 expired user accounts.\nDestroying user: {}\nUser destroyed.\nDestroying user: {}\nUser destroyed.\nFinished in".format(self.username, "test2"), out.getvalue())
+        self.assertNotIn(expired_user_1, get_user_model().objects.all())
+        self.assertNotIn(expired_user_2, get_user_model().objects.all())

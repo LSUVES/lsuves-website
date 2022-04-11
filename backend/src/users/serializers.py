@@ -12,6 +12,7 @@ from rest_framework import serializers
 from .models import User
 
 
+# TODO: Use regular serializer since url is not included as a field.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
