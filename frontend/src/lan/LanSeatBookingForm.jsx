@@ -54,7 +54,6 @@ export default function LanSeatBookingForm() {
               </FormGroup>
               <FormGroup>
                 <Label for="preference">Seating preference</Label>
-                {/* FIXME: Why does the type helptext lag? It's Chrome. */}
                 <Input
                   id="preference"
                   name="preference"

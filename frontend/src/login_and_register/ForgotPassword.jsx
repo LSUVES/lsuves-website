@@ -39,7 +39,7 @@ export default function ForgotPassword() {
   return (
     <main className="d-flex flex-column vh-100">
       <Container className="m-auto AccountCredentialsForm">
-        <h2>Forgot Password?</h2>
+        <h2>Forgot password?</h2>
         <p>
           Enter the email attached to your account and we&apos;ll send you an
           email with a link to reset your password.

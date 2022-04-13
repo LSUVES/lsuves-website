@@ -1,3 +1,4 @@
+from avgs_website.permissions import IsOwner
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from events.models import Event
@@ -7,7 +8,6 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import *
-from .permissions import IsOwner
 from .serializers import *
 
 

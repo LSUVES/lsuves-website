@@ -14,10 +14,20 @@ from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory
 
 
-# TODO: Incorporate into tests below.
-def create_test_user(username, password, email="test@example.com", deletion_date=(timezone.now() + timedelta(days=31)).date(), superuser=False):
+def create_test_user(
+    username,
+    password,
+    email="test@example.com",
+    deletion_date=(timezone.now() + timedelta(days=31)).date(),
+    superuser=False,
+):
+    """
+    A function to simplify the creation of valid users for testing.
+    """
     if superuser:
-        return get_user_model().objects.create_superuser(username=username, email=email, password=password)
+        return get_user_model().objects.create_superuser(
+            username=username, email=email, password=password
+        )
     return get_user_model().objects.create_user(
         username=username,
         email=email,
@@ -28,29 +38,36 @@ def create_test_user(username, password, email="test@example.com", deletion_date
 
 # TODO: Consider using a faster password hashing algorithm as mentioned in the docs:
 #       https://docs.djangoproject.com/en/4.0/topics/testing/overview/#password-hashing
-#       Store username, email, password values in constants like valid_deletion_date (capitalise name)
 #       Split into separate files.
 
+
 class UserModelTests(LongDocMixin, TestCase):
+    """
+    Tests for the project's user model (which should be the custom user model from this app).
+    """
+
     @classmethod
     def setUpTestData(cls):
-        cls.User = get_user_model()
-        cls.valid_deletion_date = (timezone.now() + timedelta(days=31)).date()
+        cls.USER = get_user_model()
+        cls.USERNAME = "test"
+        cls.PASSWORD = "testpass"
+        cls.EMAIL = "test@example.com"
+        cls.VALID_DELETION_DATE = (timezone.now() + timedelta(days=31)).date()
 
     def test_create_user_with_valid_params(self):
         """
         create_user() returns a matching active normal user when called with
         valid parameters.
         """
-        user = self.User.objects.create_user(
-            username="test",
-            email="test@example.com",
-            deletion_date=self.valid_deletion_date,
-            password="testpass",
+        user = self.USER.objects.create_user(
+            username=self.USERNAME,
+            email=self.EMAIL,
+            deletion_date=self.VALID_DELETION_DATE,
+            password=self.PASSWORD,
         )
-        self.assertEqual(user.username, "test")
-        self.assertEqual(user.email, "test@example.com")
-        self.assertEqual(user.deletion_date, self.valid_deletion_date)
+        self.assertEqual(user.username, self.USERNAME)
+        self.assertEqual(user.email, self.EMAIL)
+        self.assertEqual(user.deletion_date, self.VALID_DELETION_DATE)
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
@@ -60,13 +77,13 @@ class UserModelTests(LongDocMixin, TestCase):
         create_superuser() returns a macthing active superuser when called
         with valid parameters.
         """
-        user = self.User.objects.create_superuser(
-            username="test",
-            email="test@example.com",
-            password="testpass",
+        user = self.USER.objects.create_superuser(
+            username=self.USERNAME,
+            email=self.EMAIL,
+            password=self.PASSWORD,
         )
-        self.assertEqual(user.username, "test")
-        self.assertEqual(user.email, "test@example.com")
+        self.assertEqual(user.username, self.USERNAME)
+        self.assertEqual(user.email, self.EMAIL)
         self.assertTrue(user.is_active)
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
@@ -76,28 +93,28 @@ class UserModelTests(LongDocMixin, TestCase):
         create_user() raises a TypeError when required parameters are missing.
         """
         with self.assertRaises(TypeError):
-            self.User.objects.create_user()
+            self.USER.objects.create_user()
         with self.assertRaises(TypeError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
-                deletion_date=self.valid_deletion_date,
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
+                deletion_date=self.VALID_DELETION_DATE,
             )
         with self.assertRaises(TypeError):
-            self.User.objects.create_user(
-                username="test",
-                deletion_date=self.valid_deletion_date,
-                password="testpass",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                deletion_date=self.VALID_DELETION_DATE,
+                password=self.PASSWORD,
             )
         with self.assertRaises(TypeError):
-            self.User.objects.create_user(
-                username="test", email="test@example.com", password="testpass"
+            self.USER.objects.create_user(
+                username=self.USERNAME, email=self.EMAIL, password=self.PASSWORD
             )
         with self.assertRaises(TypeError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
-                deletion_date=self.valid_deletion_date,
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
+                deletion_date=self.VALID_DELETION_DATE,
             )
 
     def test_create_superuser_with_missing_params(self):
@@ -105,21 +122,21 @@ class UserModelTests(LongDocMixin, TestCase):
         create_superuser() raises a TypeError when required parameters are missing.
         """
         with self.assertRaises(TypeError):
-            self.User.objects.create_superuser()
+            self.USER.objects.create_superuser()
         with self.assertRaises(TypeError):
-            self.User.objects.create_superuser(
-                username="test",
-                email="test@example.com",
+            self.USER.objects.create_superuser(
+                username=self.USERNAME,
+                email=self.EMAIL,
             )
         with self.assertRaises(TypeError):
-            self.User.objects.create_superuser(
-                username="test",
-                password="testpass",
+            self.USER.objects.create_superuser(
+                username=self.USERNAME,
+                password=self.PASSWORD,
             )
         with self.assertRaises(TypeError):
-            self.User.objects.create_superuser(
-                username="test",
-                email="test@example.com",
+            self.USER.objects.create_superuser(
+                username=self.USERNAME,
+                email=self.EMAIL,
             )
 
     def test_create_user_with_invalid_params(self):
@@ -128,48 +145,48 @@ class UserModelTests(LongDocMixin, TestCase):
         or deletion_date is not between next month and 5 years in the future
         """
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
+            self.USER.objects.create_user(
                 username="",
-                email="test@example.com",
-                password="testpass",
-                deletion_date=self.valid_deletion_date,
+                email=self.EMAIL,
+                password=self.PASSWORD,
+                deletion_date=self.VALID_DELETION_DATE,
             )
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
-                username="test",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
                 email="",
-                password="testpass",
-                deletion_date=self.valid_deletion_date,
+                password=self.PASSWORD,
+                deletion_date=self.VALID_DELETION_DATE,
             )
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
                 password="",
-                deletion_date=self.valid_deletion_date,
+                deletion_date=self.VALID_DELETION_DATE,
             )
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
-                password="testpass",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
+                password=self.PASSWORD,
                 deletion_date=None,
             )
         current_date = timezone.now().date()
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
-                password="testpass",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
+                password=self.PASSWORD,
                 deletion_date=current_date.replace(
                     day=monthrange(current_date.year, current_date.month)[1]
                 ),
             )
         with self.assertRaises(ValueError):
-            self.User.objects.create_user(
-                username="test",
-                email="test@example.com",
-                password="testpass",
+            self.USER.objects.create_user(
+                username=self.USERNAME,
+                email=self.EMAIL,
+                password=self.PASSWORD,
                 deletion_date=current_date.replace(
                     year=current_date.year + 6, month=8, day=1
                 ),
@@ -177,14 +194,18 @@ class UserModelTests(LongDocMixin, TestCase):
 
 
 class LoginViewTests(LongDocMixin, TestCase):
+    """
+    Tests for the login view.
+    """
+
     @classmethod
     def setUpTestData(cls):
         cls.URL_PREFIX = "/api/users/login/"
-        cls.User = get_user_model()
-        cls.username = "test"
-        cls.password = "testpass"
-        cls.User.objects.create_superuser(
-            username=cls.username, email="test@example.com", password=cls.password
+        cls.USER = get_user_model()
+        cls.USERNAME = "test"
+        cls.PASSWORD = "testpass"
+        cls.USER.objects.create_superuser(
+            username=cls.USERNAME, email="test@example.com", password=cls.PASSWORD
         )
 
     def setUp(self):
@@ -192,19 +213,19 @@ class LoginViewTests(LongDocMixin, TestCase):
 
     def test_csrf_unset(self):
         """
-        posting valid login credentials to /api/users/login/ with CSRF token and cookie not set
+        Posting valid login credentials to /api/users/login/ with CSRF token and cookie not set
         returns a HTTP 403 Forbidden response
         """
         response = self.client.post(
             self.URL_PREFIX,
-            {"username": self.username, "password": self.password},
+            {"username": self.USERNAME, "password": self.PASSWORD},
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_csrf_set(self):
         """
-        posting valid login credentials to /api/users/login/ with CSRF token and cookie set
+        Posting valid login credentials to /api/users/login/ with CSRF token and cookie set
         successfully returns the associated user's session
         """
         # Use APIRequestFactory to create a bogus request object that can be passed into get_token()
@@ -224,28 +245,57 @@ class LoginViewTests(LongDocMixin, TestCase):
         # TODO: add format="json"?
         response = self.client.post(
             self.URL_PREFIX,
-            {"username": "test", "password": "testpass"},
+            {"username": self.USERNAME, "password": self.PASSWORD},
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("sessionid" in self.client.cookies.keys())
 
 
+class ProfileViewTests(LongDocMixin, TestCase):
+    """
+    Tests for the profile view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.URL_PREFIX = "/api/users/profile/"
+        # cls.USER = get_user_model()
+        cls.USERNAME = "test"
+        cls.PASSWORD = "testpass"
+        # cls.USER.objects.create_superuser(
+        #     username=cls.USERNAME, email="test@example.com", password=cls.PASSWORD
+        # )
+
+    def test_get_profile(self):
+        pass
+
+    def test_put_valid_data_profile(self):
+        pass
+
+    def test_put_invalid_data_profile(self):
+        pass
+
+
+# TOOO: Add tests for all actions/routes
+
+
 class DestroyexpiredusersTests(LongDocMixin, TestCase):
     """
     Tests for the destroyexpiredusers custom command under users/management/commands.
     """
+
     @classmethod
     def setUpTestData(cls):
-        cls.User = get_user_model()
-        cls.username = "test"
-        cls.password = "testpass"
-    
+        cls.USER = get_user_model()
+        cls.USERNAME = "test"
+        cls.PASSWORD = "testpass"
+
     def test_ignores_superuser(self):
         """
         destroyexpiredusers should ignore superusers.
         """
-        superuser = create_test_user(self.username, self.password, superuser=True)
+        superuser = create_test_user(self.USERNAME, self.PASSWORD, superuser=True)
         out = StringIO()
         call_command("destroyexpiredusers", stdout=out)
         self.assertIn("Found 0 expired user accounts.\nFinished in", out.getvalue())
@@ -255,7 +305,7 @@ class DestroyexpiredusersTests(LongDocMixin, TestCase):
         """
         destroyexpiredusers should ignore users with a date of deletion in the future.
         """
-        unexpired_user = create_test_user(self.username, self.password)
+        unexpired_user = create_test_user(self.USERNAME, self.PASSWORD)
         out = StringIO()
         call_command("destroyexpiredusers", stdout=out)
         self.assertIn("Found 0 expired user accounts.\nFinished in", out.getvalue())
@@ -265,19 +315,24 @@ class DestroyexpiredusersTests(LongDocMixin, TestCase):
         """
         destroyexpiredusers should delete users with a date of deletion in the past.
         """
-        expired_user = create_test_user(self.username, self.password)
+        expired_user = create_test_user(self.USERNAME, self.PASSWORD)
         expired_user.deletion_date = (timezone.now() - timedelta(days=1)).date()
         expired_user.save()
         out = StringIO()
         call_command("destroyexpiredusers", stdout=out)
-        self.assertIn("Found 1 expired user accounts.\nDestroying user: {}\nUser destroyed.\nFinished in".format(self.username), out.getvalue())
+        self.assertIn(
+            "Found 1 expired user accounts.\nDestroying user: {}\nUser destroyed.\nFinished in".format(
+                self.USERNAME
+            ),
+            out.getvalue(),
+        )
         self.assertNotIn(expired_user, get_user_model().objects.all())
 
     def test_delete_expired_users(self):
         """
         destroyexpiredusers should be able to delete multiple users in a single run.
         """
-        expired_user_1 = create_test_user(self.username, self.password)
+        expired_user_1 = create_test_user(self.USERNAME, self.PASSWORD)
         expired_user_1.deletion_date = (timezone.now() - timedelta(days=1)).date()
         expired_user_1.save()
         expired_user_2 = create_test_user("test2", "test2pass")
@@ -285,6 +340,11 @@ class DestroyexpiredusersTests(LongDocMixin, TestCase):
         expired_user_2.save()
         out = StringIO()
         call_command("destroyexpiredusers", stdout=out)
-        self.assertIn("Found 2 expired user accounts.\nDestroying user: {}\nUser destroyed.\nDestroying user: {}\nUser destroyed.\nFinished in".format(self.username, "test2"), out.getvalue())
+        self.assertIn(
+            "Found 2 expired user accounts.\nDestroying user: {}\nUser destroyed.\nDestroying user: {}\nUser destroyed.\nFinished in".format(
+                self.USERNAME, "test2"
+            ),
+            out.getvalue(),
+        )
         self.assertNotIn(expired_user_1, get_user_model().objects.all())
         self.assertNotIn(expired_user_2, get_user_model().objects.all())

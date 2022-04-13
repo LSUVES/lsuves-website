@@ -37,7 +37,7 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "email", "deletion_date", "isAdmin")
+        fields = ("username", "email", "deletion_date", "isAdmin", "is_superuser")
 
 
 class PasswordResetEmailSerializer(serializers.Serializer):

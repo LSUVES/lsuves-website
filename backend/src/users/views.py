@@ -91,10 +91,24 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return JsonResponse({"isAuthenticated": False})
 
-    @action(detail=False)
+    @action(methods=["GET", "PATCH"], detail=False)
     def profile(self, request):
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
+        """
+        Custom action for displaying an updating the information associated with
+        the requesting user.
+        """
+        if request.method == "PATCH":
+            serializer = self.get_serializer(
+                request.user, data=request.data, partial=True
+            )
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = self.get_serializer(request.user)
+            return Response(serializer.data)
 
     @method_decorator(csrf_protect)
     @action(methods=["POST"], detail=False)

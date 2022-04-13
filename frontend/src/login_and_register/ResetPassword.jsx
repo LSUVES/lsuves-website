@@ -13,7 +13,8 @@ import {
 } from "reactstrap";
 
 import "./LoginAndRegister.css";
-import { MIN_PASSWORD_LENGTH, useUpdateEffect } from "./Register";
+import useUpdateEffect from "../hooks/useUpdateEffect";
+import { MIN_PASSWORD_LENGTH } from "./accountValidation";
 
 export default function ResetPassword() {
   const navigate = useNavigate();

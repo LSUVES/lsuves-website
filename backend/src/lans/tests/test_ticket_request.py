@@ -126,9 +126,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
             HTTP_HOST=TEST_HOST,
         )
         # Quickly verify that this ticket request's owner's id matches this user's.
-        self.assertEqual(
-            authed2_get_own_response.data["user"]["id"], self.USER2.id
-        )
+        self.assertEqual(authed2_get_own_response.data["user"]["id"], self.USER2.id)
 
         # Attempt to retrieve another user's ticket request.
         authed2_get_other_response = self.client.get(
@@ -171,9 +169,10 @@ class TicketRequestTests(LongDocMixin, TestCase):
         # Since the responses use different serializers, they can't be directly
         # compared as in self.assertEqual(all, [authed1, authed2])
         both_post_responses = [authed1_post_response.data, authed2_post_response.data]
-        self.assertTrue((len(
-            admin_get_all_response.data) ==
-            len(both_post_responses) == 2) and (admin_get_all_response.data[0]["id"] == both_post_responses[0]["id"]) and (admin_get_all_response.data[1]["id"] == both_post_responses[1]["id"])
+        self.assertTrue(
+            (len(admin_get_all_response.data) == len(both_post_responses) == 2)
+            and (admin_get_all_response.data[0]["id"] == both_post_responses[0]["id"])
+            and (admin_get_all_response.data[1]["id"] == both_post_responses[1]["id"])
         )
 
         # Delete a user's ticket request.
@@ -186,8 +185,12 @@ class TicketRequestTests(LongDocMixin, TestCase):
             "{}".format(self.URL_PREFIX),
             HTTP_HOST=TEST_HOST,
         )
-        self.assertTrue((
-            len(admin_get_all_again_response.data) == 1) and (admin_get_all_again_response.data[0]["id"] == authed1_post_response.data["id"])
+        self.assertTrue(
+            (len(admin_get_all_again_response.data) == 1)
+            and (
+                admin_get_all_again_response.data[0]["id"]
+                == authed1_post_response.data["id"]
+            )
         )
 
         # Attempt to update a user's ticket request.

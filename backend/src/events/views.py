@@ -1,3 +1,4 @@
+from avgs_website.permissions import IsAdminUserOrReadOnly
 from django.db.models.query_utils import Q
 from django.shortcuts import render
 from lans.views import get_current_lan
@@ -14,6 +15,7 @@ from .serializers import EventSerializer
 class EventsViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
     # TODO: Move this to a Manager method on the Events model?
     def get_queryset(self):
@@ -42,19 +44,6 @@ class EventsViewSet(viewsets.ModelViewSet):
         self.queryset = self.queryset.order_by("start_time")
 
         return super().get_queryset()
-
-    def get_permissions(self):
-        # All users can see events but only admins can create, edit, or
-        # delete them.
-        if self.action in SAFE_METHODS + (
-            "list",
-            "current_lan",
-            "current_lan_events",
-        ):
-            self.permission_classes = [AllowAny]
-        else:
-            self.permission_classes = [IsAdminUser]
-        return super().get_permissions()
 
     # FIXME: Should return negative if get_current_lan() throws Event.DoesNotExist
     @action(detail=False)

@@ -35,6 +35,7 @@ CMD [ "cron", "-f" ]
 # USER root
 FROM builder AS development
 
+RUN echo $USER
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # TODO: I think create-home is only needed coz of VSCode but I should test this

@@ -120,7 +120,25 @@ export default function Lan({ isAuthenticated }) {
       </Container>
       <Container className="mt-5">
         <Row>
-          {!requestedTicket && (
+          <Col sm="6">
+            <h2>What is a LAN party?</h2>
+            <p>
+              Typically held in the James France auditorium over an entire
+              weekend (Friday evening to Sunday afternoon), LAN parties (or
+              LANs, for short) provide a space for you bring your own
+              computer/console and play among friends, as well as with the
+              society&apos;s games and equipment. With a variety of games and
+              tournaments to take part in, LANs are a great place to meet new
+              people, win prizes, and, of course, play video (and tabletop!)
+              games.
+            </p>
+            <p>
+              Regular tickets buy you a seat, table and two plug sockets for
+              your set-up (don&apos;t worry about carrying everything, we offer
+              a van pickup and drop-off service).
+            </p>
+          </Col>
+          {currentLan && !requestedTicket && (
             <Col sm="6">
               <h2>How to get a ticket</h2>
               <ol>

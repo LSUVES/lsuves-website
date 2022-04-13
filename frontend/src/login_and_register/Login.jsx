@@ -1,26 +1,27 @@
-// import React, { useEffect, useState } from "react";
 import React, { useContext, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
+import {
+  Alert,
+  Button,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 
 import CsrfTokenContext from "../utils/CsrfTokenContext";
 import "./LoginAndRegister.css";
 
-// export default function Login({ isAuthenticated, onIsAuthenticatedChange }) {
 export default function Login({
   onIsAuthenticatedChange,
   onCsrfTokenCookieChange,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate("/");
-  //   }
-  // }, [isAuthenticated]);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -62,6 +63,7 @@ export default function Login({
       })
       .catch((err) => {
         // TODO: DRY this out with AxiosError.jsx
+        //       Handle username conflicts
         console.log(err);
         if (err.response) {
           if (err.response.status === 400) {
@@ -75,44 +77,47 @@ export default function Login({
       });
   }
   return (
-    <main className="d-flex flex-column vh-100">
+    <main className="d-flex flex-column vh-100 text-center">
       <Container className="m-auto AccountCredentialsForm">
-        <h2>Log in</h2>
-        {loginError && <p className="bg-danger text-white">{loginError}</p>}
+        <h2 className="mb-3">Log in</h2>
+        {loginError && <Alert color="danger">{loginError}</Alert>}
         <Form
           onSubmit={(e) => {
             e.preventDefault();
             login();
           }}
         >
-          <FormGroup>
-            <Label for="username">Username</Label>
+          <FormGroup floating>
             <Input
               id="username"
               name="username"
               value={username}
+              placeholder="Username"
               onInput={(e) => setUsername(e.target.value)}
             />
+            <Label for="username">Username</Label>
           </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
+          <FormGroup floating>
             <Input
               id="password"
               name="password"
               type={passwordInputType}
               value={password}
+              placeholder="Password"
               onInput={(e) => setPassword(e.target.value)}
             />
+            <Label for="password">Password</Label>
             {/* TODO: Show password by default on mobile devices */}
+          </FormGroup>
+          <Label className="mb-3">
             <Input
               id="show-password"
               name="show-password"
               type="checkbox"
               onClick={showPassword}
             />{" "}
-            <Label for="show-password">Show Password</Label>
-          </FormGroup>
-
+            Show password
+          </Label>
           {/* TODO: Make cookies expire quickly by default and add stay signed in option
                     for longer timer
                     https://docs.djangoproject.com/en/4.0/topics/http/sessions/#browser-length-sessions-vs-persistent-sessions
@@ -122,7 +127,7 @@ export default function Login({
             <Label for="stay-signed-in">Stay signed in</Label>
           </FormGroup> */}
           <FormGroup>
-            <Button id="submit" name="submit">
+            <Button id="submit" name="submit" color="primary" size="lg" block>
               Log in
             </Button>
           </FormGroup>
@@ -139,7 +144,6 @@ export default function Login({
   );
 }
 Login.propTypes = {
-  // isAuthenticated: propTypes.bool.isRequired,
   onIsAuthenticatedChange: propTypes.func.isRequired,
   onCsrfTokenCookieChange: propTypes.func.isRequired,
 };
