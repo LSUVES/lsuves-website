@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import propTypes from "prop-types";
 import {
   BrowserRouter,
   Navigate,
@@ -9,119 +8,38 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { Container } from "reactstrap";
 
 import "./App.css";
 
-import AdminTicketRequests from "./admin/AdminTicketRequests";
-import BaseLayout from "./baseLayout/BaseLayout";
-import Blog from "./blog/Blog";
-import Calendar from "./calendar/Calendar";
-import Event from "./event/Event";
-import Events from "./event/Events";
-import Home from "./home/Home";
-import Lan from "./lan/Lan";
-import LanFoodOrderForm from "./lan/LanFoodOrderForm";
-import LanRules from "./lan/LanRules";
-import LanSeatBookingForm from "./lan/LanSeatBookingForm";
-import LanTimetable from "./lan/LanTimetable";
-import LanVanBookingForm from "./lan/LanVanBookingForm";
-import ForgotPassword from "./login_and_register/ForgotPassword";
-import Login from "./login_and_register/Login";
-import Register from "./login_and_register/Register";
-import ResetPassword from "./login_and_register/ResetPassword";
-import Profile from "./profile/Profile";
-import CsrfTokenContext from "./utils/CsrfTokenContext";
+import AdminLayout from "./components/layout/AdminLayout";
+import BaseLayout from "./components/layout/BaseLayout";
+import {
+  RequireAdmin,
+  RequireAuth,
+  RequireUnauth,
+} from "./components/routing/pageRestrictions";
+import CsrfTokenContext from "./contexts/CsrfTokenContext";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminTicketRequests from "./pages/admin/TicketRequests";
+import ForgotPassword from "./pages/authentication/ForgotPassword";
+import Login from "./pages/authentication/Login";
+import Register from "./pages/authentication/Register";
+import ResetPassword from "./pages/authentication/ResetPassword";
+import Blog from "./pages/blog/Blog";
+import Calendar from "./pages/calendar/Calendar";
+import PageNotFound from "./pages/errors/PageNotFound";
+import Event from "./pages/event/Event";
+import Events from "./pages/event/Events";
+import Home from "./pages/home/Home";
+import Lan from "./pages/lan/Lan";
+import LanFoodOrderForm from "./pages/lan/LanFoodOrderForm";
+import LanRules from "./pages/lan/LanRules";
+import LanSeatBookingForm from "./pages/lan/LanSeatBookingForm";
+import LanTimetable from "./pages/lan/LanTimetable";
+import LanVanBookingForm from "./pages/lan/LanVanBookingForm";
+import Profile from "./pages/profile/Profile";
 import getCookie from "./utils/getCookie";
 
-/** Wrapper for pages that require user authentication
- * @param {bool} isLoadingAuth - Whether the backend server has replied with the
- *                               user's auth status.
- * @param {bool} isAuthenticated - Whether the user is authenticated or not.
- * @param {ReactNode} AuthFailure - What to return on authentication failure.
- */
-function RequireAuth({
-  isLoadingAuth,
-  isAuthenticated,
-  AuthFailure,
-  children,
-}) {
-  // Show a loading display while waiting for a response from the backend
-  // TODO: Swap the text for a spinny
-  const [loadingDisplay, setLoadingDisplay] = useState();
-  if (isLoadingAuth) {
-    // If loading display hasn't been set yet (to prevent infinite updates),
-    // schedule it to be set after a second to allow for standard latency
-    // FIXME: use useEffect cleanup function to ensure this subscription
-    //        (and the one in RequireUnAuth) is cancelled
-    if (!loadingDisplay) {
-      setTimeout(() => {
-        setLoadingDisplay(<Container>Loading...</Container>);
-      }, 1000);
-    }
-    return <main className="d-flex flex-column">{loadingDisplay}</main>;
-  }
-  // If user isn't authenticated, return AuthFailure
-  if (!isAuthenticated) {
-    return AuthFailure;
-  }
-
-  // If the user's authenticated, return the children
-  return children;
-}
-RequireAuth.propTypes = {
-  isLoadingAuth: propTypes.bool.isRequired,
-  isAuthenticated: propTypes.bool.isRequired,
-  AuthFailure: propTypes.node.isRequired,
-  children: propTypes.node.isRequired,
-};
-
-// The opposite of RequireAuth, for the register and login page
-function RequireUnauth({ isLoadingAuth, isAuthenticated, children }) {
-  const [loadingDisplay, setLoadingDisplay] = useState();
-  if (isLoadingAuth) {
-    if (!loadingDisplay) {
-      setTimeout(() => {
-        setLoadingDisplay(<Container>Loading...</Container>);
-      }, 1000);
-    }
-    return <main className="d-flex flex-column">{loadingDisplay}</main>;
-  }
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}
-RequireUnauth.propTypes = {
-  isLoadingAuth: propTypes.bool.isRequired,
-  isAuthenticated: propTypes.bool.isRequired,
-  children: propTypes.node.isRequired,
-};
-
-function RequireAdmin({ isAdmin, isLoadingAdmin, children }) {
-  const [loadingDisplay, setLoadingDisplay] = useState();
-
-  if (isLoadingAdmin) {
-    if (!loadingDisplay) {
-      setTimeout(() => {
-        setLoadingDisplay(<Container>Loading...</Container>);
-      }, 1000);
-    }
-    return <main className="d-flex flex-column">{loadingDisplay}</main>;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}
-RequireAdmin.propTypes = {
-  isLoadingAdmin: propTypes.bool.isRequired,
-  isAdmin: propTypes.bool.isRequired,
-  children: propTypes.node.isRequired,
-};
 // TODO: Add more comments
 //       Fix eslint exhaustive deps warnings:
 //       https://typeofnan.dev/you-probably-shouldnt-ignore-react-hooks-exhaustive-deps-warnings/
@@ -137,21 +55,22 @@ export default function App() {
   const [isLoadingAdmin, setIsLoadingAdmin] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // TODO: Can't you just pass setIsAuthenticatedState to components?
+  // TODO: Just pass setIsAuthenticatedState to components?
   const handleIsAuthenticatedChange = (newIsAuthenticated) => {
     setIsAuthenticated(newIsAuthenticated);
   };
 
   function getSession() {
-    // TODO: display an alert if user times out (instead of redirecting them?)
-    //       compress the isAdmin lookup into the session lookup
+    // Gets the user's session information from the backend, i.e., whether
+    // they're authenticated and an admin user.
+    // TODO: Display an alert if user times out (instead of redirecting them?)
+    //       Compress the isAdmin lookup into the session lookup, at any rate don't request if unauthed.
     axios
       .get("/api/users/is_authenticated/", {
         withCredentials: true,
         timeout: 10000,
       })
       .then((res) => {
-        console.log(`is_authenticated:${res.data}`);
         if (res.data.isAuthenticated) {
           handleIsAuthenticatedChange(true);
         } else {
@@ -165,6 +84,7 @@ export default function App() {
     axios
       .get(`/api/users/profile/`, { withCredentials: true })
       .then((res) => {
+        console.log(`profile fetched, isAdmin=${res.data.isAdmin}`);
         setIsAdmin(res.data.isAdmin);
         setIsLoadingAdmin(false);
       })
@@ -173,9 +93,9 @@ export default function App() {
       });
   }
 
+  // When the value of the CSRF token cookie changes, either on page load or log in,
+  // send a request to fetch the user's session.
   useEffect(() => {
-    console.log(`state: ${csrfTokenCookie}`);
-    console.log(`cookie: ${getCookie("csrftoken")}`);
     if (csrfTokenCookie) {
       getSession();
     }
@@ -199,11 +119,14 @@ export default function App() {
       });
   }
 
+  // On initial page load, ensure the CSRF token cookie is set by sending a
+  // request to the backend.
   useEffect(() => {
     getCsrfTokenCookie();
   }, []);
 
   const handleLogOut = () => {
+    // Handle the user logging out.
     axios
       .post(
         "/api/users/logout/",
@@ -211,9 +134,9 @@ export default function App() {
         { withCredentials: true, headers: { "X-CSRFToken": csrfTokenCookie } }
       )
       .then((res) => {
-        console.log(res.data);
         if (res.status >= 200 && res.status <= 299) {
           handleIsAuthenticatedChange(false);
+          // TODO: Shouldn't this be handleCsrfTokenCookieChange? Or is it even necessary with the useEffect?
           getCsrfTokenCookie();
         }
       })
@@ -246,7 +169,7 @@ export default function App() {
           >
             <Route index element={<Home />} />
             <Route
-              path="admin/ticket-requests"
+              path="admin"
               element={
                 <RequireAuth
                   isLoadingAuth={isLoadingAuth}
@@ -257,11 +180,19 @@ export default function App() {
                     isLoadingAdmin={isLoadingAdmin}
                     isAdmin={isAdmin}
                   >
-                    <AdminTicketRequests isAuthenticated={isAuthenticated} />
+                    <AdminLayout />
                   </RequireAdmin>
                 </RequireAuth>
               }
-            />
+            >
+              <Route index element={<Dashboard />} />
+              <Route
+                path="ticket-requests"
+                element={
+                  <AdminTicketRequests isAuthenticated={isAuthenticated} />
+                }
+              />
+            </Route>
             <Route path="blog" element={<Blog />} />
             <Route path="events">
               <Route index element={<Events />} />
@@ -371,16 +302,7 @@ export default function App() {
               }
             />
             {/* TODO: Create a component for rendering error messages */}
-            <Route
-              path="*"
-              element={
-                <main>
-                  <Container>
-                    <p>Page not found</p>
-                  </Container>
-                </main>
-              }
-            />
+            <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,9 +1,0 @@
-.HomeBackground {
-    background-image: linear-gradient(
-        to top, transparent, 80%, white),
-        url("/src/blan.png");
-    height: 1080px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}

@@ -1,0 +1,8 @@
+.HomeBackground {
+    background-image: linear-gradient(
+        to top, transparent, 80%, white),
+        url("/src/assets/blan.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
