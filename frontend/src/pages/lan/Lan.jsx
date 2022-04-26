@@ -114,7 +114,7 @@ export default function Lan({ isAuthenticated }) {
         {currentLan && (
           <>
             <h2>{currentLan.name}</h2>
-            {Number.isInteger(lanCountdownTime) && (
+            {Number.isInteger(lanCountdownTime) && lanCountdownTime > 0 && (
               <h5>Starts in {displayCountdownTime(lanCountdownTime)}</h5>
             )}
           </>

@@ -181,7 +181,7 @@ export default function Register() {
       });
   }
   return (
-    <main className="d-flex flex-column flex-fill text-center m-auto AccountCredentialsForm">
+    <main className="text-center m-auto form--thin">
       <h2 className="mb-3">Create an account</h2>
       {registerError && <Alert color="danger">{registerError}</Alert>}
       <Form

@@ -125,7 +125,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <main className="d-flex flex-column flex-fill m-auto AccountCredentialsForm">
+    <main className="d-flex flex-column flex-fill m-auto form--thin">
       {tokenIsValid && (
         <>
           <h2>Reset password</h2>

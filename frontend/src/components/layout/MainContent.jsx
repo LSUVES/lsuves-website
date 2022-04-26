@@ -9,12 +9,16 @@ export default function MainContent({ children }) {
   //       Consider separating main from Container if necessary
   return (
     <main className="d-flex flex-column flex-fill">
-      <Container className="d-flex flex-column flex-fill bg-danger">
+      <Container className="d-flex flex-column flex-fill bg-warning">
         {children}
       </Container>
     </main>
   );
 }
 MainContent.propTypes = {
+  // className: propTypes.string,
   children: propTypes.node.isRequired,
 };
+// MainContent.defaultProps = {
+//   className: "",
+// };

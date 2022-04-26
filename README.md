@@ -27,3 +27,5 @@ You may need to create a cron job to clean up expired sessions occassionally to 
 
 ## Contributing
 Ensure changes to the backend are thoroughly tested so as not to introduce bugs/vulnerabilities. If you're unfamiliar with testing in Django, read [the section on it in the docs](https://docs.djangoproject.com/en/4.0/topics/testing/) and for an example, see users/tests.py.
+
+Note that forms on the frontend are validated from values in frontend/src/utils/validation, which may lead to bugs if not kept consistent with the backend constraints.

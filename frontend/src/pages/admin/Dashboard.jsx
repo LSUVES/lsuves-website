@@ -30,6 +30,7 @@ export default function Dashboard() {
             <CardBody>
               <CardTitle>Ticket requests</CardTitle>
               <CardText>There are requests waiting to be approved</CardText>
+              {/* TODO: Is there a better way of linking to things with RR? */}
               <a href="/admin/ticket-requests" className="stretched-link">
                 Check them out
               </a>

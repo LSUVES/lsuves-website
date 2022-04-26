@@ -19,7 +19,8 @@ export default function Events() {
     <MainContent>
       <Row className="justify-content-center">
         <Col sm="8">
-          <ul>
+          <h3>Upcoming events:</h3>
+          <ul className="p-0">
             {eventList.map((item) => (
               <Card className="my-2" key={item.id}>
                 <CardBody>

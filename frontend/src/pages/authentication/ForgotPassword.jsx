@@ -37,7 +37,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <main className="d-flex flex-column flex-fill m-auto AccountCredentialsForm">
+    <main className="d-flex flex-column flex-fill m-auto form--thin">
       <h2>Forgot password?</h2>
       <p>
         Enter the email attached to your account and we&apos;ll send you an

@@ -69,7 +69,7 @@ export default function Login({
       });
   }
   return (
-    <main className="d-flex flex-column flex-fill text-center m-auto AccountCredentialsForm">
+    <main className="text-center m-auto form--thin">
       <h2 className="mb-3">Log in</h2>
       {loginError && <Alert color="danger">{loginError}</Alert>}
       <Form

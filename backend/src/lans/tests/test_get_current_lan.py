@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from avgs_website.utils import LongDocMixin
+from django.http import Http404
 from django.test import TestCase
 from django.utils import timezone
 from events.models import Event
@@ -11,10 +12,10 @@ from ..views import get_current_lan
 class GetCurrentLanTests(LongDocMixin, TestCase):
     def test_no_future_lan(self):
         """
-        get_current_lan() raises Event.DoesNotExist if there are no ongoing/future LAN
+        get_current_lan() raises a Http404 if there are no ongoing/future LAN
         events.
         """
-        with self.assertRaises(Event.DoesNotExist):
+        with self.assertRaises(Http404):
             get_current_lan()
 
     def test_ongoing_lan(self):

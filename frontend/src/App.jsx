@@ -20,6 +20,7 @@ import {
 } from "./components/routing/pageRestrictions";
 import CsrfTokenContext from "./contexts/CsrfTokenContext";
 import Dashboard from "./pages/admin/Dashboard";
+import AdminEvents from "./pages/admin/Events";
 import AdminTicketRequests from "./pages/admin/TicketRequests";
 import ForgotPassword from "./pages/authentication/ForgotPassword";
 import Login from "./pages/authentication/Login";
@@ -48,6 +49,11 @@ import getCookie from "./utils/getCookie";
 //       Consider using context for auth
 //       https://ui.dev/react-router-protected-routes-authentication
 //       https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src/App.tsx
+
+/**
+ * The root element of the website. Provides the structure for the routes as
+ * well as any context and restrictions they require.
+ */
 export default function App() {
   const [csrfTokenCookie, setCsrfTokenCookie] = useState("");
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -192,6 +198,7 @@ export default function App() {
                   <AdminTicketRequests isAuthenticated={isAuthenticated} />
                 }
               />
+              <Route path="events" element={<AdminEvents />} />
             </Route>
             <Route path="blog" element={<Blog />} />
             <Route path="events">

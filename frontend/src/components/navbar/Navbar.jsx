@@ -124,6 +124,7 @@ export default function Navbar({ isAuthenticated, isAdmin, onLogOut }) {
                 </NavLink>
               </NavItem>
               <Button
+                className="ms-3"
                 onClick={() => {
                   onLogOut();
                 }}

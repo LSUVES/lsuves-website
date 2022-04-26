@@ -1,4 +1,5 @@
 from avgs_website.permissions import IsOwner
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from events.models import Event
@@ -14,12 +15,15 @@ from .serializers import *
 # TODO: move this into a different file
 def get_current_lan():
     """
-    Returns the LAN object with the soonest future end date or throws
-    Event.DoesNotExist if there isn't one.
+    Returns the LAN object with the soonest future end date or raises
+    a HTTP 404 error if there isn't one.
     """
-    return Event.objects.filter(type=Event.LAN, end_time__gte=timezone.now()).earliest(
-        "end_time"
-    )
+    try:
+        return Event.objects.filter(
+            type=Event.LAN, end_time__gte=timezone.now()
+        ).earliest("end_time")
+    except Event.DoesNotExist:
+        raise Http404("There are no upcoming LANs.")
 
 
 class CommitteeShiftViewSet(viewsets.ModelViewSet):
@@ -141,6 +145,7 @@ class TicketViewSet(viewsets.ModelViewSet):
             queryset = self.filter_queryset(self.get_queryset())
             filter_kwargs = {"user": self.kwargs["user"], "lan": self.kwargs["lan"]}
             obj = get_object_or_404(queryset, **filter_kwargs)
+            print("get_object: {}".format(obj))
             self.check_object_permissions(self.request, obj)
             return obj
         return super().get_object()
@@ -149,13 +154,21 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer.save(lan=get_current_lan())
 
     # Return the LAN ticket for the requesting user.
-    # FIXME: Should return negative if get_current_lan() throws Event.DoesNotExist
+    # FIXME: Should return negative if get_current_lan() raises Http404
     @action(detail=False)
     def my_lan_ticket(self, request):
         self.kwargs["user"] = request.user
+        print("getting lan")
         self.kwargs["lan"] = get_current_lan()
+        print("got lan")
         ticket_request = self.get_object()
+        print("my_lan_ticket: {}".format(ticket_request))
         serializer = self.get_serializer(ticket_request)
+        print(
+            "**************************************{}*****************************************".format(
+                serializer.is_valid()
+            )
+        )
         return Response(serializer.data)
 
 

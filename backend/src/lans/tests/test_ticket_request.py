@@ -5,6 +5,7 @@ from avgs_website.utils import LongDocMixin
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.db.utils import IntegrityError
+from django.http import Http404
 from django.test import TestCase
 from django.utils import timezone
 from events.models import Event
@@ -50,11 +51,11 @@ class TicketRequestTests(LongDocMixin, TestCase):
         self.client.login(username=self.USER1_USERNAME, password=self.USER1_PASSWORD)
 
         # Attempt request with no LAN events.
-        with self.assertRaises(Event.DoesNotExist):
-            self.client.post(
-                "{}".format(self.URL_PREFIX),
-                HTTP_HOST=TEST_HOST,
-            )
+        no_lan_post_response = self.client.post(
+            "{}".format(self.URL_PREFIX),
+            HTTP_HOST=TEST_HOST,
+        )
+        self.assertEqual(no_lan_post_response.status_code, status.HTTP_404_NOT_FOUND)
 
         # Create events for LANs.
         lan1 = Event.objects.create(

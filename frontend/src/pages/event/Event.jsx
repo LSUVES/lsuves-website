@@ -31,10 +31,10 @@ export default function Event() {
             <b>Location:</b> {event.location}
           </p>
           <p>
-            <b>Begins:</b> {new Date(event.start_time).toString()}
+            <b>Starts:</b> {new Date(event.start_time).toLocaleString()}
           </p>
           <p>
-            <b>Ends:</b> {new Date(event.end_time).toString()}
+            <b>Ends:</b> {new Date(event.end_time).toLocaleString()}
           </p>
         </>
       );

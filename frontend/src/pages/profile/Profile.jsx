@@ -173,85 +173,78 @@ export default function Profile() {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
+            console.log("form submitted");
             saveChanges();
           }}
         >
           <h2>Your account</h2>
           <h4>Information</h4>
           <p>Manage the information you&apos;ve shared with us.</p>
-          <FormGroup>
-            <Row>
-              <Col>
-                <Label for="username">Username</Label>
-              </Col>
-              <Col>
-                <Input
-                  id="username"
-                  name="username"
-                  value={username}
-                  placeholder="Username"
-                  onInput={(e) => setUsername(e.target.value)}
-                  invalid={usernameIsValid === false}
-                />
-                {!usernameIsValid && (
-                  <FormFeedback>{usernameFeedback}</FormFeedback>
-                )}
-              </Col>
-            </Row>
-          </FormGroup>
-          <Row>
+          <FormGroup row>
+            <Label for="username" sm={3}>
+              Username
+            </Label>
             <Col>
-              <Label for="email">Email</Label>
+              <Input
+                id="username"
+                name="username"
+                value={username}
+                placeholder="Username"
+                onInput={(e) => setUsername(e.target.value)}
+                invalid={usernameIsValid === false}
+              />
+              {!usernameIsValid && (
+                <FormFeedback>{usernameFeedback}</FormFeedback>
+              )}
             </Col>
-            <Col>
-              <FormGroup>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onInput={(e) => setEmail(e.target.value)}
-                  placeholder="None stored"
-                  invalid={emailIsValid === false}
-                  // required
-                />
-                {!emailIsValid && (
-                  <FormFeedback>Please enter a valid email.</FormFeedback>
-                )}
-              </FormGroup>
-            </Col>
-          </Row>
-          <FormGroup>
-            <Row>
-              <Col>
-                <Label for="firstName">First name</Label>
-              </Col>
-              <Col>
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  value={firstName}
-                  placeholder="None stored"
-                  onInput={(e) => setFirstName(e.target.value)}
-                />
-              </Col>
-            </Row>
           </FormGroup>
-          <FormGroup>
-            <Row>
-              <Col>
-                <Label for="lastName">Last name</Label>
-              </Col>
-              <Col>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  value={lastName}
-                  placeholder="None stored"
-                  onInput={(e) => setLastName(e.target.value)}
-                />
-              </Col>
-            </Row>
+          <FormGroup row>
+            <Label for="email" sm={3}>
+              Email
+            </Label>
+            <Col>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onInput={(e) => setEmail(e.target.value)}
+                placeholder="None stored"
+                invalid={emailIsValid === false}
+                // required
+              />
+              {!emailIsValid && (
+                <FormFeedback>Please enter a valid email.</FormFeedback>
+              )}
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="firstName" sm={3}>
+              First name
+            </Label>
+            <Col>
+              <Input
+                id="firstName"
+                name="firstName"
+                value={firstName}
+                placeholder="None stored"
+                onInput={(e) => setFirstName(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="lastName" sm={3}>
+              Last name
+            </Label>
+            <Col>
+              <Input
+                id="lastName"
+                name="lastName"
+                value={lastName}
+                placeholder="None stored"
+                onInput={(e) => setLastName(e.target.value)}
+              />
+            </Col>
           </FormGroup>
           {profile.isAdmin && (
             <p>
@@ -265,6 +258,7 @@ export default function Profile() {
                 Change when your account is scheduled to be deleted or delete it
                 now.
               </p>
+              {/* TODO: Use FormGroup as above */}
               <Row>
                 <Col>
                   <Label for="deletionDate">Date of account deletion</Label>
