@@ -19,6 +19,7 @@ import {
   RequireUnauth,
 } from "./components/routing/pageRestrictions";
 import CsrfTokenContext from "./contexts/CsrfTokenContext";
+import AdminBlog from "./pages/admin/Blog";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminEvents from "./pages/admin/Events";
 import AdminTicketRequests from "./pages/admin/TicketRequests";
@@ -198,6 +199,7 @@ export default function App() {
                   <AdminTicketRequests isAuthenticated={isAuthenticated} />
                 }
               />
+              <Route path="blog" element={<AdminBlog />} />
               <Route path="events" element={<AdminEvents />} />
             </Route>
             <Route path="blog" element={<Blog />} />

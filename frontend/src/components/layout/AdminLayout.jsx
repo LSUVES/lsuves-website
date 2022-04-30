@@ -27,6 +27,11 @@ export default function AdminLayout() {
             </NavLink>
           </NavItem>
           <NavItem className="ms-0 mb-2">
+            <NavLink tag={RRNavLink} to="/admin/blog" className="text-center">
+              Blog
+            </NavLink>
+          </NavItem>
+          <NavItem className="ms-0 mb-2">
             <NavLink tag={RRNavLink} to="/admin/events" className="text-center">
               Events
             </NavLink>

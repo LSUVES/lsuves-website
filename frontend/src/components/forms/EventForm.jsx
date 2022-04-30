@@ -16,7 +16,6 @@ import {
   Row,
 } from "reactstrap";
 
-import MainContent from "../../components/layout/MainContent";
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 import formatDateTime from "../../utils/formatDateTime";
 import useUpdateEffect from "../../utils/useUpdateEffect/useUpdateEffect";
@@ -30,6 +29,7 @@ import {
   MAX_START_TIME_STR,
   checkEndTime,
 } from "../../utils/validation/event";
+import MainContent from "../layout/MainContent";
 
 export default function EventForm({ event, onClose }) {
   const [name, setEventName] = useState(event.name);

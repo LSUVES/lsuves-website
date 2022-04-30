@@ -20,7 +20,10 @@ export default function Blog() {
   useEffect(() => {
     axios
       .get("/api/blog/")
-      .then((res) => setPostList(res.data))
+      .then((res) => {
+        setPostList(res.data);
+        console.log(res.data);
+      })
       .catch((err) => console.log(err));
   }, [postList.length]);
 
@@ -34,6 +37,7 @@ export default function Blog() {
                 <CardImg
                   className="BlogPostImage"
                   src={item.image}
+                  // FIXME: Add alt text
                   alt="tempalt"
                 />
                 <CardBody>

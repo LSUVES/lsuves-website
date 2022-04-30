@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import {
-  Button,
-  Card,
-  CardBody,
-  // CardText,
-  CardTitle,
-  Col,
-  Row,
-} from "reactstrap";
+import { Button, Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 
+import EventForm from "../../components/forms/EventForm";
 import MainContent from "../../components/layout/MainContent";
-import EventForm from "./EventForm";
 
 export default function Events() {
   const [eventList, setEventList] = useState([]);
@@ -64,16 +56,15 @@ export default function Events() {
           {!isEditingEvent && (
             <>
               <div className="d-flex justify-content-between">
-                <h3>Upcoming events:</h3>
+                <h3>Events:</h3>
                 <Button color="primary" onClick={() => setIsEditingEvent(true)}>
-                  Create event
+                  Create new event
                 </Button>
               </div>
               <ul className="p-0">
                 {eventList.map((item) => (
                   <Card className="my-2" key={item.id}>
                     <CardBody>
-                      {/* TODO: Use CardHeader to contain title and button */}
                       <CardTitle
                         title={item.name}
                         className="d-flex justify-content-between mb-0"
@@ -83,7 +74,6 @@ export default function Events() {
                           Edit
                         </Button>
                       </CardTitle>
-                      {/* <CardText>{item.body}</CardText> */}
                     </CardBody>
                   </Card>
                 ))}
