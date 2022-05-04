@@ -20,7 +20,7 @@ export default function Blog() {
   const [editingPost, setEditingPost] = useState({});
 
   function getPosts() {
-    // Get a list of all events from the backend.
+    // Get a list of all blog posts from the backend.
     axios
       .get("/api/blog/")
       .then((res) => setPostList(res.data))
@@ -32,8 +32,8 @@ export default function Blog() {
   }, [postList.length]);
 
   function getPostAndEdit(postId) {
-    // Get all information about a specific event from the backend and set as
-    // event being edited.
+    // Get all information about a specific post from the backend and set as
+    // post being edited.
     axios
       .get(`/api/blog/${postId}/`)
       .then((res) => {

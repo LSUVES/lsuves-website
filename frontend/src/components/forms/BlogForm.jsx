@@ -52,13 +52,13 @@ export default function BlogForm({ post, onClose }) {
 
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
-  function updateEvent() {
-    // Updates the event on the backend.
+  function updatePost() {
+    // Updates the post on the backend.
     if (!checkAll()) {
       return;
     }
 
-    // As with createEvent, use FormData to handle uploading the image.
+    // As with createPost, use FormData to handle uploading the image.
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
@@ -78,15 +78,14 @@ export default function BlogForm({ post, onClose }) {
       .catch((err) => console.log(err));
   }
 
-  function createEvent() {
-    // Creates the event on the backend.
+  function createPost() {
+    // Creates the blog post on the backend.
     if (!checkAll()) {
       return;
     }
 
-    // Instead of encoding the image in base 64 to upload in JSON, add fields to
-    // an instance of FormData and upload as multipart/form-data.
-    // Although FormData can be instantiated from a form the names may not agree
+    // Add fields to an instance of FormData and upload as multipart/form-data.
+    // Although FormData can be instantiated from a form, the names may not agree
     // with the API so append them manually.
     const formData = new FormData();
     formData.append("title", title);
@@ -116,7 +115,7 @@ export default function BlogForm({ post, onClose }) {
   }
 
   function deletePost() {
-    // Deletes the event on the backend.
+    // Deletes the post on the backend.
     axios
       .delete(`/api/blog/${post.id}/`, {
         withCredentials: true,
@@ -147,9 +146,9 @@ export default function BlogForm({ post, onClose }) {
         onSubmit={(e) => {
           e.preventDefault();
           if (post.title) {
-            updateEvent();
+            updatePost();
           } else {
-            createEvent();
+            createPost();
           }
         }}
       >

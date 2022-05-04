@@ -3,22 +3,19 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from rest_framework import status, viewsets
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from .models import User
 from .serializers import (
     PasswordResetEmailSerializer,
-    UserProfileSerializer,
-    UserSerializer,
+    ProfileSerializer,
+    RegisterSerializer,
 )
 
 
@@ -56,12 +53,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "profile":
-            self.serializer_class = UserProfileSerializer
+        if self.action == "register":
+            self.serializer_class = RegisterSerializer
         elif self.action == "email_password_reset_token":
             self.serializer_class = PasswordResetEmailSerializer
         else:
-            self.serializer_class = UserSerializer
+            self.serializer_class = ProfileSerializer
         return super().get_serializer_class()
 
     def get_permissions(self):
@@ -114,8 +111,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(methods=["POST"], detail=False)
     def register(self, request):
         # FIXME: !! Ensure password cannot be the same as username !!
-        #        Use self.get_serializer()
-        serializer = UserSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -154,6 +150,25 @@ class UserViewSet(viewsets.ModelViewSet):
         logout(request)
         # TODO: Use Response with a status code (if 200 not default) instead.
         return JsonResponse({"detail": "Successfully logged out."})
+
+    # TODO: This
+    @action(methods=["PATCH"], detail=False)
+    def change_own_password(self, request):
+        """
+        For the current user, given their old password, sets it to the new one provided.
+        """
+
+    @action(methods=["PATCH"], detail=True)
+    def admin_reset_password(self, request, pk=None):
+        """
+        Generates a new password for the specified user and returns it in the response.
+        """
+        password = User.objects.make_random_password()
+        user = self.get_object()
+        user.set_password(password)
+        print(user)
+        user.save()
+        return JsonResponse({"password": password})
 
     @action(methods=["POST"], detail=False)
     def email_password_reset_token(self, request):

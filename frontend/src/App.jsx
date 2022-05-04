@@ -23,6 +23,7 @@ import AdminBlog from "./pages/admin/Blog";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminEvents from "./pages/admin/Events";
 import AdminTicketRequests from "./pages/admin/TicketRequests";
+import AdminUsers from "./pages/admin/Users";
 import ForgotPassword from "./pages/authentication/ForgotPassword";
 import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
@@ -201,6 +202,7 @@ export default function App() {
               />
               <Route path="blog" element={<AdminBlog />} />
               <Route path="events" element={<AdminEvents />} />
+              <Route path="users" element={<AdminUsers />} />
             </Route>
             <Route path="blog" element={<Blog />} />
             <Route path="events">

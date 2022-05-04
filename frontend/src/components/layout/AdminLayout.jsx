@@ -36,6 +36,11 @@ export default function AdminLayout() {
               Events
             </NavLink>
           </NavItem>
+          <NavItem className="ms-0 mb-2">
+            <NavLink tag={RRNavLink} to="/admin/users" className="text-center">
+              Users
+            </NavLink>
+          </NavItem>
         </Nav>
       </Col>
       <Col sm="10" className="d-flex flex-column flex-fill">

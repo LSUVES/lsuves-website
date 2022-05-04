@@ -30,8 +30,16 @@ export default function Login({
 
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
+  const [canLogin, setCanLogin] = useState(true);
   function login() {
+    // Prevent multiple login requests being sent before a response is received.
+    if (canLogin === false) {
+      return;
+    }
+    setCanLogin(false);
+
     // TODO: Perform basic validation before posting
+
     axios
       .post(
         "/api/users/login/",
@@ -57,6 +65,7 @@ export default function Login({
         // TODO: DRY this out with AxiosError.jsx
         //       Handle username conflicts
         console.log(err);
+        setCanLogin(true);
         if (err.response) {
           if (err.response.status === 400) {
             setLoginError("Invalid username and/or password.");

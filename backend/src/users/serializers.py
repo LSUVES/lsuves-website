@@ -11,12 +11,23 @@ from rest_framework import serializers
 
 from .models import User
 
+# TODO: Consider using regular model serializers
 
-# TODO: Use regular serializer since url is not included as a field.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Serializer for validating and creating a new user.
+    """
+
     class Meta:
         model = User
-        fields = ("username", "email", "deletion_date", "password")
+        fields = (
+            "username",
+            "email",
+            "deletion_date",
+            "password",
+            "is_staff",
+        )
 
     def create(self, validated_data):
         # FIXME: Either add manager validators to serializer or wrap in:
@@ -32,22 +43,43 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 # TODO: Should snake_case fields be declared separately as camelCase?
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     isAdmin = serializers.BooleanField(source="is_staff")
 
     class Meta:
         model = User
         fields = (
+            "url",
+            "id",
             "username",
             "email",
             "first_name",
             "last_name",
-            "is_member",
             "student_id",
             "deletion_date",
+            "is_member",
+            "is_requesting_membership",
             "isAdmin",
             "is_superuser",
         )
+
+
+class PasswordChangeOwnSerializer(serializers.Serializer):
+    """
+    Serializer for changing a user's own password.
+    """
+
+    old_password = serializers.CharField()
+    new_password = serializers.CharField()
+
+
+class PasswordChangeOtherSerializer(serializers.Serializer):
+    """
+    Serializer for changing a user's password.
+    """
+
+    userId = serializers.IntegerField(label="ID", read_only=True)
+    new_password = serializers.CharField()
 
 
 class PasswordResetEmailSerializer(serializers.Serializer):
@@ -74,7 +106,7 @@ class PasswordResetEmailSerializer(serializers.Serializer):
 
     def send_mail(self, username, uid, token, from_email, to_email):
         subject = "AVGS password reset link"
-        # FIXME: Use template and populate with context for url as in Django's implementation
+        # TODO: Use template and populate with context for url as in Django's implementation
         body = "Hello {},\nVisit the link below to reset your password:\nhttp://localhost:3000/reset-password/?uid={}&token={}\nKind regards,\nAVGS".format(
             username, uid, token
         )
@@ -108,18 +140,18 @@ class PasswordResetEmailSerializer(serializers.Serializer):
         # Unnecessary as the values are known, but better practice.
         # print(get_current_site(self.request)) # Try in views
         email_field_name = self.UserModel.get_email_field_name()
-        print(email_field_name)
+        # print(email_field_name)
         for user in self.get_users(email):
             # TODO: Seems unnecessary
             user_email = getattr(user, "email")  # email_field_name
-            print(email, user_email, email == user_email)
-            print(
-                user,
-                user.username,
-                user == user.username,
-                repr(user),
-                str(user) == user.username,
-            )
+            # print(email, user_email, email == user_email)
+            # print(
+            #     user,
+            #     user.username,
+            #     user == user.username,
+            #     repr(user),
+            #     str(user) == user.username,
+            # )
             # FIXME: Get from_email from settings.
             self.send_mail(
                 user.username,

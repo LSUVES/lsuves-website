@@ -26,6 +26,7 @@ import {
 } from "../../utils/validation/user";
 
 export default function Profile() {
+  // TODO: Is there a better way to handle this, e.g. an object/Map?
   const [profile, setProfile] = useState();
   const [originalUsername, setOriginalUsername] = useState("");
   const [username, setUsername] = useState("");
@@ -38,6 +39,8 @@ export default function Profile() {
   const [firstName, setFirstName] = useState("");
   const [originalLastName, setOriginalLastName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [originalStudentId, setOriginalStudentId] = useState("");
+  const [studentId, setStudentId] = useState("");
   const [originalDeletionDate, setOriginalDeletionDate] = useState();
   const [deletionDate, setDeletionDate] = useState(new Date());
   const [deletionDateIsValid, setDeletionDateIsValid] = useState(null);
@@ -60,6 +63,8 @@ export default function Profile() {
         setFirstName(res.data.first_name);
         setOriginalLastName(res.data.last_name);
         setLastName(res.data.last_name);
+        setOriginalStudentId(res.data.student_id);
+        setStudentId(res.data.student_id);
         setOriginalDeletionDate(res.data.deletion_date);
         setDeletionDate(res.data.deletion_date);
       })
@@ -83,11 +88,15 @@ export default function Profile() {
 
   // Detect when the user has changed their information.
   useEffect(() => {
+    console.log(
+      `${firstName}, ${originalFirstName}, ${firstName === originalFirstName}`
+    );
     if (
       username !== originalUsername ||
       email !== originalEmail ||
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
+      studentId !== originalStudentId ||
       deletionDate !== originalDeletionDate
     ) {
       setUnsavedChanges(true);
@@ -103,6 +112,8 @@ export default function Profile() {
     originalFirstName,
     lastName,
     originalLastName,
+    studentId,
+    originalStudentId,
     deletionDate,
     originalDeletionDate,
   ]);
@@ -120,15 +131,17 @@ export default function Profile() {
     // Discard the user's changes and reset values to original.
     setUsername(originalUsername);
     setEmail(originalEmail);
-    setDeletionDate(originalDeletionDate);
     setFirstName(originalFirstName);
     setLastName(originalLastName);
+    setOriginalStudentId(originalStudentId);
+    setDeletionDate(originalDeletionDate);
   }
 
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
   function saveChanges() {
     // Save changes to the user's information.
+    // TODO: Should probs prevent excess submits like with the login.
     axios
       .patch(
         "/api/users/profile/",
@@ -137,6 +150,7 @@ export default function Profile() {
           email,
           first_name: firstName,
           last_name: lastName,
+          student_id: studentId,
           deletion_date: deletionDate,
         },
         {
@@ -148,6 +162,9 @@ export default function Profile() {
         console.log(res.data);
         setOriginalUsername(res.data.username);
         setOriginalEmail(res.data.email);
+        setOriginalFirstName(res.data.first_name);
+        setOriginalLastName(res.data.last_name);
+        setOriginalStudentId(res.data.student_id);
         setOriginalDeletionDate(res.data.deletion_date);
       })
       .catch((err) => {
@@ -218,6 +235,7 @@ export default function Profile() {
               )}
             </Col>
           </FormGroup>
+          {/* TODO: Don't display these fields for superusers */}
           <FormGroup row>
             <Label for="firstName" sm={3}>
               First name
@@ -243,6 +261,20 @@ export default function Profile() {
                 value={lastName}
                 placeholder="None stored"
                 onInput={(e) => setLastName(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="studentId" sm={3}>
+              Student ID
+            </Label>
+            <Col>
+              <Input
+                id="studentId"
+                name="studentId"
+                value={studentId}
+                placeholder="None stored"
+                onInput={(e) => setStudentId(e.target.value)}
               />
             </Col>
           </FormGroup>
