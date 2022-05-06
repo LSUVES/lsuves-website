@@ -64,16 +64,15 @@ export default function Login({
       .catch((err) => {
         // TODO: DRY this out with AxiosError.jsx
         //       Handle username conflicts
-        console.log(err);
         setCanLogin(true);
         if (err.response) {
           if (err.response.status === 400) {
             setLoginError("Invalid username and/or password.");
           }
         } else if (err.request) {
-          console.log(err.request);
+          setLoginError(err.request);
         } else {
-          console.log(err.message);
+          setLoginError(err.message);
         }
       });
   }

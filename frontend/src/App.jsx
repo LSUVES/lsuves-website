@@ -297,7 +297,7 @@ export default function App() {
                   isAuthenticated={isAuthenticated}
                   AuthFailure={<AuthFailureRedirect />}
                 >
-                  <Profile isAuthenticated={isAuthenticated} />
+                  <Profile />
                 </RequireAuth>
               }
             />

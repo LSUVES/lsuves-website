@@ -17,7 +17,7 @@ import Navbar from "../navbar/Navbar";
  */
 export default function BaseLayout({ isAuthenticated, isAdmin, onLogOut }) {
   return (
-    <div className="d-flex flex-column vh-100 bg-success">
+    <div className="d-flex flex-column min-vh-100 bg-success">
       <Container fluid>
         <Row>
           <Navbar

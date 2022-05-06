@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ValidationError
@@ -13,6 +13,8 @@ from rest_framework.response import Response
 
 from .models import User
 from .serializers import (
+    ChangeOwnPasswordSerializer,
+    DeleteOwnAccountSerializer,
     PasswordResetEmailSerializer,
     ProfileSerializer,
     RegisterSerializer,
@@ -57,6 +59,10 @@ class UserViewSet(viewsets.ModelViewSet):
             self.serializer_class = RegisterSerializer
         elif self.action == "email_password_reset_token":
             self.serializer_class = PasswordResetEmailSerializer
+        elif self.action == "change_own_password":
+            self.serializer_class = ChangeOwnPasswordSerializer
+        elif self.action == "delete_own_account":
+            self.serializer_class = DeleteOwnAccountSerializer
         else:
             self.serializer_class = ProfileSerializer
         return super().get_serializer_class()
@@ -74,7 +80,12 @@ class UserViewSet(viewsets.ModelViewSet):
             "reset_password",
         ):
             self.permission_classes = [AllowAny]
-        elif self.action == "logout":
+        elif self.action in (
+            "logout",
+            "request_membership",
+            "change_own_password",
+            "delete_own_account",
+        ):
             self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsAdminUser]
@@ -151,12 +162,60 @@ class UserViewSet(viewsets.ModelViewSet):
         # TODO: Use Response with a status code (if 200 not default) instead.
         return JsonResponse({"detail": "Successfully logged out."})
 
-    # TODO: This
+    @action(methods=["PATCH"], detail=False)
+    def request_membership(self, request):
+        """
+        For the current user, if is_member=False, sets is_requesting_membership to True.
+        """
+        user = request.user
+        if user.is_member == False:
+            user.is_requesting_membership = True
+            user.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {"detail": "Account already has membership"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     @action(methods=["PATCH"], detail=False)
     def change_own_password(self, request):
         """
         For the current user, given their old password, sets it to the new one provided.
         """
+        # FIXME: Apply password validation to new_password probably via the serializer.
+        user = request.user
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            if user.check_password(serializer.validated_data["old_password"]):
+                user.set_password(serializer.validated_data["new_password"])
+                user.save()
+                # Ensure the user doesn't lose their session.
+                update_session_auth_hash(request, user)
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(
+                    {"detail": "Wrong password provided."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=["DELETE"], detail=False)
+    def delete_own_account(self, request):
+        """
+        For the current user, given their password, delete their account.
+        """
+        user = request.user
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            if user.check_password(serializer.validated_data["password"]):
+                user.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response(
+                    {"detail": "Wrong password provided."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=["PATCH"], detail=True)
     def admin_reset_password(self, request, pk=None):

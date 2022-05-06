@@ -6,7 +6,7 @@ import { Button, Col, Row } from "reactstrap";
 import "./Calendar.css";
 import MainContent from "../../components/layout/MainContent";
 
-// TODO: check compliance with the statement: if something can be derived from
+// TODO: Check compliance with the statement: if something can be derived from
 //       either props or state, it probably shouldn't be in the state.
 
 // An implementation of modulo that handles negatives properly.

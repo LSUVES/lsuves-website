@@ -21,6 +21,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        # FIXME: Declare password field separately so it doesn't take the character limit of
+        #        the hash model field (max_length=128).
         fields = (
             "username",
             "email",
@@ -38,7 +40,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-# TODO: Should I have a serializer for the login view?
+# TODO: Should there be a serializer for the login view?
 # class LoginSerializer()
 
 
@@ -64,7 +66,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class PasswordChangeOwnSerializer(serializers.Serializer):
+class ChangeOwnPasswordSerializer(serializers.Serializer):
     """
     Serializer for changing a user's own password.
     """
@@ -73,13 +75,12 @@ class PasswordChangeOwnSerializer(serializers.Serializer):
     new_password = serializers.CharField()
 
 
-class PasswordChangeOtherSerializer(serializers.Serializer):
+class DeleteOwnAccountSerializer(serializers.Serializer):
     """
-    Serializer for changing a user's password.
+    Serializer for deleting a user's own account.
     """
 
-    userId = serializers.IntegerField(label="ID", read_only=True)
-    new_password = serializers.CharField()
+    password = serializers.CharField()
 
 
 class PasswordResetEmailSerializer(serializers.Serializer):
