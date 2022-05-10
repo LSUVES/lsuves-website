@@ -1,7 +1,7 @@
 from avgs_website.permissions import IsAdminUserOrReadOnly
 from django.db.models.query_utils import Q
 from django.shortcuts import render
-from lans.views import get_current_lan
+from lans.utils import get_current_lan
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import SAFE_METHODS, AllowAny, IsAdminUser

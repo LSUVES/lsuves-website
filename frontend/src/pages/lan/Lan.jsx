@@ -9,8 +9,11 @@ import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 
 export default function Lan({ isAuthenticated }) {
   const [currentLan, setCurrentLan] = useState();
+  const [waitingForCurrentLan, setWaitingForCurrentLan] = useState(true);
   const [hasTicket, setHasTicket] = useState(false);
   const [requestedTicket, setRequestedTicket] = useState(false);
+  const [waitingForTicketResponse, setWaitingForTicketResponse] =
+    useState(true);
   const [lanCountdownTime, setLanCountdownTime] = useState();
   const [timer, setTimer] = useState();
 
@@ -19,34 +22,54 @@ export default function Lan({ isAuthenticated }) {
       .get("/api/events/current_lan/")
       .then((res) => {
         setCurrentLan(res.data);
+        setWaitingForCurrentLan(false);
         console.log(currentLan);
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
+    // TODO: Consider rolling the requests to my_lan_ticket_request and my_lan_ticket into a
+    //       single API call.
+    //       Ensure this is called again when going back to the page after logging in.
     if (isAuthenticated) {
       axios
         .get("/api/lan-tickets/my_lan_ticket/", { withCredentials: true })
         .then((res) => {
           setHasTicket(true);
+          setWaitingForTicketResponse(false);
           console.log(res);
         })
-        .catch((err) => console.log(err));
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      axios
-        .get("/api/lan-ticket-requests/my_lan_ticket_request/", {
-          withCredentials: true,
-        })
-        .then((res) => {
-          setRequestedTicket(true);
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.response) {
+            if (err.response.status === 404) {
+              axios
+                .get("/api/lan-ticket-requests/my_lan_ticket_request/", {
+                  withCredentials: true,
+                })
+                .then((res) => {
+                  setRequestedTicket(true);
+                  setWaitingForTicketResponse(false);
+                  console.log(res);
+                })
+                // FIXME: Handle other server errors.
+                .catch((err2) => {
+                  console.log(err2);
+                  setWaitingForTicketResponse(false);
+                });
+            } else {
+              console.log(err.response);
+            }
+          } else if (err.request) {
+            console.log(err.request);
+          } else {
+            console.log(err.message);
+          }
+        });
+    } else {
+      // FIXME: Give auth time to go through when this page is loaded directly.
+      console.log("Un-authed");
+      setWaitingForTicketResponse(false);
     }
   }, [isAuthenticated]);
 
@@ -105,7 +128,7 @@ export default function Lan({ isAuthenticated }) {
     // TODO: Lift top row out of MainContent
     <MainContent>
       <Row className="p-5 bg-primary text-white text-center">
-        {!currentLan && (
+        {!waitingForCurrentLan && !currentLan && (
           <>
             <h2>LAN parties</h2>
             <p>Stay tuned for the next one!</p>
@@ -114,6 +137,8 @@ export default function Lan({ isAuthenticated }) {
         {currentLan && (
           <>
             <h2>{currentLan.name}</h2>
+            {/* TODO: Eliminate delay between displaying LAN title and timer or at least
+                      ensure layout is unaffected. */}
             {Number.isInteger(lanCountdownTime) && lanCountdownTime > 0 && (
               <h5>Starts in {displayCountdownTime(lanCountdownTime)}</h5>
             )}
@@ -140,32 +165,35 @@ export default function Lan({ isAuthenticated }) {
               a van pickup and drop-off service).
             </p>
           </Col>
-          {currentLan && !requestedTicket && (
-            <Col sm="6">
-              <h2>How to get a ticket</h2>
-              <ol>
-                <li className="fs-4 mt-3">Purchase one here: ...</li>
-                <li className="fs-4 mt-3">
-                  Then,{" "}
-                  {!isAuthenticated && (
-                    <>
-                      <a href="/login">login</a> and
-                    </>
-                  )}{" "}
-                  click the button below to send a request to committee to check
-                  and give you access.
-                  <Button
-                    type="button"
-                    onClick={() => requestTicket()}
-                    disabled={!isAuthenticated}
-                  >
-                    I&apos;ve bought a ticket
-                  </Button>
-                </li>
-              </ol>
-            </Col>
-          )}
-          {requestedTicket && !hasTicket && (
+          {currentLan &&
+            !waitingForTicketResponse &&
+            !hasTicket &&
+            !requestedTicket && (
+              <Col sm="6">
+                <h2>How to get a ticket</h2>
+                <ol>
+                  <li className="fs-4 mt-3">Purchase one here: ...</li>
+                  <li className="fs-4 mt-3">
+                    Then,{" "}
+                    {!isAuthenticated && (
+                      <>
+                        <a href="/login">login</a> and
+                      </>
+                    )}{" "}
+                    click the button below to send a request to committee to
+                    check and give you access.{" "}
+                    <Button
+                      type="button"
+                      onClick={() => requestTicket()}
+                      disabled={!isAuthenticated}
+                    >
+                      I&apos;ve bought a ticket
+                    </Button>
+                  </li>
+                </ol>
+              </Col>
+            )}
+          {!waitingForTicketResponse && requestedTicket && !hasTicket && (
             <Col sm="6">
               <h2>Waiting for committee to verify ticket purchase.</h2>
             </Col>
@@ -175,6 +203,7 @@ export default function Lan({ isAuthenticated }) {
               <h2>LAN to-do list:</h2>
               <ol>
                 <li>
+                  {/* TODO: Make this work with React Router (use Navlinks instead?) */}
                   <a href="/lan/rules/">Read the rules for LANs.</a>
                 </li>
                 {/* TODO: Make this conditional on whether LAN van will be run. */}

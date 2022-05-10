@@ -74,6 +74,9 @@ class Ticket(models.Model):
             )
         ]
 
+    def __str__(self):
+        return "{}'s ticket for {}".format(self.user.username, self.lan.name)
+
 
 class SeatBookingGroup(models.Model):
     """

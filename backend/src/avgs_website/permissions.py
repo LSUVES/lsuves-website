@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
     """
-    Only accept requests from admins or those that are read-only.
+    Only accepts requests from admins or those that are read-only.
     """
 
     def has_permission(self, request, view):

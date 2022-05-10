@@ -25,7 +25,7 @@ export default function LanVanBookingForm() {
     <MainContent>
       <Row>
         <Col>
-          <h2>Van Booking Form</h2>
+          <h2>Van booking form</h2>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -73,7 +73,7 @@ export default function LanVanBookingForm() {
                 type="checkbox"
                 value={collectionRequired}
                 onInput={(e) => setCollectionRequired(e.target.value)}
-              />
+              />{" "}
               <Label for="collection-required">Require collection</Label>
             </FormGroup>
             <FormGroup>
@@ -82,7 +82,7 @@ export default function LanVanBookingForm() {
                 type="checkbox"
                 value={dropoffRequired}
                 onInput={(e) => setDropoffRequired(e.target.value)}
-              />
+              />{" "}
               <Label for="dropoff-required">Require drop-off</Label>
             </FormGroup>
             <FormGroup>

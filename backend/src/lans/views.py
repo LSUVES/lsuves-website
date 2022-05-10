@@ -1,29 +1,14 @@
 from avgs_website.permissions import IsOwner
-from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
-from events.models import Event
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import *
+from .permissions import HasLanTicket, LanTicketIsOwner
 from .serializers import *
-
-
-# TODO: move this into a different file
-def get_current_lan():
-    """
-    Returns the LAN object with the soonest future end date or raises
-    a HTTP 404 error if there isn't one.
-    """
-    try:
-        return Event.objects.filter(
-            type=Event.LAN, end_time__gte=timezone.now()
-        ).earliest("end_time")
-    except Event.DoesNotExist:
-        raise Http404("There are no upcoming LANs.")
+from .utils import get_current_lan
 
 
 class CommitteeShiftViewSet(viewsets.ModelViewSet):
@@ -42,6 +27,10 @@ class TicketRequestViewSet(
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
+    """
+    ViewSet for ticket creating, requesting, destroying and approving LAN ticket requests.
+    """
+
     queryset = TicketRequest.objects.all()
 
     def get_queryset(self):
@@ -85,7 +74,12 @@ class TicketRequestViewSet(
 
     # TODO: Although this will override any values for user/lan in the request,
     #       is there a way to prevent these values from ever being accepted?
+    #       Consider overriding .create() instead.
     def perform_create(self, serializer):
+        """
+        Overrides CreateModelMixin.perform_create() to ensure that a ticket request is created
+        for only the current LAN and for the requesting user.
+        """
         serializer.save(lan=get_current_lan(), user=self.request.user)
         print(serializer.errors)
 
@@ -93,9 +87,14 @@ class TicketRequestViewSet(
     # FIXME: Should return negative if get_current_lan() throws Event.DoesNotExist
     @action(detail=False)  # url_path="my-lan-ticket-request"
     def my_lan_ticket_request(self, request):
+        """
+        Custom action for getting a user's own ticket request, if it exists.
+        """
         # Normally self.kwargs is populated by parameters provided in the url. E.g.,
         # /api/lan-ticket-requests/<pk>/ will give self.kwargs["pk"] = <pk>. Here,
         # they are set manually.
+        # These are then used by the overriden get_object method to get the matching
+        # ticket request which is then serialized and returned in a Response.
         self.kwargs["user"] = request.user
         self.kwargs["lan"] = get_current_lan()
         ticket_request = self.get_object()
@@ -104,6 +103,10 @@ class TicketRequestViewSet(
 
     @action(methods=["POST"], detail=False)
     def approve_ticket_request(self, request):
+        """
+        Custom action for approving a user's ticket request and creating a ticket for them for the
+        current LAN.
+        """
         user = User.objects.get(id=request.data["userId"])
         # FIXME: Validate the below and include any errors in response.
         Ticket.objects.create(lan=get_current_lan(), user=user)
@@ -114,6 +117,12 @@ class TicketRequestViewSet(
 
 
 class TicketViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for creating, requesting, updating, and destroying LAN tickets. Note that tickets are
+    typically created by admins using the .approve_ticket_request() custom action of
+    TicketRequestViewSet.
+    """
+
     queryset = Ticket.objects.all()
 
     def get_queryset(self):
@@ -126,16 +135,16 @@ class TicketViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == "list":
-            self.serializer_class = TicketRequestUserSerializer
+            self.serializer_class = TicketUserSerializer
         else:
-            self.serializer_class = TicketRequestSerializer
+            self.serializer_class = TicketSerializer
         return super().get_serializer_class()
 
     def get_permissions(self):
         # Tickets may be retrieved by their owners, all other operations are only
         # permitted to admins.
         if self.action == "retrieve" or self.action == "my_lan_ticket":
-            self.permission_classes = [IsOwner]
+            self.permission_classes = [IsOwner | IsAdminUser]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
@@ -153,39 +162,120 @@ class TicketViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(lan=get_current_lan())
 
-    # Return the LAN ticket for the requesting user.
-    # FIXME: Should return negative if get_current_lan() raises Http404
     @action(detail=False)
     def my_lan_ticket(self, request):
+        """
+        Returns the LAN ticket for the requesting user, if they have one, otherwise raises Http404.
+        """
+        # Same logic as TicketRequestViewSet.my_lan_ticket_request() above.
+        # FIXME: Instead of returning a 404, return negative if get_current_lan() raises Http404 (or change get_current_lan)
+        #        Likewise with tickets, see https://github.com/django/django/blob/main/django/shortcuts.py#L64
         self.kwargs["user"] = request.user
-        print("getting lan")
         self.kwargs["lan"] = get_current_lan()
-        print("got lan")
         ticket_request = self.get_object()
-        print("my_lan_ticket: {}".format(ticket_request))
         serializer = self.get_serializer(ticket_request)
-        print(
-            "**************************************{}*****************************************".format(
-                serializer.is_valid()
-            )
-        )
         return Response(serializer.data)
 
 
 class SeatBookingViewSet(viewsets.ModelViewSet):
     queryset = SeatBookingGroup.objects.all()
     serializer_class = SeatBookingGroupSerializer
+    # FIXME: owner_field is an instance of Ticket, not User
+    owner_field = "owner"
 
     def get_permissions(self):
-        if self.action == "create":
-            # FIXME: Create permission class for HasTicket
-            self.permission_classes = [IsAuthenticated]
+        if self.action in (
+            "create",
+            "retrieve",
+            "my_seat_booking",
+            "join_seat_booking",
+            "leave_seat_booking",
+        ):
+            self.permission_classes = [IsAuthenticated, HasLanTicket]
+        elif self.action in ("update", "partial_update"):
+            self.permission_classes = [IsAuthenticated, HasLanTicket, LanTicketIsOwner]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
+    # def get_serializer_class(self):
+    #     if self.action == "my_seat_booking":
+    #         self.serializer_class = UserSeatBookingGroupSerializer
+    #     else:
+    #         self.serializer_class = SeatBookingGroupSerializer
+    #     return super().get_serializer_class()
+
     def perform_create(self, serializer):
-        serializer.save(lan=get_current_lan(), user=self.request.user)
+        # As this is only called by the create action, which uses the
+        # HasLanTicket permission, the same reasoning regarding the
+        # possibility of errors as with .my_seat_booking() below applies.
+        # TODO: As with the other overriden .perfom_create's in this file,
+        #       especially given this modifies the user object, consider
+        #       moving this logic to an overriden .create() method.
+        # FIXME:Indeed, here it is too late to catch whether a seat booking
+        #       group with the same name already exists.
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=self.request.user)
+        seat_booking_group = serializer.save(lan=get_current_lan(), owner=ticket)
+        # Set the user's ticket's group seat booking to this.
+        ticket.seat_booking_group = seat_booking_group
+        ticket.save()
+
+    @action(detail=False)
+    def my_seat_booking(self, request):
+        """
+        Returns the seat booking linked to a user's ticket for the current LAN,
+        if such a seat booking exists.
+        """
+        # The HasLanTicket permission combined with model constraints ensure
+        # that a single ticket exists and this won't error.
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=request.user)
+        if not ticket.seat_booking_group:
+            return Response(
+                {"detail": "Not in a seat booking group."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        serializer = self.get_serializer(ticket.seat_booking_group)
+        # Add isOwner boolean field to serialized data that's true if the
+        # requesting user is the owner of the seat booking group.
+        return Response(
+            dict(isOwner=serializer.data["owner"]["id"] == ticket.id, **serializer.data)
+        )
+
+    @action(methods=["POST"], detail=False)
+    def join_seat_booking(self, request):
+        """
+        Given the name of a seat booking group, finds the matching group for the
+        current LAN and assigns it to the requesting user's ticket.
+        """
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=request.user)
+        # TODO: Consider forcing user to leave existing group with a separate action
+        # if ticket.seat_booking_group:
+        #   return Response({"detail": "You are already in a seat booking group"}, status=status.HTTP_400_BAD_REQUEST)
+        seat_booking_group = get_object_or_404(
+            self.get_queryset(),
+            **{"lan": get_current_lan(), "name": request.data["name"]}
+        )
+        ticket.seat_booking_group = seat_booking_group
+        ticket.save()
+        serializer = self.get_serializer(seat_booking_group)
+        return Response(serializer.data)
+
+    @action(methods=["POST"], detail=False)
+    def leave_seat_booking(self, request):
+        """
+        Removes the seat booking group from the requesting user's ticket.
+        """
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=request.user)
+        # FIXME: Allow group owner to leave group by assigning ownership to another
+        #        user/deleting group OR allow group owner to kick other users.
+        if ticket.id in self.get_queryset().values_list("owner", flat=True):
+            return Response(
+                {"detail": "Cannot leave your own group."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        ticket.seat_booking_group = None
+        ticket.save()
+        return Response()
 
 
 class VanBookingViewSet(viewsets.ModelViewSet):
@@ -194,8 +284,7 @@ class VanBookingViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "create":
-            # FIXME: Create permission class for HasTicket
-            self.permission_classes = [IsAuthenticated]
+            self.permission_classes = [IsAuthenticated, HasLanTicket]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
@@ -220,8 +309,7 @@ class FoodOrderViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == "create":
-            # FIXME: Create permission class for HasTicket
-            self.permission_classes = [IsAuthenticated]
+            self.permission_classes = [IsAuthenticated, HasLanTicket]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()

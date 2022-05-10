@@ -31,6 +31,7 @@ export default function Blog() {
     <MainContent>
       <Row className="justify-content-center">
         <Col sm="8">
+          <h2>Blog</h2>
           <ul className="p-0">
             {postList.map((item) => (
               <Card className="my-2" key={item.id}>

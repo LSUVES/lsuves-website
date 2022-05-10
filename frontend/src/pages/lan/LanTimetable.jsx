@@ -19,7 +19,7 @@ export default function LanTimetable() {
     <MainContent>
       <Row>
         <Col>
-          <h3>Lan events:</h3>
+          <h2>Lan events:</h2>
           <ul>
             {lanEventList.map((item) => (
               <Card key={item.id} className="mt-3">

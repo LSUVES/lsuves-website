@@ -9,7 +9,7 @@ export default function MainContent({ children }) {
   //       Consider separating main from Container if necessary
   return (
     <main className="d-flex flex-column flex-fill">
-      <Container className="d-flex flex-column flex-fill bg-warning">
+      <Container className="d-flex flex-column flex-fill bg-warning my-3">
         {children}
       </Container>
     </main>

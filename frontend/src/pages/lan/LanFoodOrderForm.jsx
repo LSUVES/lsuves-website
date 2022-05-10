@@ -5,7 +5,7 @@ import MainContent from "../../components/layout/MainContent";
 export default function LanFoodOrderForm() {
   return (
     <MainContent>
-      <h2>LanFoodOrderForm</h2>
+      <h2>Food order form:</h2>
     </MainContent>
   );
 }

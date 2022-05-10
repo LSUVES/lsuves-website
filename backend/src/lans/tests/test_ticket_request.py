@@ -14,7 +14,7 @@ from rest_framework.test import APIClient
 from users.tests import create_test_user
 
 from ..models import TicketRequest
-from ..views import get_current_lan
+from ..utils import get_current_lan
 
 # TODO: probably a good idea to avoid dependencies by using mock objects for
 #       relations, see: https://docs.python.org/3/library/unittest.mock.html

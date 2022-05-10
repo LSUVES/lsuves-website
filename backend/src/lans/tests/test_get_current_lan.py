@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.utils import timezone
 from events.models import Event
 
-from ..views import get_current_lan
+from ..utils import get_current_lan
 
 
 class GetCurrentLanTests(LongDocMixin, TestCase):
