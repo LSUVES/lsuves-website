@@ -6,6 +6,7 @@ import { Button, Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 
+// TODO: Remove isAuthenticated prop
 export default function AdminTicketRequests({ isAuthenticated }) {
   const [ticketRequestList, setTicketRequestList] = useState([]);
   // FIXME: use an object for this.
@@ -13,6 +14,7 @@ export default function AdminTicketRequests({ isAuthenticated }) {
     Object.create(null)
   );
 
+  // TODO: Is this redundant?
   useEffect(() => {
     if (isAuthenticated) {
       // TODO: Should only get current LAN ticket( request)s

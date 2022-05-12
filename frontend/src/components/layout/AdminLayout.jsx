@@ -51,6 +51,24 @@ export default function AdminLayout() {
                 Users
               </NavLink>
             </NavItem>
+            <NavItem className="ms-0 mb-2">
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/seat-bookings"
+                className="text-center"
+              >
+                Seat bookings
+              </NavLink>
+            </NavItem>
+            <NavItem className="ms-0 mb-2">
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/van-bookings"
+                className="text-center"
+              >
+                Van bookings
+              </NavLink>
+            </NavItem>
           </Nav>
         </Col>
         <Col sm="10" className="d-flex flex-column flex-fill">

@@ -30,6 +30,7 @@ export default function LanSeatBookingForm() {
 
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
+  // TODO: Pretty sure sending the CSRF token for a GET request is always unnecessary
   useEffect(() => {
     axios
       .get("/api/lan-seat-booking/my_seat_booking/", {

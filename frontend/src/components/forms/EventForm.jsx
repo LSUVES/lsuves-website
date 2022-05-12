@@ -223,9 +223,9 @@ export default function EventForm({ event, onClose }) {
               id="isMembersOnly"
               name="isMembersOnly"
               type="checkbox"
-              value={isMembersOnly}
+              checked={isMembersOnly}
               placeholder="Is members only"
-              onInput={(e) => setIsMembersOnly(e.target.value)}
+              onChange={(e) => setIsMembersOnly(e.target.checked)}
             />{" "}
             Is members only
           </Label>

@@ -177,10 +177,10 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+# FIXME: Only list bookings for current LAN or delete bookings immediately afterwards
 class SeatBookingViewSet(viewsets.ModelViewSet):
     queryset = SeatBookingGroup.objects.all()
     serializer_class = SeatBookingGroupSerializer
-    # FIXME: owner_field is an instance of Ticket, not User
     owner_field = "owner"
 
     def get_permissions(self):
@@ -281,16 +281,33 @@ class SeatBookingViewSet(viewsets.ModelViewSet):
 class VanBookingViewSet(viewsets.ModelViewSet):
     queryset = VanBooking.objects.all()
     serializer_class = VanBookingSerializer
+    owner_field = "requester"
 
     def get_permissions(self):
-        if self.action == "create":
+        if self.action in ("create", "my_van_booking"):
             self.permission_classes = [IsAuthenticated, HasLanTicket]
+        elif self.action in ("update", "partial_update", "destroy"):
+            self.permission_classes = [IsAuthenticated, HasLanTicket, LanTicketIsOwner]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
     def perform_create(self, serializer):
-        serializer.save(lan=get_current_lan(), requester=self.request.user)
+        # As with SeatBookingViewSet.my_seat_booking, this shouldn't error.
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=self.request.user)
+        serializer.save(lan=get_current_lan(), requester=ticket)
+
+    @action(detail=False)
+    def my_van_booking(self, request):
+        """
+        Returns the van booking linked to a user's ticket for the current LAN,
+        if such a van booking exists.
+        """
+        # As with SeatBookingViewSet.my_seat_booking, this shouldn't error.
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=request.user)
+        van_booking = get_object_or_404(self.get_queryset(), **{"requester": ticket})
+        serializer = self.get_serializer(van_booking)
+        return Response(serializer.data)
 
 
 class FoodOrderShopViewSet(viewsets.ModelViewSet):

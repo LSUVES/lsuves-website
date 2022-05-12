@@ -22,8 +22,10 @@ import CsrfTokenContext from "./contexts/CsrfTokenContext";
 import AdminBlog from "./pages/admin/Blog";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminEvents from "./pages/admin/Events";
+import AdminSeatBookings from "./pages/admin/SeatBookings";
 import AdminTicketRequests from "./pages/admin/TicketRequests";
 import AdminUsers from "./pages/admin/Users";
+import AdminVanBookings from "./pages/admin/VanBookings";
 import ForgotPassword from "./pages/authentication/ForgotPassword";
 import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
@@ -203,6 +205,8 @@ export default function App() {
               <Route path="blog" element={<AdminBlog />} />
               <Route path="events" element={<AdminEvents />} />
               <Route path="users" element={<AdminUsers />} />
+              <Route path="seat-bookings" element={<AdminSeatBookings />} />
+              <Route path="van-bookings" element={<AdminVanBookings />} />
             </Route>
             <Route path="blog" element={<Blog />} />
             <Route path="events">

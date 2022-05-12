@@ -1,35 +1,105 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 
 import MainContent from "../../components/layout/MainContent";
+import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 
 export default function LanVanBookingForm() {
+  const [bookingId, setBookingId] = useState(-1);
   const [contactPhoneNumber, setContactPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [postcode, setPostcode] = useState("");
-  const [collectionRequired, setCollectionRequired] = useState(null);
-  const [dropoffRequired, setDropoffRequired] = useState(null);
+  const [collectionRequired, setCollectionRequired] = useState(false);
+  const [dropoffRequired, setDropoffRequired] = useState(false);
   const [availability, setAvailability] = useState("");
 
-  function bookVan() {
-    // FIXME: add CSRF param
+  const csrfTokenCookie = useContext(CsrfTokenContext);
+
+  useEffect(() => {
     axios
-      .post("/api/lan-van-booking/", {}, { withCredentials: true })
-      .then(() => console.log("YIPPEE"))
+      .get("/api/lan-van-booking/my_van_booking/", {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfTokenCookie },
+      })
+      .then((res) => {
+        setBookingId(res.data.id);
+        setContactPhoneNumber(res.data.contact_phone_number);
+        setAddress(res.data.address);
+        setPostcode(res.data.postcode);
+        setCollectionRequired(res.data.collection_required);
+        setDropoffRequired(res.data.dropoff_required);
+        setAvailability(res.data.availability);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  function createBooking() {
+    axios
+      .post(
+        "/api/lan-van-booking/",
+        {
+          contact_phone_number: contactPhoneNumber,
+          address,
+          postcode,
+          collection_required: collectionRequired,
+          dropoff_required: dropoffRequired,
+          availability,
+        },
+        {
+          withCredentials: true,
+          headers: { "X-CSRFToken": csrfTokenCookie },
+        }
+      )
+      .then((res) => setBookingId(res.data.id))
+      .catch((err) => console.log(err));
+  }
+
+  function updateBooking() {
+    axios
+      .put(
+        `/api/lan-van-booking/${bookingId}/`,
+        {
+          contact_phone_number: contactPhoneNumber,
+          address,
+          postcode,
+          collection_required: collectionRequired,
+          dropoff_required: dropoffRequired,
+          availability,
+        },
+        {
+          withCredentials: true,
+          headers: { "X-CSRFToken": csrfTokenCookie },
+        }
+      ) // TODO: Show success notification with fade out.
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }
+
+  function deleteBooking() {
+    axios
+      .delete(`/api/lan-van-booking/${bookingId}/`, {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfTokenCookie },
+      })
+      .then(() => setBookingId(-1))
       .catch((err) => console.log(err));
   }
 
   return (
     <MainContent>
       <Row>
-        <Col>
+        <Col sm={6}>
           <h2>Van booking form</h2>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              bookVan();
+              if (bookingId === -1) {
+                createBooking();
+              } else {
+                updateBooking();
+              }
             }}
           >
             <FormGroup>
@@ -71,8 +141,8 @@ export default function LanVanBookingForm() {
               <Input
                 id="collection-required"
                 type="checkbox"
-                value={collectionRequired}
-                onInput={(e) => setCollectionRequired(e.target.value)}
+                checked={collectionRequired}
+                onChange={(e) => setCollectionRequired(e.target.checked)}
               />{" "}
               <Label for="collection-required">Require collection</Label>
             </FormGroup>
@@ -80,8 +150,8 @@ export default function LanVanBookingForm() {
               <Input
                 id="dropoff-required"
                 type="checkbox"
-                value={dropoffRequired}
-                onInput={(e) => setDropoffRequired(e.target.value)}
+                checked={dropoffRequired}
+                onChange={(e) => setDropoffRequired(e.target.checked)}
               />{" "}
               <Label for="dropoff-required">Require drop-off</Label>
             </FormGroup>
@@ -95,11 +165,32 @@ export default function LanVanBookingForm() {
                 onInput={(e) => setAvailability(e.target.value)}
               />
             </FormGroup>
-            <FormGroup>
-              <Button id="submit" name="submit">
-                Book seat
-              </Button>
-            </FormGroup>
+            {bookingId === -1 && (
+              <FormGroup>
+                <Button id="submit" name="submit" color="primary">
+                  Book LAN van
+                </Button>
+              </FormGroup>
+            )}
+            {!(bookingId === -1) && (
+              <FormGroup row>
+                <Col>
+                  <Button
+                    id="deleteBooking"
+                    name="deleteBooking"
+                    color="danger"
+                    onClick={() => deleteBooking()}
+                  >
+                    Delete LAN van booking
+                  </Button>
+                </Col>
+                <Col>
+                  <Button id="submit" name="submit" color="primary">
+                    Update LAN van booking
+                  </Button>
+                </Col>
+              </FormGroup>
+            )}
           </Form>
         </Col>
       </Row>
