@@ -15,7 +15,7 @@ export function checkName(name, setNameIsValid, setNameFeedback) {
   if (name.length === 0) {
     isValid = false;
     feedback = NAME_FEEDBACK.minLength;
-  } else if (name > MAX_NAME_LENGTH) {
+  } else if (name.length > MAX_NAME_LENGTH) {
     isValid = false;
     feedback = NAME_FEEDBACK.maxLength;
   }
@@ -52,7 +52,7 @@ export function checkLocation(
   if (location.length === 0) {
     isValid = false;
     feedback = LOCATION_FEEDBACK.minLength;
-  } else if (location > MAX_LOCATION_LENGTH) {
+  } else if (location.length > MAX_LOCATION_LENGTH) {
     isValid = false;
     feedback = LOCATION_FEEDBACK.maxLength;
   }

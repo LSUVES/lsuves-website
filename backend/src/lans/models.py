@@ -134,6 +134,7 @@ class FoodOrderShop(models.Model):
     but not always).
     """
 
+    # TODO: Make this unique
     name = models.CharField(max_length=50)
     # TODO: Consider using TimeFields for this and storing the day separately/using dynamically
     #       created datetime fields
@@ -153,7 +154,7 @@ class FoodOrderMenuItem(models.Model):
         FoodOrderShop, related_name="items", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=100)
-    info = models.CharField(max_length=200)
+    info = models.CharField(max_length=200, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
 

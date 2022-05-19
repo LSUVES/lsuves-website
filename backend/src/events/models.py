@@ -10,6 +10,7 @@ class Event(models.Model):
     tournament would have the LAN event as its parent).
     """
 
+    # TODO: Add "food" event type
     GAMES = "games"
     SOCIAL = "social"
     TOURNAMENT = "tournament"

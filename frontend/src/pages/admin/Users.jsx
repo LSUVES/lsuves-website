@@ -128,6 +128,7 @@ export default function Users() {
     useState(false);
   const [newUserPassword, setNewUserPassword] = useState("");
   const [resetPasswordError, setResetPasswordError] = useState("");
+  // TODO: Give userId param a default value of -1
   function toggleResetPasswordModal(userId) {
     setUserToResetPassword(userId);
     setNewUserPassword("");

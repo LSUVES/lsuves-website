@@ -20,8 +20,10 @@ import {
 } from "./components/routing/pageRestrictions";
 import CsrfTokenContext from "./contexts/CsrfTokenContext";
 import AdminBlog from "./pages/admin/Blog";
-import Dashboard from "./pages/admin/Dashboard";
+import AdminDashboard from "./pages/admin/Dashboard";
 import AdminEvents from "./pages/admin/Events";
+import AdminFoodOptions from "./pages/admin/FoodOptions";
+import AdminFoodOrders from "./pages/admin/FoodOrders";
 import AdminSeatBookings from "./pages/admin/SeatBookings";
 import AdminTicketRequests from "./pages/admin/TicketRequests";
 import AdminUsers from "./pages/admin/Users";
@@ -195,7 +197,7 @@ export default function App() {
                 </RequireAuth>
               }
             >
-              <Route index element={<Dashboard />} />
+              <Route index element={<AdminDashboard />} />
               <Route
                 path="ticket-requests"
                 element={
@@ -204,8 +206,10 @@ export default function App() {
               />
               <Route path="blog" element={<AdminBlog />} />
               <Route path="events" element={<AdminEvents />} />
-              <Route path="users" element={<AdminUsers />} />
+              <Route path="food-options" element={<AdminFoodOptions />} />
+              <Route path="food-orders" element={<AdminFoodOrders />} />
               <Route path="seat-bookings" element={<AdminSeatBookings />} />
+              <Route path="users" element={<AdminUsers />} />
               <Route path="van-bookings" element={<AdminVanBookings />} />
             </Route>
             <Route path="blog" element={<Blog />} />

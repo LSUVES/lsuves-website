@@ -10,12 +10,21 @@ from .models import *
 
 # TODO: Change this to a regular serializer
 class UserNameSerializer(serializers.ModelSerializer):
+    """
+    Serializes the ID and name fields of the User model. Used with other
+    serializers so that this information doesn't need to be fetched separately.
+    """
+
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "last_name")
 
 
 class CommitteeShiftSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializes all the fields of the CommitteeShift model.
+    """
+
     class Meta:
         model = CommitteeShift
         fields = ("url", "id", "lan", "start_time", "end_time", "committee")
@@ -112,12 +121,21 @@ class TicketUserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TicketIdSerializer(serializers.ModelSerializer):
+    """
+    Serializes the ID and user fields of LAN tickets.
+    """
+
     class Meta:
         model = Ticket
         fields = ("id", "user")
 
 
 class SeatBookingGroupSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializes all the fields of the SeatBookingGroup model, using the
+    TicketIdSerializer to also provide the owner (which would otherwise be a ticket).
+    """
+
     owner = TicketIdSerializer(required=False)
 
     class Meta:
@@ -145,6 +163,10 @@ class SeatBookingGroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VanBookingSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializes all the fields of the VanBooking model.
+    """
+
     class Meta:
         model = VanBooking
         fields = (
@@ -163,18 +185,51 @@ class VanBookingSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class FoodOrderShopSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializes all the fields of the FoodOrderShop model.
+    """
+
     class Meta:
         model = FoodOrderShop
         fields = ("url", "id", "name", "order_by", "arrives_at", "is_open")
 
 
-class FoodOrderMenuItemSerializer(serializers.HyperlinkedModelSerializer):
+# TODO: Change this to a regular serializer
+# class FoodOrderShopIdSerializer(serializers.ModelSerializer):
+#     """
+#     Serializes the ID of the FoodOrderShop model.
+#     """
+
+#     # Wouldn't be necessary if FoodOrderMenuItemSerializer wasn't a
+#     # HyperLinkedModelSerializer.
+
+#     class Meta:
+#         model = FoodOrderShop
+#         fields = ("url", "id")
+
+
+class FoodOrderMenuItemSerializer(serializers.ModelSerializer):
+    """
+    Serializes all the fields of the FoodOrderMenuItem model.
+    """
+
+    # """", using the
+    # FoodOrderShopIdSerializer to provide the ID of the shop, in addition to
+    # the URL (which probably isn't necessary).
+    # """
+
+    # shop = FoodOrderShopIdSerializer()
+
     class Meta:
         model = FoodOrderMenuItem
-        fields = ("url", "id", "shop", "name", "info", "price")
+        fields = ("id", "shop", "name", "info", "price")
 
 
 class FoodOrderSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializes all the fields of the FoodOrder model.
+    """
+
     class Meta:
         model = FoodOrder
         fields = ("url", "id", "lan", "orderer", "option", "paid")

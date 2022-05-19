@@ -10,6 +10,10 @@ from .permissions import HasLanTicket, LanTicketIsOwner
 from .serializers import *
 from .utils import get_current_lan
 
+# TODO: Instead of manually passing in requesting user to serializers, consider
+#       using default values on serializers with context:
+#       https://www.django-rest-framework.org/api-guide/fields/#default
+
 
 class CommitteeShiftViewSet(viewsets.ModelViewSet):
     queryset = CommitteeShift.objects.all()

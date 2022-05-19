@@ -25,7 +25,10 @@ export default function Lan({ isAuthenticated }) {
         setWaitingForCurrentLan(false);
         console.log(currentLan);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setWaitingForCurrentLan(false);
+      });
   }, []);
 
   useEffect(() => {

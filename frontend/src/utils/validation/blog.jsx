@@ -1,5 +1,7 @@
 // Blog post information constraints and validation functions.
 
+// TODO: Rename all MAX_?_LENGTH variables to ?_MAX_LENGTH.
+
 // Blog post title validation.
 export const MAX_TITLE_LENGTH = 100;
 const TITLE_FEEDBACK = {
@@ -13,7 +15,7 @@ export function checkTitle(title, setTitleIsValid, setTitleFeedback) {
   if (title.length === 0) {
     isValid = false;
     feedback = TITLE_FEEDBACK.minLength;
-  } else if (title > MAX_TITLE_LENGTH) {
+  } else if (title.length > MAX_TITLE_LENGTH) {
     isValid = false;
     feedback = TITLE_FEEDBACK.maxLength;
   }

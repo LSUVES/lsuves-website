@@ -22,6 +22,9 @@ export default function Event() {
   }, [eventId]);
 
   useEffect(() => {
+    // FIXME: Use conditional rendering for this instead to prevent bugs with
+    //        embedded code.
+    // TODO: Add link to LAN page for LAN events.
     console.log(event);
     if (event) {
       setDisplay(
