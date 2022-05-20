@@ -21,7 +21,7 @@ export default function Events() {
 
   useEffect(() => {
     getEvents();
-  }, [eventList.length]);
+  }, []);
 
   function getEventAndEdit(eventId) {
     // Get all information about a specific event from the backend and set as

@@ -13,7 +13,7 @@ export default function Events() {
       .get("/api/events/")
       .then((res) => setEventList(res.data))
       .catch((err) => console.log(err));
-  }, [eventList.length]);
+  }, []);
 
   return (
     <MainContent>

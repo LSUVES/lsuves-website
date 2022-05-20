@@ -168,5 +168,7 @@ class FoodOrder(models.Model):
     orderer = models.ForeignKey(
         Ticket, related_name="food_orders", on_delete=models.CASCADE
     )
-    option = models.OneToOneField(FoodOrderMenuItem, on_delete=models.CASCADE)
+    option = models.ForeignKey(
+        FoodOrderMenuItem, related_name="orders", on_delete=models.CASCADE
+    )
     paid = models.BooleanField("paid for order", default=False)

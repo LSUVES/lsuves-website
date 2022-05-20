@@ -25,7 +25,7 @@ export default function Blog() {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
-  }, [postList.length]);
+  }, []);
 
   return (
     <MainContent>

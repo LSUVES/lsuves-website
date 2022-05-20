@@ -86,8 +86,7 @@ export default function FoodOptions() {
   useEffect(() => {
     getFoodShops();
     getFoodItems();
-    // TODO: Is shops.length necessary here?
-  }, [shops.length]);
+  }, []);
 
   function setFoodShop(id = -1) {
     setShopId(id);
@@ -97,6 +96,7 @@ export default function FoodOptions() {
       setOrderBy("");
       setArrivesAt("");
     } else {
+      // FIXME: Doesn't this error if id = -2 (when a shop is deleted)?
       const shop = shops.find((item) => item.id === id);
       setIsOpen(shop.is_open);
       setShopName(shop.name);
@@ -429,7 +429,7 @@ export default function FoodOptions() {
                         Update shop information
                       </Button>
                     </Col>
-                    <Col>
+                    <Col className="text-end">
                       <Button
                         id="deleteShop"
                         name="deleteShop"
@@ -471,7 +471,7 @@ export default function FoodOptions() {
                                 Update menu item
                               </Button>
                             </Col>
-                            <Col>
+                            <Col className="text-end">
                               <Button
                                 id="deleteItem"
                                 name="deleteItem"

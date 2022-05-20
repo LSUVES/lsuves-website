@@ -1,7 +1,8 @@
-from avgs_website.permissions import IsOwner
-from django.shortcuts import get_object_or_404
+from avgs_website.permissions import IsAdminUserOrReadOnly, IsOwner
+from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
@@ -317,23 +318,65 @@ class VanBookingViewSet(viewsets.ModelViewSet):
 class FoodOrderShopViewSet(viewsets.ModelViewSet):
     queryset = FoodOrderShop.objects.all()
     serializer_class = FoodOrderShopSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 class FoodOrderMenuItemViewSet(viewsets.ModelViewSet):
     queryset = FoodOrderMenuItem.objects.all()
     serializer_class = FoodOrderMenuItemSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 class FoodOrderViewSet(viewsets.ModelViewSet):
+    # FIXME: Ensure orders cannot be placed for shops with is_open=False
     queryset = FoodOrder.objects.all()
-    serializer_class = FoodOrderSerializer
+    owner_field = "orderer"
+
+    def get_queryset(self):
+        current = "current" in self.request.query_params
+
+        if current:
+            self.queryset = self.queryset.filter(lan=get_current_lan())
+
+        return super().get_queryset()
+
+    def get_serializer_class(self):
+        if self.action in ("list", "my_food_orders"):
+            self.serializer_class = FoodOrderDetailSerializer
+        else:
+            self.serializer_class = FoodOrderSerializer
+        return super().get_serializer_class()
 
     def get_permissions(self):
-        if self.action == "create":
+        if self.action in ("create", "my_food_orders"):
             self.permission_classes = [IsAuthenticated, HasLanTicket]
+        elif self.action == "destroy":
+            self.permission_classes = [IsAuthenticated, HasLanTicket, LanTicketIsOwner]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
     def perform_create(self, serializer):
-        serializer.save(lan=get_current_lan(), orderer=self.request.user)
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=self.request.user)
+        serializer.save(lan=get_current_lan(), orderer=ticket)
+
+    def perform_destroy(self, instance):
+        print(instance)
+        if instance.paid and not self.request.user.is_staff:
+            # TODO: Response is of the form ["Only admins can delete paid orders."].
+            #       Consider whether it should instead be of the form {"detail": "Only admins can delete paid orders."}
+            #       as with other responses.
+            raise ValidationError("Only admins can delete paid orders.")
+        return super().perform_destroy(instance)
+
+    @action(detail=False)
+    def my_food_orders(self, request):
+        """
+        Returns the food orders linked to a user's ticket for the current LAN,
+        if any.
+        """
+        # As with SeatBookingViewSet.my_seat_booking, this shouldn't error.
+        ticket = Ticket.objects.all().get(lan=get_current_lan(), user=request.user)
+        food_orders = get_list_or_404(self.get_queryset(), **{"orderer": ticket})
+        serializer = self.get_serializer(food_orders, many=True)
+        return Response(serializer.data)

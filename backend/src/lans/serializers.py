@@ -89,6 +89,7 @@ class TicketSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+# TODO: Rename to distinguish from TicketUserNameSerializer
 class TicketUserSerializer(serializers.HyperlinkedModelSerializer):
     """
     Same as above but repleaces user ID with a nested serialized representation of the user's
@@ -122,8 +123,20 @@ class TicketUserSerializer(serializers.HyperlinkedModelSerializer):
 
 class TicketIdSerializer(serializers.ModelSerializer):
     """
-    Serializes the ID and user fields of LAN tickets.
+    Serializes the ticket ID and user ID fields of LAN tickets.
     """
+
+    class Meta:
+        model = Ticket
+        fields = ("id", "user")
+
+
+class TicketUsernameSerializer(serializers.ModelSerializer):
+    """
+    Serializes the ticket ID and user name fields of LAN tickets.
+    """
+
+    user = UserNameSerializer()
 
     class Meta:
         model = Ticket
@@ -225,14 +238,33 @@ class FoodOrderMenuItemSerializer(serializers.ModelSerializer):
         fields = ("id", "shop", "name", "info", "price")
 
 
-class FoodOrderSerializer(serializers.HyperlinkedModelSerializer):
+class FoodOrderSerializer(serializers.ModelSerializer):
     """
     Serializes all the fields of the FoodOrder model.
     """
 
     class Meta:
         model = FoodOrder
-        fields = ("url", "id", "lan", "orderer", "option", "paid")
+        fields = ("id", "lan", "orderer", "option", "paid")
+        extra_kwargs = {
+            "lan": {"required": False},
+            "orderer": {"required": False},
+            "paid": {"required": False},
+        }
+
+
+# TODO: Consider naming scheme.
+class FoodOrderDetailSerializer(serializers.ModelSerializer):
+    """
+    Serializes all the fields of the FoodOrder model with option details.
+    """
+
+    option = FoodOrderMenuItemSerializer()
+    orderer = TicketUsernameSerializer()
+
+    class Meta:
+        model = FoodOrder
+        fields = ("id", "lan", "orderer", "option", "paid")
         extra_kwargs = {
             "lan": {"required": False},
             "orderer": {"required": False},

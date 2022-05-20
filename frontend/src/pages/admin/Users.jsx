@@ -33,7 +33,7 @@ export default function Users() {
 
   useEffect(() => {
     getUsers();
-  }, [userList.length]);
+  }, []);
 
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
@@ -288,6 +288,7 @@ export default function Users() {
                           </tr>
                         </tbody>
                       </Table>
+                      {/* TODO: Separate these more. */}
                       <Button
                         className="me-2"
                         onClick={() => toggleResetPasswordModal(item.id)}

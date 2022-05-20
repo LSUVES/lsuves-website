@@ -21,7 +21,7 @@ export default function VanBookings() {
 
   useEffect(() => {
     getVanBookings();
-  }, [vanBookingList.length]);
+  }, []);
 
   return (
     <MainContent>

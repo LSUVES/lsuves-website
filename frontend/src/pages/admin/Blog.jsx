@@ -29,7 +29,7 @@ export default function Blog() {
 
   useEffect(() => {
     getPosts();
-  }, [postList.length]);
+  }, []);
 
   function getPostAndEdit(postId) {
     // Get all information about a specific post from the backend and set as

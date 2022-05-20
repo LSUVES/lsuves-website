@@ -21,7 +21,7 @@ export default function SeatBookings() {
 
   useEffect(() => {
     getSeatBookings();
-  }, [seatBookingList.length]);
+  }, []);
 
   return (
     <MainContent>
