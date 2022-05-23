@@ -19,7 +19,12 @@ import {
 
 //       TODO: Consider centring navbar links
 //       https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
-export default function Navbar({ isAuthenticated, isAdmin, onLogOut }) {
+export default function Navbar({
+  isAuthenticated,
+  isAdmin,
+  onLogOut,
+  currentLanExists,
+}) {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [profileIsOpen, setProfileIsOpen] = useState(false);
 
@@ -71,18 +76,34 @@ export default function Navbar({ isAuthenticated, isAdmin, onLogOut }) {
               <DropdownItem tag={RRNavLink} to="/lan/rules">
                 Rules
               </DropdownItem>
-              <DropdownItem tag={RRNavLink} to="/lan/timetable">
+              <DropdownItem
+                tag={RRNavLink}
+                to="/lan/timetable"
+                disabled={!currentLanExists}
+              >
                 Timetable
               </DropdownItem>
               {/* FIXME: Only show these links if user has a LAN ticket */}
-              <DropdownItem tag={RRNavLink} to="/lan/van-booking">
+              <DropdownItem
+                tag={RRNavLink}
+                to="/lan/van-booking"
+                disabled={!currentLanExists}
+              >
                 Van booking
               </DropdownItem>
-              <DropdownItem tag={RRNavLink} to="/lan/seat-booking">
+              <DropdownItem
+                tag={RRNavLink}
+                to="/lan/seat-booking"
+                disabled={!currentLanExists}
+              >
                 Seat booking
               </DropdownItem>
               {/* FIXME: Only show this link when LAN has started */}
-              <DropdownItem tag={RRNavLink} to="/lan/food-order">
+              <DropdownItem
+                tag={RRNavLink}
+                to="/lan/food-order"
+                disabled={!currentLanExists}
+              >
                 Food order
               </DropdownItem>
             </DropdownMenu>
@@ -142,4 +163,5 @@ Navbar.propTypes = {
   isAuthenticated: propTypes.bool.isRequired,
   isAdmin: propTypes.bool.isRequired,
   onLogOut: propTypes.func.isRequired,
+  currentLanExists: propTypes.bool.isRequired,
 };

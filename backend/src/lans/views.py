@@ -116,6 +116,9 @@ class TicketRequestViewSet(
         # FIXME: Validate the below and include any errors in response.
         Ticket.objects.create(lan=get_current_lan(), user=user)
         if Ticket.objects.get(lan=get_current_lan(), user=user):
+            # Delete old TicketRequest.
+            # Note that get_queryset() won't already be filtered to current LAN.
+            self.get_queryset().get(lan=get_current_lan(), user=user).delete()
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -182,11 +185,25 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-# FIXME: Only list bookings for current LAN or delete bookings immediately afterwards
 class SeatBookingViewSet(viewsets.ModelViewSet):
     queryset = SeatBookingGroup.objects.all()
     serializer_class = SeatBookingGroupSerializer
     owner_field = "owner"
+
+    def get_queryset(self):
+        current = "current" in self.request.query_params
+
+        if current:
+            self.queryset = self.queryset.filter(lan=get_current_lan())
+
+        return super().get_queryset()
+
+    # def get_serializer_class(self):
+    #     if self.action == "my_seat_booking":
+    #         self.serializer_class = UserSeatBookingGroupSerializer
+    #     else:
+    #         self.serializer_class = SeatBookingGroupSerializer
+    #     return super().get_serializer_class()
 
     def get_permissions(self):
         if self.action in (
@@ -202,13 +219,6 @@ class SeatBookingViewSet(viewsets.ModelViewSet):
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
-
-    # def get_serializer_class(self):
-    #     if self.action == "my_seat_booking":
-    #         self.serializer_class = UserSeatBookingGroupSerializer
-    #     else:
-    #         self.serializer_class = SeatBookingGroupSerializer
-    #     return super().get_serializer_class()
 
     def perform_create(self, serializer):
         # As this is only called by the create action, which uses the
@@ -287,6 +297,14 @@ class VanBookingViewSet(viewsets.ModelViewSet):
     queryset = VanBooking.objects.all()
     serializer_class = VanBookingSerializer
     owner_field = "requester"
+
+    def get_queryset(self):
+        current = "current" in self.request.query_params
+
+        if current:
+            self.queryset = self.queryset.filter(lan=get_current_lan())
+
+        return super().get_queryset()
 
     def get_permissions(self):
         if self.action in ("create", "my_van_booking"):

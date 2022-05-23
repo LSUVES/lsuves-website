@@ -1,27 +1,7 @@
 .profile-toggler>.navbar-toggler-icon {
   background-image: url("logo.svg");
 }
-/* .App {
-  text-align: center;
+
+.card {
+  background-color: aliceblue;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-/* .navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
-.navbar, .navbar-collapse {
-  text-align: center;
-} */

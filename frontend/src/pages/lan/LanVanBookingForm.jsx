@@ -89,7 +89,7 @@ export default function LanVanBookingForm() {
 
   return (
     <MainContent>
-      <Row>
+      <Row className="justify-content-center">
         <Col sm={6}>
           <h2>Van booking form</h2>
           <Form

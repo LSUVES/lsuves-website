@@ -92,3 +92,31 @@ RequireAdmin.propTypes = {
   isAdmin: propTypes.bool.isRequired,
   children: propTypes.node.isRequired,
 };
+
+export function RequireLanTicket({
+  hasLanTicket,
+  isLoadingHasLanTicket,
+  children,
+}) {
+  const [loadingDisplay, setLoadingDisplay] = useState();
+
+  if (isLoadingHasLanTicket) {
+    if (!loadingDisplay) {
+      setTimeout(() => {
+        setLoadingDisplay(<Container>Loading...</Container>);
+      }, 1000);
+    }
+    return <main className="d-flex flex-column">{loadingDisplay}</main>;
+  }
+
+  if (!hasLanTicket) {
+    return <Navigate to="/lan/" replace />;
+  }
+
+  return children;
+}
+RequireLanTicket.propTypes = {
+  isLoadingHasLanTicket: propTypes.bool.isRequired,
+  hasLanTicket: propTypes.bool.isRequired,
+  children: propTypes.node.isRequired,
+};

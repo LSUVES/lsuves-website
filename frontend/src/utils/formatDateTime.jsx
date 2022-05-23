@@ -3,6 +3,9 @@
  * it for use with datetime-local input elements.
  * @param {Date} time
  */
+
 export default function formatDateTime(time) {
-  return time.toISOString().slice(0, time.toISOString().lastIndexOf(":"));
+  const utcTime = new Date(time);
+  utcTime.setMinutes(utcTime.getMinutes() - utcTime.getTimezoneOffset());
+  return utcTime.toISOString().slice(0, utcTime.toISOString().lastIndexOf(":"));
 }

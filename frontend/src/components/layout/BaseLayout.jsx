@@ -15,15 +15,21 @@ import Navbar from "../navbar/Navbar";
  * @param {bool} isAdmin - Whether the user is an admin or not.
  * @param {func} onLogOut - A handler for the log out action.
  */
-export default function BaseLayout({ isAuthenticated, isAdmin, onLogOut }) {
+export default function BaseLayout({
+  isAuthenticated,
+  isAdmin,
+  onLogOut,
+  currentLanExists,
+}) {
   return (
-    <div className="d-flex flex-column min-vh-100 bg-success">
+    <div className="d-flex flex-column min-vh-100">
       <Container fluid>
         <Row>
           <Navbar
             isAuthenticated={isAuthenticated}
             isAdmin={isAdmin}
             onLogOut={onLogOut}
+            currentLanExists={currentLanExists}
           />
         </Row>
       </Container>
@@ -39,4 +45,5 @@ BaseLayout.propTypes = {
   isAuthenticated: propTypes.bool.isRequired,
   isAdmin: propTypes.bool.isRequired,
   onLogOut: propTypes.func.isRequired,
+  currentLanExists: propTypes.bool.isRequired,
 };

@@ -21,14 +21,17 @@ export default function Events() {
         <Col sm="8">
           <h3>Upcoming events:</h3>
           <ul className="p-0">
-            {eventList.map((item) => (
-              <Card className="my-2" key={item.id}>
-                <CardBody>
-                  <CardTitle title={item.name}>
-                    <a href={`/events/${item.id}`}>{item.name}</a>
-                  </CardTitle>
-                  <CardText>{item.body}</CardText>
-                  {/* {item.events.length > 0 && (
+            {/* TODO: Use event.end_time instead? */}
+            {eventList
+              .filter((event) => new Date(event.start_time) > new Date())
+              .map((item) => (
+                <Card className="my-2" key={item.id}>
+                  <CardBody>
+                    <CardTitle title={item.name}>
+                      <a href={`/events/${item.id}`}>{item.name}</a>
+                    </CardTitle>
+                    <CardText>{item.body}</CardText>
+                    {/* {item.events.length > 0 && (
                     <span>
                       Related posts:
                       <ul>
@@ -49,9 +52,9 @@ export default function Events() {
                       </ul>
                     </span>
                   )} */}
-                </CardBody>
-              </Card>
-            ))}
+                  </CardBody>
+                </Card>
+              ))}
           </ul>
         </Col>
       </Row>

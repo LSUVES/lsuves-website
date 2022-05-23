@@ -12,3 +12,8 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     permission_classes = [IsAdminUserOrReadOnly]
+
+    def get_queryset(self):
+        self.queryset = self.queryset.order_by("-date")
+
+        return super().get_queryset()

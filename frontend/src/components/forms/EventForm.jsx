@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
@@ -31,7 +31,11 @@ import {
 } from "../../utils/validation/event";
 import MainContent from "../layout/MainContent";
 
-export default function EventForm({ event, onClose }) {
+export default function EventForm({
+  event,
+  onClose,
+  handleLanCreationDeletion,
+}) {
   const [name, setEventName] = useState(event.name);
   const [nameIsValid, setNameIsValid] = useState(null);
   const [nameFeedback, setNameFeedback] = useState("");
@@ -46,6 +50,18 @@ export default function EventForm({ event, onClose }) {
   const [endTime, setEndTime] = useState(formatDateTime(event.endTime));
   const [endTimeIsValid, setEndTimeIsValid] = useState(null);
   const [endTimeFeedback, setEndTimeFeedback] = useState("");
+
+  // TODO: Re-write this to allow user to select any event as a parent.
+  //       Min/max start/end times should be those of the event parent.
+  const [currentLan, setCurrentLan] = useState();
+  const [parentEvent] = useState(event.parent);
+  const [isLanEvent, setIsLanEvent] = useState(false);
+  useEffect(() => {
+    axios.get("/api/events/current_lan/").then((res) => {
+      setCurrentLan(res.data);
+      setIsLanEvent(res.data.url === parentEvent);
+    });
+  }, []);
 
   // TODO: Decide whether this is worth it.
   // const [maxEndTime, setMaxEndTime] = useState();
@@ -107,21 +123,54 @@ export default function EventForm({ event, onClose }) {
       return;
     }
 
+    // Adds parent event to the request data if necessary.
+    // TODO: Refactor this.
+    let data = {};
+    if (isLanEvent) {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+        parent: currentLan.url,
+      };
+    } else if (parentEvent) {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+        parent: parentEvent,
+      };
+    } else {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+      };
+    }
+
     axios
-      .put(
-        `/api/events/${event.id}/`,
-        {
-          name,
-          type: type.toLowerCase(),
-          is_members_only: isMembersOnly,
-          location,
-          start_time: startTime,
-          end_time: endTime,
-        },
-        { withCredentials: true, headers: { "X-CSRFToken": csrfTokenCookie } }
-      )
+      .put(`/api/events/${event.id}/`, data, {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfTokenCookie },
+      })
       .then((res) => {
         console.log(res.data);
+        // TODO: Since validation prevents a LAN being sent to the past, the only
+        //       time this is relevant is when the event type is changed from a LAN
+        //       to something else, which without keeping track of the original type
+        //       is impossible to tell.
+        // if (type !== "lan") {
+        //   handleLanCreationDeletion();
+        // }
         onClose();
       })
       .catch((err) => console.log(err));
@@ -133,21 +182,50 @@ export default function EventForm({ event, onClose }) {
       return;
     }
 
+    // Adds parent event to the request data if necessary.
+    // TODO: Refactor this.
+    let data = {};
+    if (isLanEvent) {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+        parent: currentLan.url,
+      };
+    } else if (parentEvent) {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+        parent: parentEvent,
+      };
+    } else {
+      data = {
+        name,
+        type: type.toLowerCase(),
+        is_members_only: isMembersOnly,
+        location,
+        start_time: startTime,
+        end_time: endTime,
+      };
+    }
+
     axios
-      .post(
-        "/api/events/",
-        {
-          name,
-          type: type.toLowerCase(),
-          is_members_only: isMembersOnly,
-          location,
-          start_time: startTime,
-          end_time: endTime,
-        },
-        { withCredentials: true, headers: { "X-CSRFToken": csrfTokenCookie } }
-      )
+      .post("/api/events/", data, {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfTokenCookie },
+      })
       .then((res) => {
         console.log(res.data);
+        if (type === "lan") {
+          handleLanCreationDeletion();
+        }
         onClose();
       })
       .catch((err) => console.log(err));
@@ -168,6 +246,9 @@ export default function EventForm({ event, onClose }) {
       })
       .then((res) => {
         console.log(res.data);
+        if (type === "lan") {
+          handleLanCreationDeletion();
+        }
         onClose();
       })
       .catch((err) => console.log(err));
@@ -216,6 +297,21 @@ export default function EventForm({ event, onClose }) {
           </Input>
           <Label for="type">Type</Label>
         </FormGroup>
+        {currentLan && (
+          <FormGroup check inline>
+            <Label check>
+              <Input
+                id="isLanEvent"
+                name="isLanEvent"
+                type="checkbox"
+                checked={isLanEvent}
+                placeholder="Is LAN event"
+                onChange={(e) => setIsLanEvent(e.target.checked)}
+              />{" "}
+              Is {currentLan.name} event
+            </Label>
+          </FormGroup>
+        )}
         {/* TODO: Make other checkboxes on the site like this */}
         <FormGroup check inline>
           <Label check>
@@ -356,8 +452,10 @@ EventForm.propTypes = {
     location: propTypes.string,
     startTime: propTypes.instanceOf(Date),
     endTime: propTypes.instanceOf(Date),
+    parent: propTypes.string,
   }),
   onClose: propTypes.func.isRequired,
+  handleLanCreationDeletion: propTypes.func.isRequired,
 };
 EventForm.defaultProps = {
   event: {
@@ -368,5 +466,6 @@ EventForm.defaultProps = {
     location: "",
     startTime: new Date(),
     endTime: new Date(),
+    parent: "",
   },
 };

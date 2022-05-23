@@ -327,9 +327,7 @@ export default function FoodOptions() {
     <MainContent>
       <Row className="justify-content-center">
         <Col sm="8">
-          <div className="d-flex justify-content-between">
-            <h3>Food options:</h3>
-          </div>
+          <h3>Food options:</h3>
           <Nav tabs className="mb-3">
             {shops.map((item) => (
               <NavItem key={item.id}>

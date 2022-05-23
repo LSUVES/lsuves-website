@@ -1,17 +1,21 @@
+// import React, { useEffect, useState } from "react";
 import React from "react";
 
+import propTypes from "prop-types";
+// import axios from "axios";
 import { Outlet, NavLink as RRNavLink } from "react-router-dom";
 import { Col, Container, Nav, NavItem, NavLink, Row } from "reactstrap";
 
 /**
  * The page layout for the admin page.
  */
-export default function AdminLayout() {
+export default function AdminLayout({ currentLanExists }) {
   return (
     // TODO: This leads to a nested Container layout, consider creating a new
     //       AdminMainContent.jsx layout like MainContent.jsx without an additional Container
+    //       Group everything LAN-related
     <Container fluid className="d-flex flex-row flex-fill">
-      <Row className="d-flex flex-row flex-fill bg-info">
+      <Row className="d-flex flex-row flex-fill">
         <Col sm="2" className="bg-dark p-3">
           <Nav pills navbar vertical justified>
             <NavItem className="ms-0 mb-2">
@@ -35,17 +39,29 @@ export default function AdminLayout() {
               </NavLink>
             </NavItem>
             <NavItem className="ms-0 mb-2">
-              <NavLink tag={RRNavLink} to="/admin/ticket-requests">
-                Ticket requests
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/tickets"
+                disabled={!currentLanExists}
+              >
+                Tickets
               </NavLink>
             </NavItem>
             <NavItem className="ms-0 mb-2">
-              <NavLink tag={RRNavLink} to="/admin/seat-bookings">
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/seat-bookings"
+                disabled={!currentLanExists}
+              >
                 Seat bookings
               </NavLink>
             </NavItem>
             <NavItem className="ms-0 mb-2">
-              <NavLink tag={RRNavLink} to="/admin/van-bookings">
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/van-bookings"
+                disabled={!currentLanExists}
+              >
                 Van bookings
               </NavLink>
             </NavItem>
@@ -55,7 +71,11 @@ export default function AdminLayout() {
               </NavLink>
             </NavItem>
             <NavItem className="ms-0 mb-2">
-              <NavLink tag={RRNavLink} to="/admin/food-orders">
+              <NavLink
+                tag={RRNavLink}
+                to="/admin/food-orders"
+                disabled={!currentLanExists}
+              >
                 Food orders
               </NavLink>
             </NavItem>
@@ -68,3 +88,6 @@ export default function AdminLayout() {
     </Container>
   );
 }
+AdminLayout.propTypes = {
+  currentLanExists: propTypes.bool.isRequired,
+};

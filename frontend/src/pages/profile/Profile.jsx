@@ -305,6 +305,7 @@ export default function Profile() {
 
   return (
     <MainContent>
+      {/* <Row className="justify-content-center"><Col sm={8}> */}
       {!profile && <>{error}</>}
       {profile && (
         // FIXME: Does the Form need to be the direct parent of FormGroups to capture enter key-press?

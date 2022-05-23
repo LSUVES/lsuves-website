@@ -17,9 +17,9 @@ export default function LanTimetable() {
 
   return (
     <MainContent>
-      <Row>
-        <Col>
-          <h2>Lan events:</h2>
+      <Row className="justify-content-center">
+        <Col sm={8}>
+          <h2 className="text-center">Lan events</h2>
           <ul>
             {lanEventList.map((item) => (
               <Card key={item.id} className="mt-3">

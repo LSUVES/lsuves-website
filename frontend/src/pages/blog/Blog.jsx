@@ -22,7 +22,6 @@ export default function Blog() {
       .get("/api/blog/")
       .then((res) => {
         setPostList(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -42,7 +41,17 @@ export default function Blog() {
                   alt="tempalt"
                 />
                 <CardBody>
-                  <CardTitle title={item.title}>{item.title}</CardTitle>
+                  <CardTitle title={item.title}>
+                    <Row>
+                      <Col>{item.title}</Col>
+                      <Col className="text-end">
+                        <small>
+                          Posted at {new Date(item.date).toLocaleTimeString()}{" "}
+                          on {new Date(item.date).toLocaleDateString()}
+                        </small>
+                      </Col>
+                    </Row>
+                  </CardTitle>
                   <CardText>{item.body}</CardText>
                   {item.events.length > 0 && (
                     <span>

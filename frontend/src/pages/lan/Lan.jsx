@@ -7,6 +7,7 @@ import { Button, Col, Row } from "reactstrap";
 import MainContent from "../../components/layout/MainContent";
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 
+// TODO: DRY this out with App.jsx
 export default function Lan({ isAuthenticated }) {
   const [currentLan, setCurrentLan] = useState();
   const [waitingForCurrentLan, setWaitingForCurrentLan] = useState(true);

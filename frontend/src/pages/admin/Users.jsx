@@ -8,6 +8,9 @@ import {
   // CardText,
   CardTitle,
   Col,
+  FormGroup,
+  Input,
+  Label,
   Modal,
   ModalBody,
   ModalFooter,
@@ -20,8 +23,19 @@ import {
 import MainContent from "../../components/layout/MainContent";
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 
+const FILTER_ACCOUNT_TYPES = {
+  all: "All",
+  nonmember: "Non-member",
+  requestingMembership: "Requesting membership",
+  member: "Member",
+  admin: "Admin",
+};
+
+// TODO: Remove the redundant references to "the backend" in axios function comments.
 export default function Users() {
   const [userList, setUserList] = useState([]);
+  const [filterAccountType, setFilterAccountType] = useState("all");
+  const [filterUser, setFilterUser] = useState("");
 
   function getUsers() {
     // Get a list of all users from the backend.
@@ -38,6 +52,7 @@ export default function Users() {
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
   function giveUserMembership(userId) {
+    // Gives a user membership on the backend.
     axios
       .patch(
         `/api/users/${userId}/`,
@@ -58,6 +73,7 @@ export default function Users() {
   }
 
   function revokeUserMembership(userId) {
+    // Revokes a user's membership on the backend.
     axios
       .patch(
         `/api/users/${userId}/`,
@@ -187,126 +203,178 @@ export default function Users() {
     <MainContent>
       <Row className="justify-content-center">
         <Col sm="8">
-          <div className="d-flex justify-content-between">
-            <h3>Users:</h3>
-          </div>
+          <h3>Users:</h3>
+          Filter by
+          <Row>
+            <Col>
+              <FormGroup floating>
+                <Input
+                  id="filterAccountType"
+                  name="filterAccountType"
+                  type="select"
+                  checked={filterAccountType}
+                  placeholder="Account type"
+                  onInput={(e) => setFilterAccountType(e.target.value)}
+                >
+                  {Object.keys(FILTER_ACCOUNT_TYPES).map((accountTypeKey) => (
+                    <option key={accountTypeKey} value={accountTypeKey}>
+                      {FILTER_ACCOUNT_TYPES[accountTypeKey]}
+                    </option>
+                  ))}
+                </Input>{" "}
+                <Label for="filterAccountType">Account type</Label> <br />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup floating>
+                <Input
+                  id="filterUser"
+                  name="filterUser"
+                  value={filterUser}
+                  placeholder="User"
+                  onInput={(e) => setFilterUser(e.target.value)}
+                />
+                <Label for="filterUser">User</Label>
+              </FormGroup>
+            </Col>
+          </Row>
           <ul className="p-0">
-            {userList.map((item) => (
-              <Card className="my-2" key={item.id}>
-                <CardBody>
-                  <CardTitle title={item.username} className="d-flex mb-0">
-                    <h5 className="my-auto flex-grow-1">
-                      {/* FIXME: Add overflow to prevent long usernames spilling out */}
-                      {!item.is_superuser && (
-                        <Button
-                          color="link"
-                          id={`toggler${item.id}`}
-                          disabled={item.is_superuser}
-                        >
-                          {item.username}
-                        </Button>
-                      )}
-                      {/* TODO: Clean this up or just don't display superusers */}
-                      {item.is_superuser && (
-                        <>
-                          {item.username} <small>(superuser)</small>
-                        </>
-                      )}
-                    </h5>
-                  </CardTitle>
-                  {!item.is_superuser && (
-                    <UncontrolledCollapse toggler={`#toggler${item.id}`}>
-                      <Table borderless>
-                        <tbody>
-                          <tr>
-                            <th>Email</th>
-                            <td>{item.email}</td>
-                          </tr>
-                          <tr>
-                            <th>First name</th>
-                            <td>{item.first_name}</td>
-                          </tr>
-                          <tr>
-                            <th>Last name</th>
-                            <td>{item.last_name}</td>
-                          </tr>
-                          <tr>
-                            <th>Student ID</th>
-                            <td>{item.student_id}</td>
-                          </tr>
-                          <tr>
-                            <th>Member?</th>
-                            {!item.is_member && (
-                              <td className="d-flex justify-content-between">
-                                No
-                                <Button
-                                  className="me-2"
-                                  onClick={() => giveUserMembership(item.id)}
-                                >
-                                  Give membership
-                                </Button>
-                              </td>
-                            )}
-                            {item.is_member && (
-                              <td className="d-flex justify-content-between">
-                                Yes
-                                <Button
-                                  className="me-2"
-                                  onClick={() => revokeUserMembership(item.id)}
-                                >
-                                  Revoke membership
-                                </Button>
-                              </td>
-                            )}
-                          </tr>
-                          <tr>
-                            <th>Admin?</th>
-                            {!item.isAdmin && (
-                              <td className="d-flex justify-content-between">
-                                No{" "}
-                                {item.is_member && (
+            {userList
+              .filter(
+                (item) =>
+                  // TODO: Implement this in a separate function using a switch.
+                  (filterAccountType === "all" ||
+                    (filterAccountType === "nonmember" && !item.is_member) ||
+                    (filterAccountType === "requestingMembership" &&
+                      item.is_requesting_membership) ||
+                    (filterAccountType === "member" && item.is_member) ||
+                    (filterAccountType === "admin" && item.isAdmin)) &&
+                  (item.username
+                    .toLowerCase()
+                    .startsWith(filterUser.toLowerCase()) ||
+                    item.first_name
+                      .concat(" ", item.last_name)
+                      .toLowerCase()
+                      .startsWith(filterUser.toLowerCase()))
+              )
+              .map((item) => (
+                <Card className="my-2" key={item.id}>
+                  <CardBody>
+                    <CardTitle title={item.username} className="d-flex mb-0">
+                      <h5 className="my-auto flex-grow-1">
+                        {/* FIXME: Add overflow to prevent long usernames spilling out */}
+                        {!item.is_superuser && (
+                          <Button
+                            color="link"
+                            id={`toggler${item.id}`}
+                            disabled={item.is_superuser}
+                          >
+                            {item.username}
+                          </Button>
+                        )}
+                        {/* TODO: Clean this up or just don't display superusers */}
+                        {item.is_superuser && (
+                          <>
+                            {item.username} <small>(superuser)</small>
+                          </>
+                        )}
+                      </h5>
+                    </CardTitle>
+                    {!item.is_superuser && (
+                      <UncontrolledCollapse toggler={`#toggler${item.id}`}>
+                        <Table borderless>
+                          <tbody>
+                            <tr>
+                              <th style={{ width: "25%" }}>Email</th>
+                              <td>{item.email}</td>
+                            </tr>
+                            <tr>
+                              <th>First name</th>
+                              <td>{item.first_name}</td>
+                            </tr>
+                            <tr>
+                              <th>Last name</th>
+                              <td>{item.last_name}</td>
+                            </tr>
+                            <tr>
+                              <th>Student ID</th>
+                              <td>{item.student_id}</td>
+                            </tr>
+                            <tr>
+                              <th>Member?</th>
+                              {!item.is_member && (
+                                <td className="d-flex justify-content-between">
+                                  No
                                   <Button
                                     className="me-2"
-                                    onClick={() => toggleAdminModal(item.id)}
+                                    onClick={() => giveUserMembership(item.id)}
                                   >
-                                    Make admin
+                                    Give membership
                                   </Button>
-                                )}
-                              </td>
-                            )}
-                            {item.isAdmin && (
-                              <td className="d-flex justify-content-between">
-                                Yes
-                                <Button
-                                  className="me-2"
-                                  onClick={() => unAdminUser(item.id)}
-                                >
-                                  Remove admin
-                                </Button>
-                              </td>
-                            )}
-                          </tr>
-                        </tbody>
-                      </Table>
-                      {/* TODO: Separate these more. */}
-                      <Button
-                        className="me-2"
-                        onClick={() => toggleResetPasswordModal(item.id)}
-                      >
-                        Change password
-                      </Button>
-                      <Button
-                        color="danger"
-                        onClick={() => toggleDeleteModal(item.id)}
-                      >
-                        Delete
-                      </Button>
-                    </UncontrolledCollapse>
-                  )}
-                  {/* <CardText>{item.body}</CardText> */}
-                </CardBody>
-              </Card>
-            ))}
+                                </td>
+                              )}
+                              {item.is_member && (
+                                <td className="d-flex justify-content-between">
+                                  Yes
+                                  <Button
+                                    className="me-2"
+                                    onClick={() =>
+                                      revokeUserMembership(item.id)
+                                    }
+                                  >
+                                    Revoke membership
+                                  </Button>
+                                </td>
+                              )}
+                            </tr>
+                            <tr>
+                              <th>Admin?</th>
+                              {!item.isAdmin && (
+                                <td className="d-flex justify-content-between">
+                                  No{" "}
+                                  {item.is_member && (
+                                    <Button
+                                      className="me-2"
+                                      onClick={() => toggleAdminModal(item.id)}
+                                    >
+                                      Make admin
+                                    </Button>
+                                  )}
+                                </td>
+                              )}
+                              {item.isAdmin && (
+                                <td className="d-flex justify-content-between">
+                                  Yes
+                                  <Button
+                                    className="me-2"
+                                    onClick={() => unAdminUser(item.id)}
+                                  >
+                                    Remove admin
+                                  </Button>
+                                </td>
+                              )}
+                            </tr>
+                          </tbody>
+                        </Table>
+                        {/* TODO: Separate these more. */}
+                        <Button
+                          className="me-2"
+                          onClick={() => toggleResetPasswordModal(item.id)}
+                        >
+                          Change password
+                        </Button>
+                        <Button
+                          color="danger"
+                          onClick={() => toggleDeleteModal(item.id)}
+                        >
+                          Delete
+                        </Button>
+                      </UncontrolledCollapse>
+                    )}
+                    {/* <CardText>{item.body}</CardText> */}
+                  </CardBody>
+                </Card>
+              ))}
           </ul>
           {userToAdmin && (
             // Admin user modal

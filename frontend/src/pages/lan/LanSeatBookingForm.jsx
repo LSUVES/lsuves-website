@@ -151,7 +151,7 @@ export default function LanSeatBookingForm() {
 
   return (
     <MainContent>
-      <Row>
+      <Row className="justify-content-center">
         <Col sm={6}>
           <h2>Seat booking form</h2>
           {!waitingForResponse && (
@@ -210,10 +210,10 @@ export default function LanSeatBookingForm() {
                   }}
                 >
                   <FormGroup>
-                    <Label for="group-name">Group name</Label>
+                    <Label for="groupName">Group name</Label>
                     <Input
-                      id="group-name"
-                      name="group-name"
+                      id="groupName"
+                      name="groupName"
                       value={groupName}
                       onInput={(e) => setGroupName(e.target.value)}
                       readOnly={!ownsGroup}

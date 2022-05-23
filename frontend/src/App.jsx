@@ -16,6 +16,7 @@ import BaseLayout from "./components/layout/BaseLayout";
 import {
   RequireAdmin,
   RequireAuth,
+  RequireLanTicket,
   RequireUnauth,
 } from "./components/routing/pageRestrictions";
 import CsrfTokenContext from "./contexts/CsrfTokenContext";
@@ -25,7 +26,7 @@ import AdminEvents from "./pages/admin/Events";
 import AdminFoodOptions from "./pages/admin/FoodOptions";
 import AdminFoodOrders from "./pages/admin/FoodOrders";
 import AdminSeatBookings from "./pages/admin/SeatBookings";
-import AdminTicketRequests from "./pages/admin/TicketRequests";
+import AdminTickets from "./pages/admin/Tickets";
 import AdminUsers from "./pages/admin/Users";
 import AdminVanBookings from "./pages/admin/VanBookings";
 import ForgotPassword from "./pages/authentication/ForgotPassword";
@@ -44,6 +45,7 @@ import LanRules from "./pages/lan/LanRules";
 import LanSeatBookingForm from "./pages/lan/LanSeatBookingForm";
 import LanTimetable from "./pages/lan/LanTimetable";
 import LanVanBookingForm from "./pages/lan/LanVanBookingForm";
+// import LanMap from "./pages/lan/Map";
 import Profile from "./pages/profile/Profile";
 import getCookie from "./utils/getCookie";
 
@@ -66,6 +68,11 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAdmin, setIsLoadingAdmin] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const [currentLanExists, setCurrentLanExists] = useState(false);
+  const [hasTicket, setHasTicket] = useState(false);
+  const [waitingForTicketResponse, setWaitingForTicketResponse] =
+    useState(true);
 
   // TODO: Just pass setIsAuthenticatedState to components?
   const handleIsAuthenticatedChange = (newIsAuthenticated) => {
@@ -165,6 +172,38 @@ export default function App() {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  // Gets whether there is an upcoming/ongoing LAN.
+  function getCurrentLanExists() {
+    axios
+      .get("/api/events/current_lan/")
+      .then(() => {
+        setCurrentLanExists(true);
+      })
+      .catch(() => setCurrentLanExists(false));
+  }
+
+  useEffect(() => {
+    getCurrentLanExists();
+  }, []);
+
+  // FIXME: Trigger this when admin approves their own ticket.
+  useEffect(() => {
+    if (!isLoadingAuth && isAuthenticated) {
+      axios
+        .get("/api/lan-tickets/my_lan_ticket/", { withCredentials: true })
+        .then((res) => {
+          setHasTicket(true);
+          setWaitingForTicketResponse(false);
+          console.log(res);
+        })
+        .catch((err) => {
+          setHasTicket(false);
+          setWaitingForTicketResponse(false);
+          console.log(err);
+        });
+    }
+  }, [isAuthenticated, isLoadingAuth]);
+
   return (
     <CsrfTokenContext.Provider value={csrfTokenCookie}>
       <BrowserRouter>
@@ -176,6 +215,7 @@ export default function App() {
                 isAuthenticated={isAuthenticated}
                 isAdmin={isAdmin}
                 onLogOut={handleLogOut}
+                currentLanExists={currentLanExists}
               />
             }
           >
@@ -192,20 +232,22 @@ export default function App() {
                     isLoadingAdmin={isLoadingAdmin}
                     isAdmin={isAdmin}
                   >
-                    <AdminLayout />
+                    <AdminLayout currentLanExists={currentLanExists} />
                   </RequireAdmin>
                 </RequireAuth>
               }
             >
               <Route index element={<AdminDashboard />} />
+              <Route path="tickets" element={<AdminTickets />} />
+              <Route path="blog" element={<AdminBlog />} />
               <Route
-                path="ticket-requests"
+                path="events"
                 element={
-                  <AdminTicketRequests isAuthenticated={isAuthenticated} />
+                  <AdminEvents
+                    handleLanCreationDeletion={() => getCurrentLanExists()}
+                  />
                 }
               />
-              <Route path="blog" element={<AdminBlog />} />
-              <Route path="events" element={<AdminEvents />} />
               <Route path="food-options" element={<AdminFoodOptions />} />
               <Route path="food-orders" element={<AdminFoodOrders />} />
               <Route path="seat-bookings" element={<AdminSeatBookings />} />
@@ -218,11 +260,14 @@ export default function App() {
               <Route path=":eventId" element={<Event />} />
             </Route>
             <Route path="calendar" element={<Calendar />} />
+            {/* TODO: Use an index route?
+                      Add RequireLan page restriction */}
             <Route
               path="lan"
               element={<Lan isAuthenticated={isAuthenticated} />}
             />
             <Route path="lan/rules" element={<LanRules />} />
+            {/* <Route path="lan/map" element={<LanMap />} /> */}
             <Route path="lan/timetable" element={<LanTimetable />} />
             <Route
               path="lan/van-booking"
@@ -232,7 +277,12 @@ export default function App() {
                   isAuthenticated={isAuthenticated}
                   AuthFailure={<AuthFailureRedirect />}
                 >
-                  <LanVanBookingForm />
+                  <RequireLanTicket
+                    isLoadingHasLanTicket={waitingForTicketResponse}
+                    hasLanTicket={hasTicket}
+                  >
+                    <LanVanBookingForm />
+                  </RequireLanTicket>
                 </RequireAuth>
               }
             />
@@ -244,7 +294,12 @@ export default function App() {
                   isAuthenticated={isAuthenticated}
                   AuthFailure={<AuthFailureRedirect />}
                 >
-                  <LanSeatBookingForm />
+                  <RequireLanTicket
+                    isLoadingHasLanTicket={waitingForTicketResponse}
+                    hasLanTicket={hasTicket}
+                  >
+                    <LanSeatBookingForm />
+                  </RequireLanTicket>
                 </RequireAuth>
               }
             />
@@ -256,7 +311,12 @@ export default function App() {
                   isAuthenticated={isAuthenticated}
                   AuthFailure={<AuthFailureRedirect />}
                 >
-                  <LanFoodOrderForm />
+                  <RequireLanTicket
+                    isLoadingHasLanTicket={waitingForTicketResponse}
+                    hasLanTicket={hasTicket}
+                  >
+                    <LanFoodOrderForm />
+                  </RequireLanTicket>
                 </RequireAuth>
               }
             />

@@ -155,6 +155,10 @@ class FoodOrderMenuItem(models.Model):
     )
     name = models.CharField(max_length=100)
     info = models.CharField(max_length=200, blank=True)
+    # TODO: Consider adding fields for dietary preferences that can be filtered on;
+    #       (e.g. vegan/vegetarian), though note the temptation to include all allergenic
+    #       ingredients (a lot) which should rather be included in the info field and
+    #       note also the potential liability if committee mislabel something.
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
 

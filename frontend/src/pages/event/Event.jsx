@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Col, Row, Table } from "reactstrap";
 
 import AxiosError from "../../components/axiosError/AxiosError";
 import MainContent from "../../components/layout/MainContent";
@@ -9,7 +10,7 @@ import MainContent from "../../components/layout/MainContent";
 export default function Event() {
   const [event, setEvent] = useState();
   const { eventId } = useParams();
-  const [display, setDisplay] = useState();
+  const [errorDisplay, setErrorDisplay] = useState();
 
   useEffect(() => {
     axios
@@ -17,32 +18,62 @@ export default function Event() {
       .then((res) => setEvent(res.data))
       .catch((err) => {
         console.log(err);
-        setDisplay(AxiosError(err));
+        setErrorDisplay(AxiosError(err));
       });
   }, [eventId]);
 
-  useEffect(() => {
-    // FIXME: Use conditional rendering for this instead to prevent bugs with
-    //        embedded code.
-    // TODO: Add link to LAN page for LAN events.
-    console.log(event);
-    if (event) {
-      setDisplay(
-        <>
-          <h2>{event.name}</h2>
-          <p>
-            <b>Location:</b> {event.location}
-          </p>
-          <p>
-            <b>Starts:</b> {new Date(event.start_time).toLocaleString()}
-          </p>
-          <p>
-            <b>Ends:</b> {new Date(event.end_time).toLocaleString()}
-          </p>
-        </>
-      );
-    }
-  }, [event]);
-
-  return <MainContent>{display}</MainContent>;
+  // TODO: Add link to LAN page for LAN events.
+  //       Make this look nice.
+  return (
+    <MainContent>
+      {event && (
+        <Row className="justify-content-center">
+          <Col sm={8}>
+            <h2 className="text-center">{event.name}</h2>
+            <Table borderless>
+              <tbody>
+                <tr>
+                  <th className="text-end">
+                    <b>Location:</b>
+                  </th>
+                  <td>{event.location}</td>
+                </tr>
+                <tr>
+                  <th className="text-end">
+                    <b>Starts:</b>
+                  </th>
+                  <td>
+                    {new Date(event.start_time).toLocaleString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="text-end">
+                    <b>Ends:</b>
+                  </th>
+                  <td>
+                    {new Date(event.end_time).toLocaleString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      )}
+      {errorDisplay && errorDisplay}
+    </MainContent>
+  );
 }

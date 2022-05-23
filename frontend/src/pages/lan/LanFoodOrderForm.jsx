@@ -51,7 +51,10 @@ export default function LanFoodOrderForm() {
         withCredentials: true,
       })
       .then((res) => setUserOrder(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setUserOrder([]);
+        console.log(err);
+      });
   }
 
   useEffect(() => {
@@ -106,7 +109,7 @@ export default function LanFoodOrderForm() {
 
   return (
     <MainContent>
-      <h2>Food order form:</h2>
+      <h2 className="text-center">Food order form</h2>
       {userOrder.length > 0 && (
         <>
           <h5>Your order:</h5>
@@ -138,8 +141,7 @@ export default function LanFoodOrderForm() {
               </CardBody>
             </Card>
           ))}
-          {/* // TODO: Sum total of unpaid orders. */}
-          <p className="text-end">
+          <p className="text-end fs-5">
             <b>Total to pay:</b> £
             {userOrder
               .filter((order) => !order.paid)
@@ -150,6 +152,7 @@ export default function LanFoodOrderForm() {
           <hr />
         </>
       )}
+      <h5>Menus:</h5>
       <Nav tabs className="mb-3">
         {shops.map((item) => (
           <NavItem key={item.id}>

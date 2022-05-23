@@ -121,6 +121,7 @@ class TicketUserSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+# TODO: Is this still necessary?
 class TicketIdSerializer(serializers.ModelSerializer):
     """
     Serializes the ticket ID and user ID fields of LAN tickets.
@@ -146,14 +147,17 @@ class TicketUsernameSerializer(serializers.ModelSerializer):
 class SeatBookingGroupSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serializes all the fields of the SeatBookingGroup model, using the
-    TicketIdSerializer to also provide the owner (which would otherwise be a ticket).
+    TicketUsernameSerializer to also provide the owner (which would otherwise be a ticket).
     """
 
-    owner = TicketIdSerializer(required=False)
+    owner = TicketUsernameSerializer(required=False)
+    # TODO: Consider replacing this with a ...RelatedField
+    members = TicketUsernameSerializer(source="tickets", many=True, read_only=True)
 
     class Meta:
         model = SeatBookingGroup
-        fields = ("url", "id", "lan", "owner", "name", "preference")
+        fields = ("url", "id", "lan", "owner", "name", "members", "preference")
+        # TODO: is "owner": {"required": False} redundant?
         extra_kwargs = {"lan": {"required": False}, "owner": {"required": False}}
 
 
@@ -180,6 +184,8 @@ class VanBookingSerializer(serializers.HyperlinkedModelSerializer):
     Serializes all the fields of the VanBooking model.
     """
 
+    requester = TicketUsernameSerializer(required=False)
+
     class Meta:
         model = VanBooking
         fields = (
@@ -194,6 +200,7 @@ class VanBookingSerializer(serializers.HyperlinkedModelSerializer):
             "dropoff_required",
             "availability",
         )
+        # TODO: is "requester": {"required": False} redundant?
         extra_kwargs = {"lan": {"required": False}, "requester": {"required": False}}
 
 

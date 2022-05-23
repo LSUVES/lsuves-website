@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
+import propTypes from "prop-types";
 import { Button, Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 
 import EventForm from "../../components/forms/EventForm";
 import MainContent from "../../components/layout/MainContent";
 
-export default function Events() {
+export default function Events({ handleLanCreationDeletion }) {
   const [eventList, setEventList] = useState([]);
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [editingEvent, setEditingEvent] = useState({});
@@ -37,6 +38,7 @@ export default function Events() {
           location: res.data.location,
           startTime: new Date(res.data.start_time),
           endTime: new Date(res.data.end_time),
+          parent: res.data.parent,
         });
         setIsEditingEvent(true);
       })
@@ -84,6 +86,7 @@ export default function Events() {
             <EventForm
               event={editingEvent.id ? editingEvent : undefined}
               onClose={handleClose}
+              handleLanCreationDeletion={handleLanCreationDeletion}
             />
           )}
         </Col>
@@ -91,3 +94,6 @@ export default function Events() {
     </MainContent>
   );
 }
+Events.propTypes = {
+  handleLanCreationDeletion: propTypes.func.isRequired,
+};
