@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!-- Removed width="468.92mm" height="395.02mm" from opening svg tag -->
+<svg version="1.1" viewBox="0 0 468.92 395.02" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <filter id="filter35587" x="-.013583" y="-.010832" width="1.0299" height="1.0239" color-interpolation-filters="sRGB">
+   <feFlood flood-color="rgb(0,0,0)" flood-opacity=".74902" result="flood"/>
+   <feComposite in="flood" in2="SourceGraphic" operator="in" result="composite1"/>
+   <feGaussianBlur in="composite1" result="blur" stdDeviation="1"/>
+   <feOffset dx="0.5" dy="0.5" result="offset"/>
+   <feComposite in="offset" in2="SourceGraphic" operator="out" result="composite2"/>
+  </filter>
+ </defs>
+ <g transform="translate(-21.853 -83.242)" filter="url(#filter35587)">
+  <g transform="translate(191.61 .13196)">
+   <g transform="translate(-75.009,19.083)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,128.17)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,137.78)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,147.39)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,18.907)">
+    <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,34.429)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,44.036)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,53.644)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,63.251)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,72.859)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,82.466)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,92.074)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,101.68)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,34.353)">
+    <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,-110.56)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,-1.4719)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,8.1356)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,17.743)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+  </g>
+  <g transform="translate(133.31 .13196)">
+   <g transform="translate(-75.009,19.083)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,128.17)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,137.78)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,147.39)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,18.907)">
+    <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,34.429)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,44.036)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,53.644)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,63.251)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,72.859)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,82.466)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,92.074)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,101.68)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,34.353)">
+    <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,-110.56)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,-1.4719)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,8.1356)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,17.743)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+  </g>
+  <g transform="translate(0,-60.06)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,-50.453)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,-40.845)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,-31.238)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  </g>
+  <g transform="translate(0,9.6075)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,19.215)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,28.823)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,38.43)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,48.038)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,57.645)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,67.253)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,99.483)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  </g>
+  <g transform="rotate(180,160.08,242.42)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  </g>
+  <g transform="translate(0,109.09)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,118.7)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,128.31)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,137.91)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <g transform="translate(0,147.52)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   </g>
+  </g>
+  <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+  <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+  <g transform="translate(19.05 .13196)">
+   <g transform="translate(-75.009,19.083)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,128.17)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,137.78)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,147.39)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,18.907)">
+    <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,34.429)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,44.036)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,53.644)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,63.251)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,72.859)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,82.466)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,92.074)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,101.68)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,34.353)">
+    <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   </g>
+   <g transform="translate(-75.009,-110.56)">
+    <g transform="translate(0,99.483)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+    <g transform="rotate(180,160.08,242.42)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,-1.4719)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,8.1356)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+   <g transform="translate(-75.009,17.743)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <g transform="rotate(180,160.08,192.67)">
+     <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    </g>
+   </g>
+  </g>
+  <g transform="matrix(1.2738,0,0,1.2738,-56.435,-59.941)">
+   <rect x="163.4" y="320.09" width="12.719" height="11.025" fill="#808080" stroke="#000" stroke-width=".25057"/>
+  </g>
+ </g>
+ <g transform="matrix(1.2738 0 0 1.2738 -78.288 -143.18)" fill="none" stroke="#000">
+  <rect x="62.483" y="121.21" width="83.546" height="49.328" stroke-dasharray="1.12355, 1.12355" stroke-width="1.1236"/>
+  <path d="m326.26 265.49v-131.3m0-9.503v-3.9244m0 144.73h103.33" stroke-width="1.8683"/>
+  <path d="m80.227 421.24h-17.488v-55.059m0-19.259v-225.87h119.19m19.241 0h85.332m9.451 0h132.28v188.97m0 19.214v5.2762h-101.98v12.432m0 19.214v9.3715h-161.07v45.712h-75.464" stroke-width="2.5575"/>
+  <g stroke-width=".63938">
+   <rect transform="scale(1,-1)" x="165.19" y="-342.04" width="9.5714" height="9.5714"/>
+   <rect x="165.19" y="255.61" width="9.5714" height="9.5714"/>
+   <rect x="165.19" y="178.74" width="9.5714" height="9.5714"/>
+  </g>
+ </g>
+ <g transform="translate(169.76 -83.11)">
+  <g transform="translate(-75.009,19.083)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G4</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H4</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,128.17)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G3</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H3</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,137.78)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G2</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H2</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,147.39)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G1</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H1</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,18.907)">
+   <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="284.82312" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="284.82312" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,34.429)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G12</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H12</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,44.036)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G11</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H11</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,53.644)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G10</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H10</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,63.251)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G9</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H9</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,72.859)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G8</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H8</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,82.466)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G7</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H7</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,92.074)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G6</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H6</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,101.68)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G5</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H5</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,34.353)">
+   <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="185.33977" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="185.33977" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,-110.56)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G16</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H16</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,-1.4719)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G15</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H15</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,8.1356)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G14</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H14</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,17.743)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">G13</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">H13</tspan></text>
+   </g>
+  </g>
+ </g>
+ <g transform="translate(111.46 -83.11)">
+  <g transform="translate(-75.009,19.083)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E4</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F4</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,128.17)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E3</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F3</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,137.78)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E2</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F2</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,147.39)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E1</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F1</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,18.907)">
+   <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="284.82312" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="284.82312" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,34.429)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E12</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F12</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,44.036)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E11</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F11</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,53.644)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E10</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F10</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,63.251)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E9</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F9</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,72.859)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E8</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F8</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,82.466)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E7</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F7</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,92.074)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E6</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F6</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,101.68)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E5</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F5</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,34.353)">
+   <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="185.33977" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="185.33977" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,-110.56)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E16</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F16</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,-1.4719)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E15</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F15</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,8.1356)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E14</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F14</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,17.743)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">E13</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">F13</tspan></text>
+   </g>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -143.3)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C18</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D18</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -133.7)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C17</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D17</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -124.09)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C16</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D16</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -114.48)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C15</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D15</tspan></text>
+  </g>
+ </g>
+ <rect x="131.34" y="104.99" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+ <text transform="rotate(90)" x="105.44071" y="-131.86525" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="105.44071" y="-131.86525" font-size="3px" stroke-width=".26458">C14</tspan></text>
+ <g transform="rotate(180 149.15 151.05)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D14</tspan></text>
+ </g>
+ <g transform="translate(-21.853 -73.634)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C13</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D13</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -64.027)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C12</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D12</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -54.419)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C11</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D11</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -44.812)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C10</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D10</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -35.204)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C9</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D9</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -25.597)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C8</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D8</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 -15.989)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C7</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D7</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 16.241)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C6</tspan></text>
+ </g>
+ <g transform="rotate(180 149.15 200.8)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D6</tspan></text>
+ </g>
+ <g transform="translate(-21.853 25.848)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C5</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D5</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 35.458)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C4</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D4</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 45.068)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C3</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D3</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 54.668)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C2</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D2</tspan></text>
+  </g>
+ </g>
+ <g transform="translate(-21.853 64.278)">
+  <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+  <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">C1</tspan></text>
+  <g transform="rotate(180,160.08,192.67)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">D1</tspan></text>
+  </g>
+ </g>
+ <rect transform="rotate(90)" x="97.868" y="-142.67" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+ <text x="134.11751" y="102.09777" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="134.11751" y="102.09777" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+ <rect transform="rotate(90)" x="197.36" y="-142.67" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+ <text x="134.11751" y="201.58112" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="134.11751" y="201.58112" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+ <g transform="translate(-2.8031 -83.11)">
+  <g transform="translate(-75.009,19.083)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A4</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B4</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,128.17)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A3</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B3</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,137.78)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A2</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B2</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,147.39)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A1</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B1</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,18.907)">
+   <rect transform="rotate(90)" x="280.6" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="284.82312" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="284.82312" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,34.429)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A12</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B12</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,44.036)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A11</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B11</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,53.644)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A10</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B10</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,63.251)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A9</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B9</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,72.859)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A8</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B8</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,82.466)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A7</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B7</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,92.074)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A6</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B6</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,101.68)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A5</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B5</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,34.353)">
+   <rect transform="rotate(90)" x="181.11" y="-164.52" width="6.5877" height="8.8877" fill="#e9c6af" stroke="#000" stroke-width=".26226"/>
+   <text x="155.97058" y="185.33977" font-family="sans-serif" font-size="2.5px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="155.97058" y="185.33977" font-size="2.5px" stroke-width=".26458">Switch</tspan></text>
+  </g>
+  <g transform="translate(-75.009,-110.56)">
+   <g transform="translate(0,99.483)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A16</tspan></text>
+   </g>
+   <g transform="rotate(180,160.08,242.42)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B16</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,-1.4719)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A15</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B15</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,8.1356)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A14</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B14</tspan></text>
+   </g>
+  </g>
+  <g transform="translate(-75.009,17.743)">
+   <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+   <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">A13</tspan></text>
+   <g transform="rotate(180,160.08,192.67)">
+    <rect x="153.19" y="188.23" width="6.5877" height="8.8877" fill="#deaa87" stroke="#000" stroke-width=".26226"/>
+    <text transform="rotate(90)" x="188.68271" y="-153.71832" font-family="sans-serif" font-size="3px" stroke-width=".26458" style="line-height:1.25" xml:space="preserve"><tspan x="188.68271" y="-153.71832" font-size="3px" stroke-width=".26458">B13</tspan></text>
+   </g>
+  </g>
+ </g>
+ <g transform="matrix(1.2738 0 0 1.2738 -78.288 -143.18)">
+  <rect x="163.4" y="320.09" width="12.719" height="11.025" fill="#808080" stroke="#000" stroke-width=".25057"/>
+ </g>
+ <g transform="rotate(-90 -14.316 404.55)" fill="#deaa87" stroke="#000" stroke-width=".26226">
+  <rect transform="translate(-55.959,147.52)" x="105.19" y="275.83" width="6.5877" height="8.8877"/>
+  <rect transform="translate(-55.959,147.52)" x="105.19" y="285.43" width="6.5877" height="8.8877"/>
+ </g>
+ <g transform="translate(-21.853 -83.242)" fill="none" stroke="#000">
+  <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+  <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+  <g transform="matrix(1,0,0,-1,262.75,570.49)">
+   <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+   <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+  </g>
+  <g transform="matrix(0,1,1,0,-117.05,53.089)">
+   <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+   <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+  </g>
+  <g transform="rotate(90,81.925,418.12)">
+   <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+   <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+  </g>
+  <g transform="matrix(0,-1,-1,0,500.05,452.27)">
+   <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+   <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+  </g>
+  <g transform="rotate(90,220.93,80.433)">
+   <g transform="rotate(90,327.76,383.5)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+   <g transform="matrix(0,-1,-1,0,711.26,171.81)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+  </g>
+  <g transform="matrix(-1,0,0,1,382.83,0)">
+   <g transform="rotate(90,81.925,418.12)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+   <g transform="matrix(0,-1,-1,0,500.05,452.27)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+  </g>
+  <g transform="matrix(-1,0,0,1,512.48,-47.03)">
+   <g transform="rotate(90,81.925,418.12)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+   <g transform="matrix(0,-1,-1,0,500.05,452.27)">
+    <path d="m45.508 475.03v-12.27" stroke-width=".52359"/>
+    <path d="m45.752 462.84a12.204 12.204 0 0 1 12.204 12.204" stroke-dasharray="0.165, 0.165" stroke-width=".165"/>
+   </g>
+  </g>
+  <rect id="rect57801" x="392.14" y="279.14" width="7.8577" height="29.186" fill="none" stroke="#000"/>
+ </g>
+ <use transform="translate(-21.853 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+ <use transform="translate(-12.995 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+ <use transform="translate(-4.1381 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+ <use transform="translate(4.7199 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+ <use transform="translate(13.578 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+ <use transform="translate(22.436 -83.242)" width="100%" height="100%" xlink:href="#rect57801"/>
+</svg>

@@ -14,7 +14,7 @@ import { Col, Row } from "reactstrap";
 
 import MainContent from "../../components/layout/MainContent";
 
-export default function LanRules() {
+export default function Map() {
   return (
     <MainContent>
       <Row className="justify-content-center">

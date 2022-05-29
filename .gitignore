@@ -24,6 +24,8 @@ yarn-error.log*
 
 # Custom rules
 frontend/README.md
+frontend/.docker
+backend/.docker
 backend/src/*/migrations/*
 !backend/src/*/migrations/__init__.py
 backend/src/*.png

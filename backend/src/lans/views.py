@@ -185,6 +185,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+# TODO: Add seat booking close time.
 class SeatBookingViewSet(viewsets.ModelViewSet):
     queryset = SeatBookingGroup.objects.all()
     serializer_class = SeatBookingGroupSerializer
@@ -293,6 +294,7 @@ class SeatBookingViewSet(viewsets.ModelViewSet):
         return Response()
 
 
+# TODO: Add LAN van booking close time.
 class VanBookingViewSet(viewsets.ModelViewSet):
     queryset = VanBooking.objects.all()
     serializer_class = VanBookingSerializer
@@ -347,6 +349,7 @@ class FoodOrderMenuItemViewSet(viewsets.ModelViewSet):
 
 class FoodOrderViewSet(viewsets.ModelViewSet):
     # FIXME: Ensure orders cannot be placed for shops with is_open=False
+    # TODO: Should committee be able to place orders for users?
     queryset = FoodOrder.objects.all()
     owner_field = "orderer"
 

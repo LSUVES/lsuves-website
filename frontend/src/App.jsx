@@ -34,6 +34,7 @@ import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import ResetPassword from "./pages/authentication/ResetPassword";
 import Blog from "./pages/blog/Blog";
+import Post from "./pages/blog/Post";
 import Calendar from "./pages/calendar/Calendar";
 import PageNotFound from "./pages/errors/PageNotFound";
 import Event from "./pages/event/Event";
@@ -41,6 +42,7 @@ import Events from "./pages/event/Events";
 import Home from "./pages/home/Home";
 import Lan from "./pages/lan/Lan";
 import LanFoodOrderForm from "./pages/lan/LanFoodOrderForm";
+import LanMap from "./pages/lan/LanMap";
 import LanRules from "./pages/lan/LanRules";
 import LanSeatBookingForm from "./pages/lan/LanSeatBookingForm";
 import LanTimetable from "./pages/lan/LanTimetable";
@@ -254,7 +256,10 @@ export default function App() {
               <Route path="users" element={<AdminUsers />} />
               <Route path="van-bookings" element={<AdminVanBookings />} />
             </Route>
-            <Route path="blog" element={<Blog />} />
+            <Route path="blog">
+              <Route index element={<Blog />} />
+              <Route path=":postId" element={<Post />} />
+            </Route>
             <Route path="events">
               <Route index element={<Events />} />
               <Route path=":eventId" element={<Event />} />
@@ -267,7 +272,7 @@ export default function App() {
               element={<Lan isAuthenticated={isAuthenticated} />}
             />
             <Route path="lan/rules" element={<LanRules />} />
-            {/* <Route path="lan/map" element={<LanMap />} /> */}
+            <Route path="lan/map" element={<LanMap />} />
             <Route path="lan/timetable" element={<LanTimetable />} />
             <Route
               path="lan/van-booking"

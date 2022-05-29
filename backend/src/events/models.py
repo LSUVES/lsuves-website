@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# TODO: Add manager to ensure start_date comes before end_date.
 class Event(models.Model):
     """
     Event model, provides fields for the name of the event, the type of the event
@@ -27,7 +28,8 @@ class Event(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    # TODO: Add description and image fields
+    # TODO: Add description and image fields.
+    #       Beware using type as a variable name.
     type = models.CharField(max_length=100, choices=EVENT_TYPES, default=GAMES)
     is_members_only = models.BooleanField(default=False)
     location = models.CharField(max_length=100)

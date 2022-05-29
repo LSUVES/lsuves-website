@@ -208,16 +208,18 @@ export default function Lan({ isAuthenticated }) {
               <ol>
                 <li>
                   {/* TODO: Make this work with React Router (use Navlinks instead?) */}
-                  <a href="/lan/rules/">Read the rules for LANs.</a>
+                  <a href="/lan/rules/">
+                    Read the information and rules for LANs.
+                  </a>
                 </li>
                 {/* TODO: Make this conditional on whether LAN van will be run. */}
                 <li>
                   <a href="/lan/van-booking/">
-                    Book the LAN van pick-up service. ...
+                    Book the LAN van pick-up service.
                   </a>
                 </li>
                 <li>
-                  <a href="/lan/seat-booking/">Book a seating group. ...</a>
+                  <a href="/lan/seat-booking/">Book a seating group.</a>
                 </li>
               </ol>
             </Col>

@@ -28,7 +28,18 @@ export default function Events() {
                 <Card className="my-2" key={item.id}>
                   <CardBody>
                     <CardTitle title={item.name}>
-                      <a href={`/events/${item.id}`}>{item.name}</a>
+                      {/* TODO: Don't render date if event is this week or weekday if event is today */}
+                      {new Date(item.start_time).toLocaleString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        weekday: "short",
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                      })}{" "}
+                      <a href={`/events/${item.id}`} className="stretched-link">
+                        {item.name}
+                      </a>
                     </CardTitle>
                     <CardText>{item.body}</CardText>
                     {/* {item.events.length > 0 && (

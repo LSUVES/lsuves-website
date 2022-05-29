@@ -25,7 +25,17 @@ export default function LanTimetable() {
               <Card key={item.id} className="mt-3">
                 <CardBody>
                   <CardTitle title={item.name}>
-                    <a href={`/events/${item.id}`}>{item.name}</a>
+                    {new Date(item.start_time).toLocaleString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      weekday: "short",
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                    })}{" "}
+                    <a href={`/events/${item.id}`} className="stretched-link">
+                      {item.name}
+                    </a>
                   </CardTitle>
                 </CardBody>
               </Card>

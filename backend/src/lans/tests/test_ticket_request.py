@@ -16,8 +16,9 @@ from users.tests import create_test_user
 from ..models import TicketRequest
 from ..utils import get_current_lan
 
-# TODO: probably a good idea to avoid dependencies by using mock objects for
+# TODO: Probably a good idea to avoid dependencies by using mock objects for
 #       relations, see: https://docs.python.org/3/library/unittest.mock.html
+#       Figure out what's causing this to print "{}" during testing.
 
 
 class TicketRequestTests(LongDocMixin, TestCase):
@@ -131,7 +132,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Attempt to retrieve another user's ticket request.
         authed2_get_other_response = self.client.get(
-            "/api/lan-ticket-requests/{}/".format(authed1_post_response.data["id"]),
+            "{}{}/".format(self.URL_PREFIX, authed1_post_response.data["id"]),
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
@@ -181,6 +182,7 @@ class TicketRequestTests(LongDocMixin, TestCase):
             "{}{}/".format(self.URL_PREFIX, authed2_post_response.data["id"]),
             HTTP_HOST=TEST_HOST,
         )
+        # TODO: Use this more?
         self.assertTrue(status.is_success(admin_delete_response.status_code))
         admin_get_all_again_response = self.client.get(
             "{}".format(self.URL_PREFIX),
@@ -196,10 +198,12 @@ class TicketRequestTests(LongDocMixin, TestCase):
 
         # Attempt to update a user's ticket request.
         admin_put_response = self.client.put(
-            "/api/lan-ticket-requests/{}/".format(authed1_post_response.data["id"]),
+            "{}{}/".format(self.URL_PREFIX, authed1_post_response.data["id"]),
             {"user": self.USER2, "lan": lan2},
             HTTP_HOST=TEST_HOST,
         )
         self.assertEqual(
             admin_put_response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED
         )
+
+        # TODO: Test approve_ticket_request

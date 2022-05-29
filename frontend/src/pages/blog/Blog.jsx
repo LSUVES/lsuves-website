@@ -43,7 +43,11 @@ export default function Blog() {
                 <CardBody>
                   <CardTitle title={item.title}>
                     <Row>
-                      <Col>{item.title}</Col>
+                      <Col>
+                        <a href={`/blog/${item.id}`} className="stretched-link">
+                          {item.title}
+                        </a>
+                      </Col>
                       <Col className="text-end">
                         <small>
                           Posted at {new Date(item.date).toLocaleTimeString()}{" "}
@@ -52,7 +56,11 @@ export default function Blog() {
                       </Col>
                     </Row>
                   </CardTitle>
-                  <CardText>{item.body}</CardText>
+                  {/* TODO: Standardise this. */}
+                  <CardText>
+                    {item.body.slice(0, 50) +
+                      (item.body.length > 50 ? "..." : "")}
+                  </CardText>
                   {item.events.length > 0 && (
                     <span>
                       Related events:

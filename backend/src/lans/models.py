@@ -52,6 +52,7 @@ class Ticket(models.Model):
 
     lan = models.ForeignKey(Event, related_name="tickets", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="tickets", on_delete=models.CASCADE)
+    # TODO: Add ticket type: visitor/nonmember/member
     # is_member_ticket = models.BooleanField(default=False)
     seat_booking_group = models.ForeignKey(
         "SeatbookingGroup",

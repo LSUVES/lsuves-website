@@ -76,6 +76,9 @@ export default function Navbar({
               <DropdownItem tag={RRNavLink} to="/lan/rules">
                 Rules
               </DropdownItem>
+              <DropdownItem tag={RRNavLink} to="/lan/map">
+                Map
+              </DropdownItem>
               <DropdownItem
                 tag={RRNavLink}
                 to="/lan/timetable"

@@ -232,7 +232,7 @@ class LoginViewTests(LongDocMixin, TestCase):
         # so as to get a valid CSRF token. At the time of writing (2022), using the underlying
         # private functions as in: csrf_token = _mask_cipher_secret(_get_new_csrf_string())
         # also works, but seeing how they're used in the other functions suggests using them directly
-        # might be a bad ieea.
+        # might be a bad idea.
         # TODO: Add a view, e.g. getcsrf, that sets the csrftoken cookie and then just use
         #       self.client.get("/api/getcsrf/", HTTP_HOST=TEST_HOST) to set the csrf
         #       cookie and then grab it from response.cookies["csrftoken"]

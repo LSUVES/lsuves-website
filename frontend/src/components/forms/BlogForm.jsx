@@ -62,12 +62,18 @@ export default function BlogForm({ post, onClose }) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("body", body);
-    formData.append("image", image);
-    formData.append("date", date);
+    // If user has uploaded a new image, i.e., image is no longer the URL of the
+    // original one, add it to the form.
+    if (image !== imageUrl) {
+      formData.append("image", image);
+    }
+    // TODO: Don't update post date, add edit date?
+    // formData.append("date", date);
+    console.log(date);
     formData.append("events", events);
 
     axios
-      .put(`/api/blog/${post.id}/`, formData, {
+      .patch(`/api/blog/${post.id}/`, formData, {
         withCredentials: true,
         headers: { "X-CSRFToken": csrfTokenCookie },
       })

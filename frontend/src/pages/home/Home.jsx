@@ -64,6 +64,7 @@ export default function Home() {
         </Row>
         <Row className="justify-content-center mt-5">
           <Col xs={6} sm={4}>
+            {/* TODO: Link to individual blog and event once breadcrumbs added */}
             {latestBlogPost && (
               <Card>
                 <CardBody>
@@ -71,7 +72,7 @@ export default function Home() {
                     Latest blog post
                   </CardTitle>
                   <CardText className="mb-0">
-                    <Link to="blog" className="stretched-link">
+                    <Link to="/blog" className="stretched-link">
                       {latestBlogPost.title}{" "}
                     </Link>
                   </CardText>
@@ -81,7 +82,11 @@ export default function Home() {
                     // FIXME: Add alt text
                     alt="tempalt"
                   />
-                  <CardText>{latestBlogPost.body}</CardText>
+                  {/* TODO: Standardise this. */}
+                  <CardText>
+                    {latestBlogPost.body.slice(0, 50) +
+                      (latestBlogPost.body.length > 50 ? "..." : "")}
+                  </CardText>
                 </CardBody>
               </Card>
             )}
@@ -103,7 +108,7 @@ export default function Home() {
                     Next event
                   </CardTitle>
                   <CardText>
-                    <Link to="events" className="stretched-link">
+                    <Link to="/events" className="stretched-link">
                       {nextEvent.name}{" "}
                     </Link>{" "}
                     <br />
