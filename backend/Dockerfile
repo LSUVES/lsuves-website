@@ -17,7 +17,7 @@ COPY requirements* .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY src/ .
+COPY --chown=avgs:avgs src/ .
 
 FROM builder AS cron
 

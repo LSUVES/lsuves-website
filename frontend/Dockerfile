@@ -25,7 +25,8 @@ CMD [ "npm", "start" ]
 
 FROM development AS builder
 
-RUN npm run build
+# TODO: Should CI=false be used in production?
+RUN CI=false npm run build
 
 FROM nginx:1.21.1
 
