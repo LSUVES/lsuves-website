@@ -227,6 +227,8 @@ export default function Users() {
             </Col>
             <Col>
               <FormGroup floating>
+                {/* TODO: In hindsight, allowing non-ASCII names might not have
+                          been such a good idea. */}
                 <Input
                   id="filterUser"
                   name="filterUser"
@@ -258,12 +260,14 @@ export default function Users() {
                       .startsWith(filterUser.toLowerCase()))
               )
               .map((item) => (
-                <Card className="my-2" key={item.id}>
+                <Card key={item.id}>
                   <CardBody>
                     <CardTitle title={item.username} className="d-flex mb-0">
                       <h5 className="my-auto flex-grow-1">
                         {/* FIXME: Add overflow to prevent long usernames spilling out */}
                         {!item.is_superuser && (
+                          // TODO: Consider finding a way to link entire CardTitle
+                          //       NB: Stretched link affects entire Card incl. other buttons
                           <Button
                             color="link"
                             id={`toggler${item.id}`}

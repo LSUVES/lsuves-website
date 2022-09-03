@@ -39,12 +39,6 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    console.log("blog");
-    console.log(latestBlogPost);
-    console.log("event");
-    console.log(nextEvent);
-  }, [latestBlogPost, nextEvent]);
   return (
     <div className="HomeBackground d-flex flex-column flex-fill">
       <MainContent>
@@ -68,24 +62,37 @@ export default function Home() {
             {latestBlogPost && (
               <Card>
                 <CardBody>
-                  <CardTitle title="Latest blog post" className="fs-5">
+                  <CardTitle title="Latest blog post" className="fs-4">
                     Latest blog post
                   </CardTitle>
                   <CardText className="mb-0">
-                    <Link to="/blog" className="stretched-link">
-                      {latestBlogPost.title}{" "}
+                    <Link
+                      to={`/blog/${latestBlogPost.id}`}
+                      className="stretched-link"
+                    >
+                      <h5>{latestBlogPost.title}</h5>
                     </Link>
                   </CardText>
-                  <CardImg
-                    className="BlogPostImage"
-                    src={latestBlogPost.image}
-                    // FIXME: Add alt text
-                    alt="tempalt"
-                  />
-                  {/* TODO: Standardise this. */}
-                  <CardText>
+                  {latestBlogPost.image && (
+                    <CardImg
+                      className="BlogPostImage"
+                      src={latestBlogPost.image}
+                      // TODO: Consider manual alt texts
+                      alt={`${latestBlogPost.title} banner`}
+                    />
+                  )}
+                  {/* TODO: Consider looking into way to give post preview in a
+                            way that respects Markdown elements. */}
+                  {/* <CardText>
                     {latestBlogPost.body.slice(0, 50) +
                       (latestBlogPost.body.length > 50 ? "..." : "")}
+                  </CardText> */}
+                  <CardText className="text-end">
+                    {" "}
+                    <small>
+                      Posted on{" "}
+                      {new Date(latestBlogPost.date).toLocaleDateString()}
+                    </small>
                   </CardText>
                 </CardBody>
               </Card>
@@ -93,7 +100,7 @@ export default function Home() {
             {!latestBlogPost && (
               <Card>
                 <CardBody>
-                  <CardTitle title="No blog posts" className="mb-0 fs-5">
+                  <CardTitle title="No blog posts" className="mb-0 fs-4">
                     No recent blog posts
                   </CardTitle>
                 </CardBody>
@@ -104,12 +111,12 @@ export default function Home() {
             {nextEvent && (
               <Card>
                 <CardBody>
-                  <CardTitle title="Next event" className="fs-5">
+                  <CardTitle title="Next event" className="fs-4">
                     Next event
                   </CardTitle>
                   <CardText>
                     <Link to="/events" className="stretched-link">
-                      {nextEvent.name}{" "}
+                      <h5>{nextEvent.name}</h5>
                     </Link>{" "}
                     <br />
                     Starts on{" "}
@@ -144,7 +151,7 @@ export default function Home() {
             {!nextEvent && (
               <Card>
                 <CardBody>
-                  <CardTitle title="No events" className="mb-0 fs-5">
+                  <CardTitle title="No events" className="mb-0 fs-4">
                     No upcoming events
                   </CardTitle>
                 </CardBody>

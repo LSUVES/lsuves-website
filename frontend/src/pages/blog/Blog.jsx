@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+// import ReactMarkdown from "react-markdown";
 import {
   Card,
   CardBody,
   CardImg,
-  CardText,
+  // CardText,
   CardTitle,
   Col,
   Row,
@@ -13,6 +14,17 @@ import {
 
 import "./Blog.css";
 import MainContent from "../../components/layout/MainContent";
+
+// Map all headings in the post to use a different max size (e.g., less than the
+// title heading)
+// const headingStart = 4;
+// const headingMap = {};
+// for (let i = 1; i < 7 - headingStart; i += 1) {
+//   headingMap[`h${i}`] = `h${i + headingStart - 1}`;
+// }
+// for (let i = 7 - headingStart; i < 7; i += 1) {
+//   headingMap[`h${i}`] = "h6";
+// }
 
 export default function Blog() {
   const [postList, setPostList] = useState([]);
@@ -34,33 +46,42 @@ export default function Blog() {
           <ul className="p-0">
             {postList.map((item) => (
               <Card className="my-2" key={item.id}>
-                <CardImg
-                  className="BlogPostImage"
-                  src={item.image}
-                  // FIXME: Add alt text
-                  alt="tempalt"
-                />
+                {item.image && (
+                  <CardImg
+                    className="BlogPostImage"
+                    src={item.image}
+                    // TODO: Consider manual alt texts
+                    alt={`${item.title} banner`}
+                  />
+                )}
                 <CardBody>
                   <CardTitle title={item.title}>
                     <Row>
                       <Col>
-                        <a href={`/blog/${item.id}`} className="stretched-link">
-                          {item.title}
-                        </a>
+                        <h3>
+                          <a
+                            href={`/blog/${item.id}`}
+                            className="stretched-link"
+                          >
+                            {item.title}
+                          </a>
+                        </h3>
                       </Col>
                       <Col className="text-end">
                         <small>
-                          Posted at {new Date(item.date).toLocaleTimeString()}{" "}
-                          on {new Date(item.date).toLocaleDateString()}
+                          Posted on {new Date(item.date).toLocaleDateString()}
                         </small>
                       </Col>
                     </Row>
                   </CardTitle>
-                  {/* TODO: Standardise this. */}
-                  <CardText>
-                    {item.body.slice(0, 50) +
-                      (item.body.length > 50 ? "..." : "")}
-                  </CardText>
+                  {/* TODO: Consider looking into way to give post preview in a
+                            way that respects Markdown elements. */}
+                  {/* <CardText>
+                    <ReactMarkdown components={headingMap}>
+                      {item.body.slice(0, 50) +
+                        (item.body.length > 50 ? "..." : "")}
+                    </ReactMarkdown>
+                  </CardText> */}
                   {item.events.length > 0 && (
                     <span>
                       Related events:

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
+import ReactMarkdown from "react-markdown";
 import {
   Button,
   Card,
@@ -22,6 +23,17 @@ import useUpdateEffect from "../../utils/useUpdateEffect/useUpdateEffect";
 import { checkBody, checkTitle } from "../../utils/validation/blog";
 import MainContent from "../layout/MainContent";
 
+// Map all headings in the post to use a different max size (e.g., less than the
+// title heading)
+const headingStart = 3;
+const headingMap = {};
+for (let i = 1; i < 7 - headingStart; i += 1) {
+  headingMap[`h${i}`] = `h${i + headingStart - 1}`;
+}
+for (let i = 7 - headingStart; i < 7; i += 1) {
+  headingMap[`h${i}`] = "h6";
+}
+
 export default function BlogForm({ post, onClose }) {
   const [title, setTitle] = useState(post.title);
   const [titleIsValid, setTitleIsValid] = useState(null);
@@ -30,12 +42,15 @@ export default function BlogForm({ post, onClose }) {
   const [bodyIsValid, setBodyIsValid] = useState(null);
   const [bodyFeedback, setBodyFeedback] = useState("");
   const [image, setImage] = useState(post.image);
+  // const [imageAltText, setImageAltText] = useState(""); // useState(post.imageAltText)
+  // const [imageAltTextIsValid, setImageAltTextIsValid] = useState(null);
   const [imageUrl, setImageUrl] = useState(post.image);
   const [date] = useState(post.date);
   // TODO: Implement this.
   const [events] = useState(post.events);
 
-  console.log(post);
+  const [previewing, setPreviewing] = useState(false);
+
   // Ensure fields are validated when values are changed.
   useUpdateEffect(
     checkTitle,
@@ -116,7 +131,6 @@ export default function BlogForm({ post, onClose }) {
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   function toggleDeleteModal() {
-    console.log(!deleteModalOpen);
     setDeleteModalOpen(!deleteModalOpen);
   }
 
@@ -136,7 +150,6 @@ export default function BlogForm({ post, onClose }) {
 
   function addImage(inputImage) {
     // Gets image from file input and displays it to the user.
-    console.log(image);
     setImage(inputImage);
     // Release previous BLOB URL to prevent memory leaks in case someone really
     // can't decide which image to use.
@@ -146,8 +159,24 @@ export default function BlogForm({ post, onClose }) {
 
   return (
     <MainContent classes="m-auto">
-      {post.title && <h3>{`Editing ${post.title}`}</h3>}
-      {!post.title && <h3>Creating a new post</h3>}
+      <Row>
+        <Col xs="9">
+          {post.title && <h3>{`Editing ${post.title}`}</h3>}
+          {!post.title && <h3>Creating a new post</h3>}
+        </Col>
+        <Col>
+          <Button
+            id="preview"
+            name="preview"
+            color="secondary"
+            block
+            onClick={() => setPreviewing(!previewing)}
+          >
+            {!previewing && <>Preview</>}
+            {previewing && <>Edit</>}
+          </Button>
+        </Col>
+      </Row>
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -158,46 +187,103 @@ export default function BlogForm({ post, onClose }) {
           }
         }}
       >
-        <FormGroup floating>
-          <Input
-            id="title"
-            name="title"
-            value={title}
-            placeholder="Title"
-            onInput={(e) => setTitle(e.target.value)}
-            invalid={titleIsValid === false}
-          />
-          <Label for="name">Title</Label>
-          {!titleIsValid && <FormFeedback>{titleFeedback}</FormFeedback>}
-        </FormGroup>
-        <FormGroup floating>
-          <Input
-            id="body"
-            name="body"
-            type="textarea"
-            value={body}
-            placeholder="Body"
-            onInput={(e) => setBody(e.target.value)}
-            invalid={bodyIsValid === false}
-          />
-          <Label for="location">Body</Label>
-          {!bodyIsValid && <FormFeedback>{bodyFeedback}</FormFeedback>}
-        </FormGroup>
-        <Card className="mb-3">
-          {/* TODO: If you've completed every other TODO, make this match above */}
-          <Label for="image" className="ms-3 mt-1">
-            Image
-          </Label>
-          {/* TODO: Add onClick expand modal or summat */}
-          <img src={imageUrl} alt="placeholder" />
-          <Input
-            id="image"
-            name="image"
-            type="file"
-            // value={image}
-            onInput={(e) => addImage(e.target.files[0])}
-          />
-        </Card>
+        {!previewing && (
+          <>
+            <FormGroup floating>
+              <Input
+                id="title"
+                name="title"
+                value={title}
+                placeholder="Title"
+                onInput={(e) => setTitle(e.target.value)}
+                invalid={titleIsValid === false}
+              />
+              <Label for="name">Title</Label>
+              {!titleIsValid && <FormFeedback>{titleFeedback}</FormFeedback>}
+            </FormGroup>
+            {/* TODO: Allow additional images to be uploaded for use in the body.
+                      Find a way to support embedding YouTube videos. */}
+            <FormGroup floating>
+              <Input
+                id="body"
+                name="body"
+                type="textarea"
+                value={body}
+                placeholder="Body"
+                onInput={(e) => setBody(e.target.value)}
+                invalid={bodyIsValid === false}
+              />
+              <Label for="location">Body</Label>
+              {!bodyIsValid && <FormFeedback>{bodyFeedback}</FormFeedback>}
+            </FormGroup>
+            <Card className="mb-3">
+              {/* TODO: If you've completed every other TODO, make this match above */}
+              <Label for="image" className="ms-3 mt-1">
+                Image
+              </Label>
+              {/* TODO: Add onClick expand modal or summat */}
+              <img src={imageUrl} alt={`${title} banner`} />
+              {/* alt={imageAltText} /> */}
+              <Input
+                id="image"
+                name="image"
+                type="file"
+                // value={image}
+                onInput={(e) => addImage(e.target.files[0])}
+              />
+              {/*
+              // <FormGroup floating className="mb-0"> 
+              <div className="form-floating">
+                <Input
+                  id="imageAltText"
+                  name="imageAltText"
+                  value={imageAltText}
+                  placeholder="Alt text"
+                  onInput={(e) => setImageAltText(e.target.value)}
+                  // invalid={imageAltTextIsValid === false}
+                />
+                <Label for="imageAltText">Alt text</Label>
+              </div>
+              // </FormGroup> 
+              */}
+            </Card>
+          </>
+        )}
+        {previewing && (
+          <>
+            <h2 className="text-center">{title}</h2>
+            <p className="text-end">
+              Posted at{" "}
+              {new Date(date).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              on {new Date(date).toLocaleDateString()}
+            </p>
+            {imageUrl && (
+              <Row className="mb-5">
+                <img
+                  // className="BlogPostImage"
+                  src={imageUrl}
+                  alt={`${title} banner`}
+                  // alt={imageAltText}
+                />
+              </Row>
+            )}
+            <ReactMarkdown
+              components={{
+                ...{
+                  img: ({ src, alt }) => (
+                    <img src={src} alt={alt} style={{ maxWidth: "100%" }} />
+                  ),
+                },
+                ...headingMap,
+              }}
+            >
+              {body}
+            </ReactMarkdown>
+          </>
+        )}
         <Row>
           <Col>
             <FormGroup>
