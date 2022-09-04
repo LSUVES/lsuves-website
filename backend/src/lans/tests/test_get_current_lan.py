@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from avgs_website.utils import LongDocMixin
+from lsuves_website.utils import LongDocMixin
 from django.http import Http404
 from django.test import TestCase
 from django.utils import timezone

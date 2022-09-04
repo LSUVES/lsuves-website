@@ -43,7 +43,7 @@ export default function Home() {
     <div className="HomeBackground d-flex flex-column flex-fill">
       <MainContent>
         <h1 className="display-1 text-center">
-          Welcome to A<span className="text-primary">VGS</span>
+          Welcome to LSU<span className="text-primary">VES</span>
         </h1>
         <Row className="justify-content-center mt-5">
           <Col sm={8}>

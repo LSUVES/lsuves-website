@@ -31,7 +31,7 @@ export default function Navbar({
   return (
     <RSNavbar expand="md" color="light" light sticky="top">
       <NavbarBrand href="/">
-        A<span className="text-primary">VGS</span>
+        LSU<span className="text-primary">VES</span>
       </NavbarBrand>
       <NavbarToggler
         onClick={() => {

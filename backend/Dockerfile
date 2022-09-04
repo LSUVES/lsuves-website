@@ -7,9 +7,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # TODO: See below.
-RUN groupadd --gid 1000 avgs && \
-    useradd --create-home --shell /bin/bash --uid 1000 --gid avgs avgs
-USER avgs
+RUN groupadd --gid 1000 lsuves && \
+    useradd --create-home --shell /bin/bash --uid 1000 --gid lsuves lsuves
+USER lsuves
 
 WORKDIR /src
 
@@ -17,7 +17,7 @@ COPY requirements* .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --chown=avgs:avgs src/ .
+COPY --chown=lsuves:lsuves src/ .
 
 FROM builder AS cron
 
@@ -30,7 +30,7 @@ RUN chmod 0644 ./crontab && \
 
 CMD [ "cron", "-f" ]
 # In order to run our backend with cron we need to use a helper script.
-# COPY --chown=avgs:avgs entrypoint.sh .
+# COPY --chown=lsuves:lsuves entrypoint.sh .
 # RUN chmod 744 ./entrypoint.sh
 # USER root
 FROM builder AS development
@@ -39,9 +39,9 @@ RUN echo $USER
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # TODO: I think create-home is only needed coz of VSCode but I should test this
-# RUN groupadd --gid 1000 avgs && \
-#     useradd --create-home --shell /bin/bash --uid 1000 --gid avgs avgs
-# USER avgs
+# RUN groupadd --gid 1000 lsuves && \
+#     useradd --create-home --shell /bin/bash --uid 1000 --gid lsuves lsuves
+# USER lsuves
 
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
 
@@ -49,8 +49,8 @@ FROM builder AS production
 
 # TODO: Ensure the uid is unique and not the same as the host user
 #       The gids of all apps should probably be the same but differ from the host's
-# RUN groupadd --gid 1001 avgs && \
-#     useradd --shell /bin/bash --uid 1001 --gid avgs avgs
-# USER avgs
+# RUN groupadd --gid 1001 lsuves && \
+#     useradd --shell /bin/bash --uid 1001 --gid lsuves lsuves
+# USER lsuves
 
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
