@@ -49,9 +49,10 @@ export default function Home() {
           <Col sm={8}>
             <Card>
               <CardBody>
-                The video game society is the home to all gamers. On this
-                website you can keep up to date with our news and events and
-                request LAN tickets and services.
+                The video games and esports society is the home to all of
+                Loughborough&apos;s gamers. <br />
+                On this website you can keep up to date with our news and events
+                and request LAN tickets and services.
               </CardBody>
             </Card>
           </Col>
@@ -115,7 +116,10 @@ export default function Home() {
                     Next event
                   </CardTitle>
                   <CardText>
-                    <Link to="/events" className="stretched-link">
+                    <Link
+                      to={`/events/${nextEvent.id}`}
+                      className="stretched-link"
+                    >
                       <h5>{nextEvent.name}</h5>
                     </Link>{" "}
                     <br />

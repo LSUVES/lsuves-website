@@ -16,7 +16,7 @@ export default function LanTimetable() {
   }, []);
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       <Row className="justify-content-center">
         <Col sm={8}>
           <h2 className="text-center">Lan events</h2>

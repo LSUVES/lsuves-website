@@ -25,12 +25,12 @@ export default function Event() {
   // TODO: Add link to LAN page for LAN events.
   //       Make this look nice.
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       {event && (
         <Row className="justify-content-center">
           <Col sm={8}>
             <h2 className="text-center">{event.name}</h2>
-            <Table borderless>
+            <Table borderless className="p-3 bg-white rounded">
               <tbody>
                 <tr>
                   <th className="text-end">

@@ -17,7 +17,7 @@ export default function AdminLayout({ currentLanExists }) {
     <Container fluid className="d-flex flex-row flex-fill">
       <Row className="d-flex flex-row flex-fill">
         <Col sm="2" className="bg-dark p-3">
-          <Nav pills navbar vertical justified>
+          <Nav pills navbar vertical justified className="admin-nav">
             <NavItem className="ms-0 mb-2">
               <NavLink tag={RRNavLink} end to="/admin">
                 Dashboard

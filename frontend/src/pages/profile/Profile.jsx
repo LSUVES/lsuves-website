@@ -304,7 +304,7 @@ export default function Profile() {
   }
 
   return (
-    <MainContent>
+    <MainContent mainClass="background" containerClass="p-3 bg-white rounded">
       {/* <Row className="justify-content-center"><Col sm={8}> */}
       {!profile && <>{error}</>}
       {profile && (

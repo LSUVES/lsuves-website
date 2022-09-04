@@ -16,10 +16,10 @@ export default function Events() {
   }, []);
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       <Row className="justify-content-center">
         <Col sm="8">
-          <h3>Upcoming events:</h3>
+          <h3 className="text-center">Upcoming events</h3>
           <ul className="p-0">
             {/* TODO: Use event.end_time instead? */}
             {eventList

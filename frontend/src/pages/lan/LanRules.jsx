@@ -6,12 +6,12 @@ import MainContent from "../../components/layout/MainContent";
 
 export default function LanRules() {
   return (
-    <MainContent>
+    <MainContent mainClass="background" containerClass="bg-white rounded">
       {/* TODO: Centre this, <ol> forces left alignment of text */}
       <Row className="justify-content-center">
         <Col sm={8}>
           <h2 className="text-center">LAN info</h2>
-          {/* TODO: Replacr "LAN" with "the LAN"? */}
+          {/* TODO: Replace "LAN" with "the LAN"? */}
           <h5 className="mt-5">What to bring</h5>
           <p>
             LANs are a bring your own computer (BYOC) event: you should bring

@@ -88,9 +88,9 @@ export default function LanVanBookingForm() {
   }
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       <Row className="justify-content-center">
-        <Col sm={6}>
+        <Col sm={6} className="p-3 bg-white rounded">
           <h2>Van booking form</h2>
           <Form
             onSubmit={(e) => {

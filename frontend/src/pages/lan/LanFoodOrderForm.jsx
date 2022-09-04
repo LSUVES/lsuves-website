@@ -108,7 +108,7 @@ export default function LanFoodOrderForm() {
   }
 
   return (
-    <MainContent>
+    <MainContent mainClass="background" containerClass="p-3 bg-white rounded">
       <h2 className="text-center">Food order form</h2>
       {userOrder.length > 0 && (
         <>
