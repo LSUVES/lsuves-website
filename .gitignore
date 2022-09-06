@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Custom rules
+db/password.txt
 frontend/README.md
 frontend/.docker
 backend/.docker

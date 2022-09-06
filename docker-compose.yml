@@ -30,8 +30,10 @@ services:
         build:
             context: backend
             target: production
-        ports:
-            - "8000:8000"
+#        ports:
+#            - "8000:8000"
+        expose:
+            - "8000"
         secrets:
             - db-password
         networks:
@@ -41,6 +43,10 @@ services:
             # For details see https://github.com/compose-spec/compose-spec/blob/master/spec.md#long-syntax-1
             db:
                 condition: service_healthy
+        environment:
+            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "VIRTUAL_PATH=/api"
+            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk"
 
     cron:
         build:
@@ -57,18 +63,56 @@ services:
     frontend:
         # Might need to specify production image
         build: frontend
-        ports:
-            - "80:80"
+#        ports:
+            # - "80:80"
             # Port 3000 is only used for development
-            - "3000:3000"
+#            - "3000:3000"
+        expose:
+            - "3000"
         networks:
             - frontend-network
         depends_on:
             - backend
+        environment:
+            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "VIRTUAL_PATH=/"
+            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk"
+
+    nginx-proxy:
+        image: nginxproxy/nginx-proxy
+        restart: always
+        ports:
+            - "443:443"
+            - "80:80"
+        volumes:
+            - certs:/etc/nginx/certs:ro
+            - html:/usr/share/nginx/html
+            - vhost:/etc/nginx/vhost.d
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        depends_on:
+            - frontend
+
+    nginx-proxy-acme:
+        image: nginxproxy/acme-companion
+        environment:
+            - DEFAULT_EMAIL=webmaster@lsuvgs.org.uk
+            # FIXME: remove this
+            - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory
+        volumes_from:
+            - nginx-proxy
+        volumes:
+            - certs:/etc/nginx/certs:rw
+            - acme:/etc/acme.sh
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        depends_on:
+            - nginx-proxy
 
 volumes:
     db-data:
-
+    certs:
+    html:
+    vhost:
+    acme:
 
 secrets:
     db-password:

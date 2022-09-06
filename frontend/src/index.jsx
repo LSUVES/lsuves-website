@@ -9,7 +9,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 // FIXME: In production, set this to the hostname/address of the API server
-axios.defaults.baseURL = `http://localhost:8000`;
+axios.defaults.baseURL = `http://lsuves.org.uk/api`;
 // axios.defaults.withCredentials = true;
 
 ReactDOM.render(

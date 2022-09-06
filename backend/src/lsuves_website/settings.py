@@ -18,17 +18,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# FIXME: SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-mc%&hcwqbvf)n9345*x(@fod$2wh$(bf-bnw6&=&=0$_z-p*9l"
+SECRET_KEY = "2lRPMNG33DUiz7Z^j0qe18lU5Oc1S49FdpD^E^wgm*FCXSyn^DlyAKNQ5TnfT4l8F#e2&61CYQ^G799xD#"
 
-# FIXME: SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # FIXME: In production, replace allowed hosts with HTTPS address of frontend server
 #        and uncomment session and csrf cookie secure settings
-ALLOWED_HOSTS = ["localhost", "host.docker.internal", "backend", "131.231.35.46"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+ALLOWED_HOSTS = ["lsuves.org.uk"]
+CSRF_TRUSTED_ORIGINS = ["http://lsuves.org.uk","https://lsuves.org.uk"]
+CORS_ALLOWED_ORIGINS = ["http://lsuves.org.uk","https://lsuves.org.uk"]
 CORS_ALLOW_CREDENTIALS = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SCURE = True
