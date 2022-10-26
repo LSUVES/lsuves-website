@@ -8,8 +8,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-// FIXME: In production, set this to the hostname/address of the API server
-axios.defaults.baseURL = `http://lsuves.org.uk/api`;
+// TODO: Use this and remove the /api prefix from all axios calls
+// axios.defaults.baseURL = `https://lsuves.org.uk/api`;
+axios.defaults.baseURL = `https://lsuves.org.uk`;
 // axios.defaults.withCredentials = true;
 
 ReactDOM.render(

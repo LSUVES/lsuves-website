@@ -107,8 +107,9 @@ class PasswordResetEmailSerializer(serializers.Serializer):
 
     def send_mail(self, username, uid, token, from_email, to_email):
         subject = "LSUVES password reset link"
+        # FIXME: Get frontend URL from settings.py
         # TODO: Use template and populate with context for url as in Django's implementation
-        body = "Hello {},\nVisit the link below to reset your password:\nhttp://localhost:3000/reset-password/?uid={}&token={}\nKind regards,\nLSUVES".format(
+        body = "Hi {},\n\nVisit the link below to reset your password:\nhttps://lsuves.org.uk/reset-password/?uid={}&token={}\nKind regards,\nLSUVES".format(
             username, uid, token
         )
         # TODO: Either add an HTML email template or just use EmailMessage
@@ -153,11 +154,11 @@ class PasswordResetEmailSerializer(serializers.Serializer):
             #     repr(user),
             #     str(user) == user.username,
             # )
-            # FIXME: Get from_email from settings.
+            # FIXME: Get from_email from settings. -- does it matter? seems to be overridden regardless of value
             self.send_mail(
                 user.username,
                 urlsafe_base64_encode(force_bytes(user.pk)),
                 default_token_generator.make_token(user),
-                "changeme@lsuves.com",
+                "website@lsuves.org.uk",
                 user_email,
             )

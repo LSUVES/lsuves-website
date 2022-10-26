@@ -44,9 +44,12 @@ services:
             db:
                 condition: service_healthy
         environment:
-            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk,blotch.lsuves.org.uk,lsuves.com,www.lsuves.com,blotch.lsuves.com"
+            # Routes /api addresses to the backend API. However, in order to allow /admin to work for the admin pages, the 
+            # Nginx config will need to be set manually (but since we don't currently use it this is a fine sacrifice).
             - "VIRTUAL_PATH=/api"
-            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "VIRTUAL_DEST="
+            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk,blotch.lsuves.org.uk,lsuves.com,www.lsuves.com,blotch.lsuves.com"
 
     cron:
         build:
@@ -74,9 +77,9 @@ services:
         depends_on:
             - backend
         environment:
-            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "VIRTUAL_HOST=lsuves.org.uk,www.lsuves.org.uk,blotch.lsuves.org.uk,lsuves.com,www.lsuves.com,blotch.lsuves.com"
             - "VIRTUAL_PATH=/"
-            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk"
+            - "LETSENCRYPT_HOST=lsuves.org.uk,www.lsuves.org.uk,blotch.lsuves.org.uk,lsuves.com,www.lsuves.com,blotch.lsuves.com"
 
     nginx-proxy:
         image: nginxproxy/nginx-proxy
@@ -89,6 +92,8 @@ services:
             - html:/usr/share/nginx/html
             - vhost:/etc/nginx/vhost.d
             - /var/run/docker.sock:/tmp/docker.sock:ro
+        networks:
+            - frontend-network
         depends_on:
             - frontend
 
@@ -96,8 +101,8 @@ services:
         image: nginxproxy/acme-companion
         environment:
             - DEFAULT_EMAIL=webmaster@lsuvgs.org.uk
-            # FIXME: remove this
-            - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory
+            # Use this for testing (https://github.com/nginx-proxy/acme-companion/blob/main/docs/Let's-Encrypt-and-ACME.md#test-certificates):
+            # - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory
         volumes_from:
             - nginx-proxy
         volumes:
