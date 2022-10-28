@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import *
-from .permissions import HasLanTicket, LanTicketIsOwner
+from .permissions import HasIdentity, HasLanTicket, LanTicketIsOwner
 from .serializers import *
 from .utils import get_current_lan
 
@@ -60,7 +60,7 @@ class TicketRequestViewSet(
         if self.action == "retrieve" or self.action == "my_lan_ticket_request":
             self.permission_classes = [IsOwner]  # |IsAdminUser]
         elif self.action == "create":
-            self.permission_classes = [IsAuthenticated]
+            self.permission_classes = [IsAuthenticated, HasIdentity]
         else:
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()

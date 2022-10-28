@@ -577,8 +577,8 @@ export default function Profile() {
                   <Button
                     color="primary"
                     disabled={
-                      !changePasswordOldPassword &&
-                      !changePasswordNewPassword &&
+                      !changePasswordOldPassword ||
+                      !changePasswordNewPassword ||
                       isWaitingForChangePassword
                     }
                     onClick={() => changePassword()}
