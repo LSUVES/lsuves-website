@@ -9,15 +9,16 @@ from .models import *
 # TODO: Decide whether to change HyperlinkedModelSerializers to ModelSerializers
 
 # TODO: Change this to a regular serializer
-class UserNameSerializer(serializers.ModelSerializer):
+class UserIdentitySerializer(serializers.ModelSerializer):
     """
-    Serializes the ID and name fields of the User model. Used with other
-    serializers so that this information doesn't need to be fetched separately.
+    Serializes the ID, name, and student ID fields of the User model. Used with
+    other serializers so that this information doesn't need to be fetched
+    separately.
     """
 
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name")
+        fields = ("id", "username", "first_name", "last_name", "student_id")
 
 
 class CommitteeShiftSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,11 +47,10 @@ class TicketRequestSerializer(serializers.HyperlinkedModelSerializer):
 
 class TicketRequestUserSerializer(serializers.HyperlinkedModelSerializer):
     """
-    Same as above but repleaces user ID with a nested serialized representation of the user's
-    username, first name, and last name.
+    Same as above but replaces user ID with nested user identity fields.
     """
 
-    user = UserNameSerializer()
+    user = UserIdentitySerializer()
 
     class Meta:
         model = TicketRequest
@@ -92,11 +92,10 @@ class TicketSerializer(serializers.HyperlinkedModelSerializer):
 # TODO: Rename to distinguish from TicketUserNameSerializer
 class TicketUserSerializer(serializers.HyperlinkedModelSerializer):
     """
-    Same as above but repleaces user ID with a nested serialized representation of the user's
-    username, first name, and last name.
+    Same as above but replaces user ID with nested user identity fields.
     """
 
-    user = UserNameSerializer()
+    user = UserIdentitySerializer()
 
     class Meta:
         model = Ticket
@@ -137,7 +136,7 @@ class TicketUsernameSerializer(serializers.ModelSerializer):
     Serializes the ticket ID and user name fields of LAN tickets.
     """
 
-    user = UserNameSerializer()
+    user = UserIdentitySerializer()
 
     class Meta:
         model = Ticket
