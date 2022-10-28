@@ -229,7 +229,7 @@ export default function Calendar() {
         <Col
           style={{
             // TODO: Refactor if the default bg colour is to be the same as page
-            background: `${dates[i * 7 + j] === "" ? "#ffffff" : "#898df5"}`,
+            background: `${dates[i * 7 + j] === "" ? "#ffffff" : "#cb68cb"}`,
             // minWidth: "98px",
           }}
         >
@@ -247,7 +247,7 @@ export default function Calendar() {
   // FIXME: Layout breaks on mobile devices (see point about label widths)
   // TODO: Button text is not aligned with date text.
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       {/* TODO: Instead of Row > Cols consider just using a div with "d-flex justify-content-between" */}
       <Row className="text-center">
         <Col>

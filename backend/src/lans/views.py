@@ -1,4 +1,4 @@
-from avgs_website.permissions import IsAdminUserOrReadOnly, IsOwner
+from lsuves_website.permissions import IsAdminUserOrReadOnly, IsOwner
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action

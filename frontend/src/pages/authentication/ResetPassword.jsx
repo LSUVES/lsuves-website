@@ -125,6 +125,7 @@ export default function ResetPassword() {
   }
 
   return (
+    // FIXME: Make this look consistent
     <main className="d-flex flex-column flex-fill m-auto form--thin">
       {tokenIsValid && (
         <>

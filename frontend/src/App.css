@@ -2,6 +2,30 @@
   background-image: url("logo.svg");
 }
 
-.card {
-  background-color: aliceblue;
+/* TODO: Provide this in the custom.scss, like how btn-danger is */
+.btn-primary {
+  color:white
 }
+.admin-nav .nav-link {
+  color: white
+}
+.admin-nav .nav-link.disabled {
+  color: grey
+}
+
+.background {
+  background: rgb(255,132,0);
+  background: linear-gradient(135deg, rgba(255,132,0,1) 0%, rgba(235,0,255,1) 66%, rgba(119,0,255,1) 100%);
+}
+/* .background-left {
+  background: rgb(255,132,0);
+  background: linear-gradient(90deg, rgba(255,132,0,1) 0%, rgba(235,0,255,1) 100%);
+}
+
+.background-right {
+  background: rgb(235,0,255);
+  background: linear-gradient(90deg, rgba(235,0,255,1) 0%, rgba(119,0,255,1) 100%);} */
+
+/* .card {
+  background-color: #e6d9ff;
+} */

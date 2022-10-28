@@ -150,9 +150,9 @@ export default function LanSeatBookingForm() {
   useUpdateEffect(checkGroupName, [groupName], [groupName, setGroupNameError]);
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       <Row className="justify-content-center">
-        <Col sm={6}>
+        <Col sm={6} className="p-3 bg-white rounded">
           <h2>Seat booking form</h2>
           {!waitingForResponse && (
             <>

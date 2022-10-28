@@ -1,4 +1,4 @@
-from avgs_website.permissions import IsAdminUserOrReadOnly
+from lsuves_website.permissions import IsAdminUserOrReadOnly
 from django.db.models.query_utils import Q
 from django.shortcuts import render
 from lans.utils import get_current_lan

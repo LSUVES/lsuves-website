@@ -17,6 +17,7 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 
+import logo from "../../assets/logo.png";
 //       TODO: Consider centring navbar links
 //       https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
 export default function Navbar({
@@ -29,9 +30,10 @@ export default function Navbar({
   const [profileIsOpen, setProfileIsOpen] = useState(false);
 
   return (
-    <RSNavbar expand="md" color="light" light sticky="top">
-      <NavbarBrand href="/">
-        A<span className="text-primary">VGS</span>
+    <RSNavbar expand="md" color="white" light sticky="top">
+      <NavbarBrand tag={RRNavLink} to="/" className="py-0">
+        <img src={logo} alt="LSUVES logo" width={40} />
+        {/* LSU<span className="text-primary">VES</span> */}
       </NavbarBrand>
       <NavbarToggler
         onClick={() => {

@@ -1,13 +1,13 @@
 .Event1, .Event2, .Event3 {
-    background-color: cyan;
-    border: 1px solid darkblue;
+    background-color: purple;
+    border: 1px solid darkviolet;
     height: 29px;
     position: absolute;
     width: 100px;
     left: 10px;
     top: 29px;
     text-decoration: none;
-    color: darkblue;
+    color: white;
     display: flex;
     align-items: center;
     min-width: 0;

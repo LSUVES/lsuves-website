@@ -1,7 +1,7 @@
 from datetime import timedelta
 
-from avgs_website.settings import TEST_HOST
-from avgs_website.utils import LongDocMixin
+from lsuves_website.settings import TEST_HOST
+from lsuves_website.utils import LongDocMixin
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone

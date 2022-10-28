@@ -39,10 +39,10 @@ export default function Blog() {
   }, []);
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       <Row className="justify-content-center">
         <Col sm="8">
-          <h2>Blog</h2>
+          <h2 className="text-center">Blog</h2>
           <ul className="p-0">
             {postList.map((item) => (
               <Card className="my-2" key={item.id}>

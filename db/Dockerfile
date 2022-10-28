@@ -7,7 +7,7 @@ FROM postgres:13.4
 RUN localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
 ENV LANG en_GB.utf8
 
-ENV POSTGRES_DB avgs_website
+ENV POSTGRES_DB lsuves_website
 
 # Should this be here or in the compose spec where db-password is defined?
 ENV POSTGRES_PASSWORD_FILE /run/secrets/db-password

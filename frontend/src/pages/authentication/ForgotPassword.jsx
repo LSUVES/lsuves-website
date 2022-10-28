@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import axios from "axios";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+
 import "../../styles/authentication.css";
+import MainContent from "../../components/layout/MainContent";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -37,43 +39,46 @@ export default function ForgotPassword() {
   }
 
   return (
-    <main className="d-flex flex-column flex-fill m-auto form--thin">
-      <h2>Forgot password?</h2>
-      <p>
-        Enter the email attached to your account and we&apos;ll send you an
-        email with a link to reset your password.
-      </p>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          forgotPassword();
-        }}
-      >
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onInput={(e) => setEmail(e.target.value)}
-            // invalid={emailIsValid === false}
-            // required
-          />
-          {/* {!emailIsValid && (
+    <MainContent mainClass="background">
+      <div className="text-center m-auto form--thin p-3 bg-white rounded">
+        {/* <main className="d-flex flex-column flex-fill m-auto form--thin"> */}
+        <h2>Forgot password?</h2>
+        <p>
+          Enter the email attached to your account and we&apos;ll send you an
+          email with a link to reset your password.
+        </p>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            forgotPassword();
+          }}
+        >
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              onInput={(e) => setEmail(e.target.value)}
+              // invalid={emailIsValid === false}
+              // required
+            />
+            {/* {!emailIsValid && (
               <FormFeedback>Please enter a valid email.</FormFeedback>
             )} */}
-        </FormGroup>
-        <FormGroup>
-          <Button id="submit" name="submit">
-            Send password reset email
-          </Button>
-        </FormGroup>
-      </Form>
-      <small>
-        Can&apos;t remember your email? <br />
-        Contact us here ...
-      </small>
-    </main>
+          </FormGroup>
+          <FormGroup>
+            <Button id="submit" name="submit">
+              Send password reset email
+            </Button>
+          </FormGroup>
+        </Form>
+        <small>
+          Can&apos;t remember your email? <br />
+          <a href="mailto:webmaster@lsuvgs.org.uk">Contact us here </a>
+        </small>
+      </div>
+    </MainContent>
   );
 }

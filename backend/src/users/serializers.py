@@ -106,9 +106,9 @@ class PasswordResetEmailSerializer(serializers.Serializer):
         )
 
     def send_mail(self, username, uid, token, from_email, to_email):
-        subject = "AVGS password reset link"
+        subject = "LSUVES password reset link"
         # TODO: Use template and populate with context for url as in Django's implementation
-        body = "Hello {},\nVisit the link below to reset your password:\nhttp://localhost:3000/reset-password/?uid={}&token={}\nKind regards,\nAVGS".format(
+        body = "Hello {},\nVisit the link below to reset your password:\nhttp://localhost:3000/reset-password/?uid={}&token={}\nKind regards,\nLSUVES".format(
             username, uid, token
         )
         # TODO: Either add an HTML email template or just use EmailMessage
@@ -158,6 +158,6 @@ class PasswordResetEmailSerializer(serializers.Serializer):
                 user.username,
                 urlsafe_base64_encode(force_bytes(user.pk)),
                 default_token_generator.make_token(user),
-                "changeme@avgs.com",
+                "changeme@lsuves.com",
                 user_email,
             )

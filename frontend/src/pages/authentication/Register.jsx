@@ -14,6 +14,7 @@ import {
   Row,
 } from "reactstrap";
 
+import MainContent from "../../components/layout/MainContent";
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
 import useUpdateEffect from "../../utils/useUpdateEffect/useUpdateEffect";
 import {
@@ -181,120 +182,124 @@ export default function Register() {
       });
   }
   return (
-    <main className="text-center m-auto form--thin">
-      <h2 className="mb-3">Create an account</h2>
-      {registerError && <Alert color="danger">{registerError}</Alert>}
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          register();
-        }}
-      >
-        <FormGroup floating>
-          <Input
-            id="username"
-            name="username"
-            value={username}
-            placeholder="Username"
-            onInput={(e) => setUsername(e.target.value)}
-            invalid={usernameIsValid === false}
-            // required
-          />
-          <Label for="username">Username</Label>
-          {!usernameIsValid && <FormFeedback>{usernameFeedback}</FormFeedback>}
-        </FormGroup>
-        <FormGroup floating>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            placeholder="Email"
-            onInput={(e) => setEmail(e.target.value)}
-            invalid={emailIsValid === false}
-            // required
-          />
-          <Label for="email">Email</Label>
-          {!emailIsValid && (
-            <FormFeedback>Please enter a valid email.</FormFeedback>
-          )}
-        </FormGroup>
-        <FormGroup floating>
-          {/* TODO: Consider adding support for older browsers:
-                      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#examples */}
-          <Input
-            id="deletionDate"
-            name="deletionDate"
-            type="date"
-            defaultValue={deletionDate}
-            min={MIN_DATE.toISOString().split("T")[0]}
-            max={MAX_DATE.toISOString().split("T")[0]}
-            onInput={(e) => setDeletionDate(e.target.value)}
-            invalid={deletionDateIsValid === false}
-            // required
-          />
-          <Label for="deletionDate">Date of account deletion</Label>
-          {deletionDateFeedback && (
-            <FormFeedback>{deletionDateFeedback}</FormFeedback>
-          )}
-        </FormGroup>
-        {/* TODO: Show password requirements up-front and strength indicator */}
-        <Row>
-          <Col>
-            <FormGroup floating>
-              <Input
-                id="password"
-                name="password"
-                type={passwordInputType}
-                value={password}
-                placeholder="Password"
-                onInput={(e) => setPassword(e.target.value)}
-                invalid={passwordIsValid === false}
-                // required
-              />
-              <Label for="password">Password</Label>
-              {!passwordIsValid && (
-                <FormFeedback>{passwordFeedback}</FormFeedback>
-              )}
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup floating>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type={passwordInputType}
-                value={repeatPassword}
-                placeholder="Confirm password"
-                onInput={(e) => setRepeatPassword(e.target.value)}
-                invalid={passwordIsValid && repeatPasswordIsValid === false}
-                // required
-              />
-              <Label for="confirmPassword">Confirm pass</Label>
-              {!repeatPasswordIsValid && (
-                <FormFeedback>Passwords do not match.</FormFeedback>
-              )}
-            </FormGroup>
-          </Col>
-          <Label className="mb-3">
+    <MainContent mainClass="background">
+      <div className="text-center m-auto form--thin p-3 bg-white rounded">
+        <h2 className="mb-3">Create an account</h2>
+        {registerError && <Alert color="danger">{registerError}</Alert>}
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            register();
+          }}
+        >
+          <FormGroup floating>
             <Input
-              id="show-password"
-              name="show-password"
-              type="checkbox"
-              onClick={showPassword}
-            />{" "}
-            Show password
-          </Label>
-        </Row>
-        <FormGroup>
-          <Button id="submit" name="submit" color="primary" size="lg" block>
-            Create account
-          </Button>
-        </FormGroup>
-      </Form>
-      <small>
-        Already have an account? <a href="/login">Log in here</a>.
-      </small>
-    </main>
+              id="username"
+              name="username"
+              value={username}
+              placeholder="Username"
+              onInput={(e) => setUsername(e.target.value)}
+              invalid={usernameIsValid === false}
+              // required
+            />
+            <Label for="username">Username</Label>
+            {!usernameIsValid && (
+              <FormFeedback>{usernameFeedback}</FormFeedback>
+            )}
+          </FormGroup>
+          <FormGroup floating>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              placeholder="Email"
+              onInput={(e) => setEmail(e.target.value)}
+              invalid={emailIsValid === false}
+              // required
+            />
+            <Label for="email">Email</Label>
+            {!emailIsValid && (
+              <FormFeedback>Please enter a valid email.</FormFeedback>
+            )}
+          </FormGroup>
+          <FormGroup floating>
+            {/* TODO: Consider adding support for older browsers:
+                      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#examples */}
+            <Input
+              id="deletionDate"
+              name="deletionDate"
+              type="date"
+              defaultValue={deletionDate}
+              min={MIN_DATE.toISOString().split("T")[0]}
+              max={MAX_DATE.toISOString().split("T")[0]}
+              onInput={(e) => setDeletionDate(e.target.value)}
+              invalid={deletionDateIsValid === false}
+              // required
+            />
+            <Label for="deletionDate">Date of account deletion</Label>
+            {deletionDateFeedback && (
+              <FormFeedback>{deletionDateFeedback}</FormFeedback>
+            )}
+          </FormGroup>
+          {/* TODO: Show password requirements up-front and strength indicator */}
+          <Row>
+            <Col>
+              <FormGroup floating>
+                <Input
+                  id="password"
+                  name="password"
+                  type={passwordInputType}
+                  value={password}
+                  placeholder="Password"
+                  onInput={(e) => setPassword(e.target.value)}
+                  invalid={passwordIsValid === false}
+                  // required
+                />
+                <Label for="password">Password</Label>
+                {!passwordIsValid && (
+                  <FormFeedback>{passwordFeedback}</FormFeedback>
+                )}
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup floating>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={passwordInputType}
+                  value={repeatPassword}
+                  placeholder="Confirm password"
+                  onInput={(e) => setRepeatPassword(e.target.value)}
+                  invalid={passwordIsValid && repeatPasswordIsValid === false}
+                  // required
+                />
+                <Label for="confirmPassword">Confirm pass</Label>
+                {!repeatPasswordIsValid && (
+                  <FormFeedback>Passwords do not match.</FormFeedback>
+                )}
+              </FormGroup>
+            </Col>
+            <Label className="mb-3">
+              <Input
+                id="show-password"
+                name="show-password"
+                type="checkbox"
+                onClick={showPassword}
+              />{" "}
+              Show password
+            </Label>
+          </Row>
+          <FormGroup>
+            <Button id="submit" name="submit" color="primary" size="lg" block>
+              Create account
+            </Button>
+          </FormGroup>
+        </Form>
+        <small>
+          Already have an account? <a href="/login">Log in here</a>.
+        </small>
+      </div>
+    </MainContent>
   );
 }

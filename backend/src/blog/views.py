@@ -1,4 +1,4 @@
-from avgs_website.permissions import IsAdminUserOrReadOnly
+from lsuves_website.permissions import IsAdminUserOrReadOnly
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import SAFE_METHODS, AllowAny, IsAdminUser

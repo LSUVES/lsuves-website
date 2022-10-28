@@ -1,4 +1,4 @@
-# Add image: mirekle/<appname> to each app? (pushes them to default registry or summat)
+#TODO: Add  image: lsuves/<appname>  to each app? (pushes them to default registry or summat)
 
 version: "3.8"
 
@@ -68,6 +68,7 @@ services:
 
 volumes:
     db-data:
+
 
 secrets:
     db-password:

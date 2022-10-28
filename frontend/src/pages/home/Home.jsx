@@ -43,15 +43,16 @@ export default function Home() {
     <div className="HomeBackground d-flex flex-column flex-fill">
       <MainContent>
         <h1 className="display-1 text-center">
-          Welcome to A<span className="text-primary">VGS</span>
+          Welcome to LSU<span className="text-primary">VES</span>
         </h1>
         <Row className="justify-content-center mt-5">
           <Col sm={8}>
             <Card>
               <CardBody>
-                The video game society is the home to all gamers. On this
-                website you can keep up to date with our news and events and
-                request LAN tickets and services.
+                The video games and esports society is the home to all of
+                Loughborough&apos;s gamers. <br />
+                On this website you can keep up to date with our news and events
+                and request LAN tickets and services.
               </CardBody>
             </Card>
           </Col>
@@ -115,7 +116,10 @@ export default function Home() {
                     Next event
                   </CardTitle>
                   <CardText>
-                    <Link to="/events" className="stretched-link">
+                    <Link
+                      to={`/events/${nextEvent.id}`}
+                      className="stretched-link"
+                    >
                       <h5>{nextEvent.name}</h5>
                     </Link>{" "}
                     <br />

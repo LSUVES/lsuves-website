@@ -2,8 +2,8 @@ from calendar import monthrange
 from datetime import datetime, timedelta
 from io import StringIO
 
-from avgs_website.settings import TEST_HOST
-from avgs_website.utils import LongDocMixin
+from lsuves_website.settings import TEST_HOST
+from lsuves_website.utils import LongDocMixin
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.http.cookie import SimpleCookie

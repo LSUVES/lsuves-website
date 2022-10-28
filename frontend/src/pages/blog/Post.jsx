@@ -37,11 +37,11 @@ export default function Post() {
   }, [postId]);
 
   return (
-    <MainContent>
+    <MainContent mainClass="background">
       {post && (
         <Row className="justify-content-center">
           <Col sm={8}>
-            {/* TODO: Figure out how to make h2 inline with date */}
+            {/* TODO: Consider figuring out how to make h2 inline with date */}
             {/* <div className="d-flex flex-column">
               <h2 className="align-self-center">{post.title}</h2>
               <p className="align-self-end">
@@ -49,35 +49,40 @@ export default function Post() {
               </p>
             </div> */}
             <h2 className="text-center">{post.title}</h2>
-            <p className="text-end">
-              Posted at{" "}
-              {new Date(post.date).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
-              on {new Date(post.date).toLocaleDateString()}
-            </p>
-            {post.image && (
-              <Row className="mb-5">
-                <img
-                  // className="BlogPostImage"
-                  src={post.image}
-                  alt={`${post.title} banner`}
-                />
-              </Row>
-            )}
-            <ReactMarkdown
-              components={{
-                ...{
-                  img: ({ src, alt }) => (
-                    <img src={src} alt={alt} style={{ maxWidth: "100%" }} />
-                  ),
-                },
-                ...headingMap,
-              }}
-            >
-              {post.body}
-            </ReactMarkdown>
+            <div className="p-3 bg-white rounded">
+              {post.image && (
+                <Row className="mb-5">
+                  <img
+                    // className="BlogPostImage"
+                    src={post.image}
+                    // TODO: Consider manual alt texts
+                    alt={`${post.title} banner`}
+                  />
+                </Row>
+              )}
+              <ReactMarkdown
+                components={{
+                  ...{
+                    img: ({ src, alt }) => (
+                      <img src={src} alt={alt} style={{ maxWidth: "100%" }} />
+                    ),
+                  },
+                  ...headingMap,
+                }}
+              >
+                {post.body}
+              </ReactMarkdown>
+              <p className="text-end">
+                <small>
+                  Posted at{" "}
+                  {new Date(post.date).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  on {new Date(post.date).toLocaleDateString()}
+                </small>
+              </p>
+            </div>
           </Col>
         </Row>
       )}

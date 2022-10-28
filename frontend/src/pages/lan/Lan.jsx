@@ -251,8 +251,8 @@ export default function Lan({ isAuthenticated }) {
 
   return (
     // TODO: Lift top row out of MainContent
-    <MainContent>
-      <Row className="p-5 bg-primary text-white text-center">
+    <MainContent mainClass="background" containerClass="bg-white rounded">
+      <Row className="p-5 bg-primary text-white text-center rounded-top">
         <Col>
           {!waitingForCurrentLan && !currentLan && (
             <>
