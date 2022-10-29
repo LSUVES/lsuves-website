@@ -324,7 +324,10 @@ export default function Lan({ isAuthenticated }) {
               <Col sm="6">
                 <h2>How to get a ticket</h2>
                 <ol>
-                  <li className="fs-4 mt-3">Purchase one here: ...</li>
+                  <li className="fs-4 mt-3">
+                    Purchase one{" "}
+                    <a href="https://lsu.co.uk/societies/LSUVES">here</a>
+                  </li>
                   <li className="fs-4 mt-3">
                     Then,{" "}
                     {!isAuthenticated && (
