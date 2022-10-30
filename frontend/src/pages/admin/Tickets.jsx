@@ -61,6 +61,19 @@ export default function AdminTicketRequests() {
       })
       .catch((err) => console.log(err));
   }
+  // TODO: Notify user of ticket denial
+  function denyTicketRequest(userId) {
+    axios
+      .delete(`/api/lan-ticket-requests/${userId}/`, {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfTokenCookie },
+      })
+      .then(() => {
+        getTicketRequests();
+        getTickets();
+      })
+      .catch((err) => console.log(err));
+  }
 
   function activateTicket(ticketId) {
     axios
@@ -128,13 +141,21 @@ export default function AdminTicketRequests() {
                     <CardBody>
                       <CardTitle>
                         {item.user.first_name} &ldquo;{item.user.username}
-                        &rdquo; {item.user.last_name}
+                        &rdquo; {item.user.last_name} ({item.user.student_id})
                       </CardTitle>
                       <Button
                         type="button"
+                        className="me-2"
                         onClick={() => approveTicketRequest(item.user.id)}
                       >
                         Approve ticket request.
+                      </Button>
+                      <Button
+                        type="button"
+                        color="danger"
+                        onClick={() => denyTicketRequest(item.id)}
+                      >
+                        Deny ticket request.
                       </Button>
                     </CardBody>
                   </Card>

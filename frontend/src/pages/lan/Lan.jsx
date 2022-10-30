@@ -2,7 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
 import propTypes from "prop-types";
-import { Button, Col, Row } from "reactstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
+} from "reactstrap";
 
 import MainContent from "../../components/layout/MainContent";
 import CsrfTokenContext from "../../contexts/CsrfTokenContext";
@@ -77,11 +89,25 @@ export default function Lan({ isAuthenticated }) {
     }
   }, [isAuthenticated]);
 
+  const [countdownDays, setCountdownDays] = useState("00");
+  const [countdownHours, setCountdownHours] = useState("00");
+  const [countdownMinutes, setCountdownMinutes] = useState("00");
+  const [countdownSeconds, setCountdownSeconds] = useState("00");
+
   // TODO: Consider this as a reason to use moment.js or similar.
   function tick() {
-    setLanCountdownTime(
-      new Date(currentLan.start_time).getTime() - new Date().getTime()
-    );
+    const newCountDownTime =
+      new Date(currentLan.start_time).getTime() - new Date().getTime();
+    setLanCountdownTime(newCountDownTime);
+    const seconds = Math.floor((newCountDownTime / 1000) % 60);
+    const minutes = Math.floor((newCountDownTime / (1000 * 60)) % 60);
+    const hours = Math.floor((newCountDownTime / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(newCountDownTime / (1000 * 60 * 60 * 24));
+
+    setCountdownDays(days < 10 ? `0${days}` : days);
+    setCountdownHours(hours < 10 ? `0${hours}` : hours);
+    setCountdownMinutes(minutes < 10 ? `0${minutes}` : minutes);
+    setCountdownSeconds(seconds < 10 ? `0${seconds}` : seconds);
   }
   useEffect(() => {
     if (currentLan) {
@@ -92,21 +118,97 @@ export default function Lan({ isAuthenticated }) {
     };
   }, [currentLan]);
 
-  function displayCountdownTime(ms) {
-    let seconds = Math.floor((ms / 1000) % 60);
-    let minutes = Math.floor((ms / (1000 * 60)) % 60);
-    let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
-
-    hours = hours < 10 ? `0${hours}` : hours;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-
-    return `${hours}:${minutes}:${seconds}`;
-  }
+  // return `${days} day${days === 1 ? "" : "s"}, ${hours} hour${
+  //   hours === 1 ? "" : "s"
+  // }, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${
+  //   seconds === 1 ? "" : "s"
+  // }`;
 
   // Get CSRF token from context.
   const csrfTokenCookie = useContext(CsrfTokenContext);
 
+  const [addIdentityModalOpen, setAddIdentityModalOpen] = useState(false);
+  const [addIdentityFirstName, setAddIdentityFirstName] = useState("");
+  const [addIdentityLastName, setAddIdentityLastName] = useState("");
+  const [addIdentityStudentId, setAddIdentityStudentId] = useState("");
+  const [addIdentityError, setAddIdentityError] = useState("");
+  const [addIdentityTicketRequestError, setAddIdentityTicketRequestError] =
+    useState("");
+  // TODO: One non-binary variable would probably be a better choice to handle this
+  const [isWaitingForAddIdentity, setIsWaitingForAddIdentity] = useState(false);
+  const [identityAdded, setIdentityAdded] = useState(false);
+
+  // Toggle the visibility of the add identity modal
+  function toggleAddIdentityModal() {
+    if (!addIdentityModalOpen) {
+      setAddIdentityError("");
+      setIdentityAdded(false);
+    }
+    setAddIdentityModalOpen(!addIdentityModalOpen);
+  }
+
+  function addIdentity() {
+    setIsWaitingForAddIdentity(true);
+    axios
+      .patch(
+        "/api/users/profile/",
+        {
+          first_name: addIdentityFirstName,
+          last_name: addIdentityLastName,
+          student_id: addIdentityStudentId,
+        },
+        {
+          withCredentials: true,
+          headers: { "X-CSRFToken": csrfTokenCookie },
+        }
+      )
+      .then(() => {
+        axios
+          .post(
+            "/api/lan-ticket-requests/",
+            {},
+            {
+              withCredentials: true,
+              headers: { "X-CSRFToken": csrfTokenCookie },
+            }
+          )
+          .then((res) => {
+            // TODO: Apparently this is necessary to catch internal server errors,
+            //       e.g., when withCredentials isn't provided, so it may be
+            //       necessary to amend all the other axios requests
+            if (res.status >= 200 && res.status <= 299) {
+              setRequestedTicket(true);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            setAddIdentityTicketRequestError(
+              "an error occurred while requesting a ticket."
+            );
+          });
+        setIsWaitingForAddIdentity(false);
+        setIdentityAdded(true);
+      })
+      .catch((err) => {
+        setIsWaitingForAddIdentity(false);
+        if (err.response) {
+          if (err.response.status === 400) {
+            // TODO: Be more specific.
+            setAddIdentityError("An error occurred while adding your details.");
+          } else {
+            setAddIdentityError(err.response.data);
+          }
+        } else if (err.request) {
+          setAddIdentityError(err.request);
+        } else {
+          setAddIdentityError(err.message);
+        }
+      });
+  }
+
+  // If the user has given their name and student ID, create a ticket
+  // request on the back end. Otherwise, open the add student identity
+  // modal.
   function requestTicket() {
     axios
       .post(
@@ -125,29 +227,75 @@ export default function Lan({ isAuthenticated }) {
           setRequestedTicket(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // If the user hasn't added their details the back end will return a 403.
+        // TODO: There are definitely other situations where the back end returns a 403.
+        if (err.response.status === 403) {
+          // Get user's name and student ID.
+          axios
+            .get("/api/users/profile/", { withCredentials: true })
+            .then((res) => {
+              setAddIdentityFirstName(res.data.first_name);
+              setAddIdentityLastName(res.data.last_name);
+              setAddIdentityStudentId(res.data.student_id);
+              toggleAddIdentityModal();
+            })
+            .catch((getErr) => {
+              console.log(getErr);
+            });
+        } else {
+          console.log(err);
+        }
+      });
   }
 
   return (
     // TODO: Lift top row out of MainContent
     <MainContent mainClass="background" containerClass="bg-white rounded">
       <Row className="p-5 bg-primary text-white text-center rounded-top">
-        {!waitingForCurrentLan && !currentLan && (
-          <>
-            <h2>LAN parties</h2>
-            <p>Stay tuned for the next one!</p>
-          </>
-        )}
-        {currentLan && (
-          <>
-            <h2>{currentLan.name}</h2>
-            {/* TODO: Eliminate delay between displaying LAN title and timer or at least
+        <Col>
+          {!waitingForCurrentLan && !currentLan && (
+            <>
+              <h2>LAN parties</h2>
+              <p>Stay tuned for the next one!</p>
+            </>
+          )}
+          {currentLan && (
+            <>
+              <h2>{currentLan.name}</h2>
+              {/* TODO: Eliminate delay between displaying LAN title and timer or at least
                       ensure layout is unaffected. */}
-            {Number.isInteger(lanCountdownTime) && lanCountdownTime > 0 && (
-              <h5>Starts in {displayCountdownTime(lanCountdownTime)}</h5>
-            )}
-          </>
-        )}
+              {Number.isInteger(lanCountdownTime) && lanCountdownTime > 0 && (
+                <>
+                  <Row>
+                    <Col>
+                      <h5 className="mb-0">Starts in</h5>
+                    </Col>
+                  </Row>
+                  {/* TODO: Consider just not using Cols for this */}
+                  <Row className="justify-content-center">
+                    <Col xs={2} lg={1}>
+                      <h3 className="mb-0">{countdownDays}</h3>
+                      <small>Days</small>
+                    </Col>
+                    <Col xs={2} lg={1}>
+                      <h3 className="mb-0">{countdownHours}</h3>
+                      <small>Hours</small>
+                    </Col>
+                    <Col xs={2} lg={1}>
+                      <h3 className="mb-0">{countdownMinutes}</h3>
+                      <small>Minutes</small>
+                    </Col>
+                    <Col xs={2} lg={1}>
+                      <h3 className="mb-0">{countdownSeconds}</h3>
+                      <small>Seconds</small>
+                    </Col>
+                  </Row>
+                </>
+              )}
+            </>
+          )}
+        </Col>
       </Row>
       <Row className="m-5">
         <Row>
@@ -176,7 +324,10 @@ export default function Lan({ isAuthenticated }) {
               <Col sm="6">
                 <h2>How to get a ticket</h2>
                 <ol>
-                  <li className="fs-4 mt-3">Purchase one here: ...</li>
+                  <li className="fs-4 mt-3">
+                    Purchase one{" "}
+                    <a href="https://lsu.co.uk/societies/LSUVES">here</a>
+                  </li>
                   <li className="fs-4 mt-3">
                     Then,{" "}
                     {!isAuthenticated && (
@@ -199,7 +350,9 @@ export default function Lan({ isAuthenticated }) {
             )}
           {!waitingForTicketResponse && requestedTicket && !hasTicket && (
             <Col sm="6">
-              <h2>Waiting for committee to verify ticket purchase.</h2>
+              <h2 className="text-primary">
+                Waiting for committee to verify ticket purchase.
+              </h2>
             </Col>
           )}
           {hasTicket && (
@@ -226,6 +379,114 @@ export default function Lan({ isAuthenticated }) {
           )}
         </Row>
       </Row>
+      {/* Add identity modal. */}
+      <Modal
+        isOpen={addIdentityModalOpen}
+        toggle={
+          !isWaitingForAddIdentity ? () => toggleAddIdentityModal() : undefined
+        }
+      >
+        {!identityAdded && (
+          <>
+            <ModalHeader
+              toggle={
+                !isWaitingForAddIdentity
+                  ? () => toggleAddIdentityModal()
+                  : undefined
+              }
+            >
+              Please give your name and student ID so your ticket can be
+              verified.
+            </ModalHeader>
+            {/* TODO: Consider containing this in a form to capture enter keypress */}
+            <ModalBody>
+              {/* TODO: Add link to profile */}
+              <p>
+                You can edit or remove these later by going to your profile.
+              </p>
+              <FormGroup floating>
+                <Input
+                  id="addIdentityFirstName"
+                  name="addIdentityFirstName"
+                  value={addIdentityFirstName}
+                  // invalid={!addIdentityFirstName}
+                  placeholder="First name"
+                  onInput={(e) => setAddIdentityFirstName(e.target.value)}
+                />
+                <Label for="addIdentityFirstName">First name</Label>
+                {/* {!addIdentityFirstName && (
+                  <FormFeedback>First name must not be blank.</FormFeedback>
+                )} */}
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  id="addIdentityLastName"
+                  name="addIdentityLastName"
+                  value={addIdentityLastName}
+                  // invalid={!addIdentityLastName}
+                  placeholder="Last name"
+                  onInput={(e) => setAddIdentityLastName(e.target.value)}
+                />
+                <Label for="addIdentityLastName">Last name</Label>
+                {/* {!addIdentityLastName && (
+                  <FormFeedback>Last name must not be blank.</FormFeedback>
+                )} */}
+              </FormGroup>
+              <FormGroup floating>
+                <Input
+                  id="addIdentityStudentId"
+                  name="addIdentityStudentId"
+                  value={addIdentityStudentId}
+                  // invalid={!addIdentityStudentId}
+                  placeholder="Student ID"
+                  onInput={(e) => setAddIdentityStudentId(e.target.value)}
+                />
+                <Label for="addIdentityStudentId">Student ID</Label>
+                {/* {!addIdentityStudentId && (
+                  <FormFeedback>Student ID must not be blank.</FormFeedback>
+                )} */}
+              </FormGroup>
+              {addIdentityError && (
+                <Alert color="danger">{addIdentityError}</Alert>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="primary"
+                disabled={
+                  !addIdentityFirstName ||
+                  !addIdentityLastName ||
+                  !addIdentityStudentId ||
+                  isWaitingForAddIdentity
+                }
+                onClick={() => addIdentity()}
+              >
+                Add details and request ticket
+              </Button>
+              <Button
+                color="secondary"
+                onClick={() => toggleAddIdentityModal()}
+                disabled={isWaitingForAddIdentity}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+        {identityAdded && (
+          <ModalHeader toggle={() => toggleAddIdentityModal()}>
+            Your details have been added{" "}
+            {!addIdentityTicketRequestError && (
+              <>and a LAN ticket has been requested.</>
+            )}
+            {addIdentityTicketRequestError && (
+              <span className="text-danger">
+                but {addIdentityTicketRequestError}
+              </span>
+            )}
+          </ModalHeader>
+        )}
+      </Modal>
     </MainContent>
   );
 }

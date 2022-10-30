@@ -4,6 +4,22 @@ from .models import Ticket
 from .utils import get_current_lan
 
 
+class HasIdentity(permissions.BasePermission):
+    """
+    Only accepts requests from users with a name and student ID.
+    """
+
+    # TODO: Move preliminary auth check into this permission.
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and (len(request.user.first_name) > 0)
+            and (len(request.user.last_name) > 0)
+            and (len(request.user.student_id) > 0)
+        )
+
+
 class HasLanTicket(permissions.BasePermission):
     """
     Only accepts requests from users with a ticket for the current LAN.
