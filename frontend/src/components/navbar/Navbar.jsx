@@ -19,6 +19,7 @@ import {
 
 //       TODO: Consider centring navbar links
 //       https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
+//             Instead of currentLanExists, define and use hasLanTicket
 export default function Navbar({
   isAuthenticated,
   isAdmin,
@@ -26,7 +27,6 @@ export default function Navbar({
   currentLanExists,
 }) {
   const [navIsOpen, setNavIsOpen] = useState(false);
-  const [profileIsOpen, setProfileIsOpen] = useState(false);
 
   return (
     <RSNavbar expand="md" color="light" light sticky="top">
@@ -37,13 +37,7 @@ export default function Navbar({
         onClick={() => {
           setNavIsOpen(!navIsOpen);
         }}
-        className="me-auto"
-      />
-      <NavbarToggler
-        onClick={() => {
-          setProfileIsOpen(!profileIsOpen);
-        }}
-        className="profile-toggler"
+        className="ms-auto"
       />
       <Collapse isOpen={navIsOpen} navbar>
         <Nav navbar className="me-auto">
@@ -112,8 +106,6 @@ export default function Navbar({
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
-      </Collapse>
-      <Collapse isOpen={profileIsOpen} navbar>
         <Nav navbar className="ms-auto">
           {!isAuthenticated && (
             <>
